@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MicroPos.CrossPlatform</name>
+    </assembly>
+    <members>
+        <member name="T:MicroPos.CrossPlatform.IInitializer">
+            <summary>
+            Responsible for setup all functionalities from a specific platform.
+            </summary>
+        </member>
+        <member name="M:MicroPos.CrossPlatform.IInitializer.InitializePlatform">
+            <summary>
+            Setup all functionalities from a specific platform.
+            </summary>
+        </member>
+        <member name="P:MicroPos.CrossPlatform.IInitializer.Initialized">
+            <summary>
+            Informs whether the platform was initialized or not.
+            </summary>
+        </member>
+        <member name="M:MicroPos.CrossPlatform.IPinpadFinder.Find">
+            <summary>
+            Procura um Pinpad pronto para uso.
+            Utiliza um thread para cada porta Serial para agilizar a busca.
+            </summary>
+            <returns>Uma porta serial aberta de um Pinpad</returns>
+        </member>
+        <member name="M:MicroPos.CrossPlatform.IPinpadFinder.SafeFind">
+            <summary>
+            Procura um Pinpad pronto para uso.
+            Utiliza um thread para cada porta Serial para agilizar a busca.
+            Continua procurando até encontrar um Pinpad
+            </summary>
+            <returns>Uma porta serial aberta de um Pinpad</returns>
+        </member>
+        <member name="T:MicroPos.CrossPlatform.PinpadConnectionManager">
+            <summary>
+            Armazena as Portas Seriais impedindo que elas sejam destruídas pelo garbage collector
+            </summary>
+        </member>
+    </members>
+</doc>
