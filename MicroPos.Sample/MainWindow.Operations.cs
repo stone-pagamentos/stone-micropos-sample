@@ -12,7 +12,13 @@ namespace MicroPos.Sample
 	public partial class MainWindow : Window
 	{
 		// Members
+		/// <summary>
+		/// Provides methods to perform an authorization and PAN reading from card.
+		/// </summary>
 		internal CardPaymentAuthorizer authorizer;
+		/// <summary>
+		/// All transactions approved.
+		/// </summary>
 		private Collection<TransactionModel> approvedTransactions;
 
 #if DEBUG
@@ -30,10 +36,10 @@ namespace MicroPos.Sample
 		/// Writes on log.
 		/// </summary>
 		/// <param name="log">Message to be logged.</param>
-		private void Log(string log)
+		private void Log(string log, params object[] args)
 		{
-
-			this.uxLog.Items.Add(string.Format("{0}: {1}", DateTime.Now.ToString("HH:mm:ss"), log));
+			string message = string.Format(log, args);
+			this.uxLog.Items.Add(string.Format("{0}: {1}", DateTime.Now.ToString("HH:mm:ss"), message));
 		}
 		/// <summary>
 		/// Verifies if the authorization was declined or not.

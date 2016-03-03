@@ -183,37 +183,37 @@ namespace MicroPos.Sample
 		/// </summary>
 		/// <param name="sender">Screen update button.</param>
 		/// <param name="e">Click event arguments.</param>
-		private void ShowPinpadLabel(object sender, RoutedEventArgs e)
+		private void OnShowPinpadLabel(object sender, RoutedEventArgs e)
 		{
 			DisplayPaddingType pinpadAlignment;
-			if (this.uxCbbxAlignment.Text == "Direita")
+			
+			// Define o alinhamento da mensagem a ser mostrada na tela do pinpad:
+			switch (this.uxCbbxAlignment.Text)
 			{
-				pinpadAlignment = DisplayPaddingType.Right;
-			}
-			else if (this.uxCbbxAlignment.Text == "Centro")
-			{
-				pinpadAlignment = DisplayPaddingType.Center;
-			}
-			else
-			{
-				pinpadAlignment = DisplayPaddingType.Left;
+				case "Direita": pinpadAlignment = DisplayPaddingType.Right; break;
+				case "Centro": pinpadAlignment = DisplayPaddingType.Center; break;
+				default: pinpadAlignment = DisplayPaddingType.Left; break;
 			}
 
-			if (this.authorizer.PinpadController.Display.ShowMessage(this.uxTbxLine1.Text, this.uxTbxLine2.Text, pinpadAlignment) == true)
-			{
-				this.Log("Mensagem mostrada na tela do pinpad.");
-			}
-			else
-			{
-				this.Log("A mensagem não foi mostrada.");
-			}
+			// Mostra a mensagom:
+			bool status = this.authorizer.PinpadController.Display.ShowMessage(this.uxTbxLine1.Text, this.uxTbxLine2.Text, pinpadAlignment);
+
+			// Atualiza o log:
+			this.Log((status) ? "Mensagem mostrada na tela do pinpad." : "A mensagem não foi mostrada.");
+
 
 			if (this.uxOptionWaitForKey.IsChecked == true)
 			{
 				PinpadKeyCode key = PinpadKeyCode.Undefined;
-				do { key = this.authorizer.PinpadController.Keyboard.GetKey(); }
+
+				// Espera uma tecla ser iniciada.
+				do 
+				{ 
+					key = this.authorizer.PinpadController.Keyboard.GetKey(); 
+				}
 				while (key == PinpadKeyCode.Undefined);
 
+				this.Log("Tecla <{0}> pressionada!", key);
 			}
 		}
 		/// <summary>
@@ -221,7 +221,7 @@ namespace MicroPos.Sample
 		/// </summary>
 		/// <param name="sender">Cancellation button.</param>
 		/// <param name="e">Click event arguments.</param>
-		private void CancelTransaction(object sender, RoutedEventArgs e)
+		private void OnCancelTransaction(object sender, RoutedEventArgs e)
 		{
 			string atk = this.uxLbxTransactions.SelectedItem.ToString();
 

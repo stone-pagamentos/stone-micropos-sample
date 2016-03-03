@@ -32,7 +32,7 @@
                     <RadioButton Name="uxOptionIssuerInstallment" Content="Com juros" HorizontalAlignment="Left" Margin="23,150,0,0" VerticalAlignment="Top" Width="115" Height="12"/>
                     <TextBox x:Name="uxTbxItk" HorizontalAlignment="Left" Height="23" Margin="24,252,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="114"/>
                     <Label Content="ID da transação:" HorizontalAlignment="Left" Margin="24,225,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.525,1.115" Height="26" Width="95"/>
-                    <Button x:Name="uxBtnCancelTransaction" Click="CancelTransaction" Content="Cancelar transação" HorizontalAlignment="Left" Margin="18,337,0,-33" VerticalAlignment="Top" Width="125" Background="#FF990000" BorderBrush="#FFFF2727" Foreground="White" Height="30" RenderTransformOrigin="0.421,1.8" FontFamily="Gotham Bold"/>
+                    <Button x:Name="uxBtnCancelTransaction" Click="OnCancelTransaction" Content="Cancelar transação" HorizontalAlignment="Left" Margin="18,337,0,-33" VerticalAlignment="Top" Width="125" Background="#FF990000" BorderBrush="#FFFF2727" Foreground="White" Height="30" RenderTransformOrigin="0.421,1.8" FontFamily="Gotham Bold"/>
                 </Grid>
 
             </TabItem>
@@ -51,7 +51,7 @@
                         <ListBoxItem Content="Centro"/>
                         <ListBoxItem Content="Direita"/>
                     </ComboBox>
-                    <Button x:Name="uxBtnShowPinpadLabel" Click="ShowPinpadLabel" Content="Enviar" HorizontalAlignment="Left" Margin="103,322,0,0" VerticalAlignment="Top" Width="120" Background="#FF0C8000" BorderBrush="#FF00AE08" Foreground="White" Height="30" RenderTransformOrigin="0.421,1.8" FontFamily="Gotham Bold"/>
+                    <Button x:Name="uxBtnShowPinpadLabel" Click="OnShowPinpadLabel" Content="Enviar" HorizontalAlignment="Left" Margin="103,322,0,0" VerticalAlignment="Top" Width="120" Background="#FF0C8000" BorderBrush="#FF00AE08" Foreground="White" Height="30" RenderTransformOrigin="0.421,1.8" FontFamily="Gotham Bold"/>
                     <Label Content="Alinhamento" HorizontalAlignment="Left" Margin="108,225,0,0" VerticalAlignment="Top" Width="107" FontFamily="Arial Rounded MT Bold" FontSize="16" Foreground="#FF7A7A7A" Height="29"/>
                     <CheckBox Name="uxOptionWaitForKey" Content="Esperar por tecla?" Margin="103,301,106,102" />
                 </Grid>
