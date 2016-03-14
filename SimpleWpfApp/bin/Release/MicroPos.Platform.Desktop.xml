@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MicroPos.Platform.Desktop</name>
+    </assembly>
+    <members>
+        <member name="T:MicroPos.Platform.Desktop.DesktopInitializer">
+            <summary>
+            Responsible for setup all desktop functionalities.
+            </summary>
+        </member>
+        <member name="M:MicroPos.Platform.Desktop.DesktopInitializer.InitializePlatform">
+            <summary>
+            Sets up all desktop functionalities.
+            </summary>
+        </member>
+        <member name="M:MicroPos.Platform.Desktop.DesktopInitializer.Initialize">
+            <summary>
+            Static method to initialize desktop functionalities.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:MicroPos.Platform.Desktop.DesktopInitializer.Initialized">
+            <summary>
+            Informs whether desktop platform was initialized or not.
+            </summary>
+        </member>
+        <member name="M:MicroPos.Platform.Desktop.DesktopPinpadFinder.Find">
+            <summary>
+            Procura um Pinpad pronto para uso.
+            Utiliza um thread para cada porta Serial para agilizar a busca.
+            </summary>
+            <returns>Uma porta serial aberta de um Pinpad</returns>
+        </member>
+    </members>
+</doc>
