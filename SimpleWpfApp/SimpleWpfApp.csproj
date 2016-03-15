@@ -37,26 +37,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MicroPos.Core">
-      <HintPath>..\..\..\buy4-workspace\micropos-core\MicroPos.Core\bin\Debug\MicroPos.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="MicroPos.Platform.Desktop">
-      <HintPath>..\..\..\buy4-workspace\micropos-platform-desktop\MicroPos.Platform.Desktop\bin\Release\MicroPos.Platform.Desktop.dll</HintPath>
-    </Reference>
-    <Reference Include="Pinpad.Core">
-      <HintPath>..\..\..\buy4-workspace\pinpad-sdk\Pinpad.Sdk\bin\Debug\Pinpad.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Pinpad.Sdk">
-      <HintPath>..\..\..\buy4-workspace\pinpad-sdk\Pinpad.Sdk\bin\Debug\Pinpad.Sdk.dll</HintPath>
-    </Reference>
-    <Reference Include="Pinpad.Sdk.Model">
-      <HintPath>..\..\..\buy4-workspace\pinpad-sdk\Pinpad.Sdk\bin\Debug\Pinpad.Sdk.Model.dll</HintPath>
-    </Reference>
-    <Reference Include="Poi.Sdk">
-      <HintPath>..\..\..\buy4-workspace\micropos-core\MicroPos.Core\bin\Debug\Poi.Sdk.dll</HintPath>
-    </Reference>
-    <Reference Include="Poi.Sdk.Model">
-      <HintPath>..\..\..\buy4-workspace\micropos-core\MicroPos.Core\bin\Debug\Poi.Sdk.Model.dll</HintPath>
+    <Reference Include="MicroPos.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MicroPos.Core.dll.1.2.2\lib\net40\MicroPos.Core.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -111,6 +94,8 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="app.config" />
+    <None Include="MicroPos documentation.chm" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
