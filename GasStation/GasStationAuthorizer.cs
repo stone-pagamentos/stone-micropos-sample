@@ -73,6 +73,7 @@ namespace GasStation
 					do
 					{
 						pump = this.authorizer.PinpadController.Keyboard.GetNumericInput(GertecMessageInFirstLineCode.EnterNumber, GertecMessageInSecondLineCode.GasPump, 20);
+						
 					} while (pump != 0 && pump.HasValue == false);
 
 				});

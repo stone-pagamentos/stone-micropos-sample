@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaMachine", "PizzaMachin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleWpfApp", "SimpleWpfApp\SimpleWpfApp.csproj", "{23B7614C-A159-4617-A7D9-2D795D6D5AAC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GasStation", "GasStationMachine\GasStation.csproj", "{FED091BA-086C-46B2-B1F4-CCDDCD7D7CB8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GasStation", "GasStation\GasStation.csproj", "{FED091BA-086C-46B2-B1F4-CCDDCD7D7CB8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
