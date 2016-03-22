@@ -21,7 +21,7 @@ namespace SimpleWpfApp
 		/// </summary>
 		private Collection<TransactionModel> approvedTransactions;
 
-#if DEBUG
+#if !DEBUG
 		private string sak = "9ADA76DDFA1B4368A39F2BC7D4228BB9";
 		private string authorizationUri = "https://poistaging.stone.com.br";
 		private string tmsUri = "https://tmsstaging.stone.com.br/";

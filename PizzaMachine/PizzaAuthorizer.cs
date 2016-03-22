@@ -85,7 +85,7 @@ namespace PizzaMachine
 			transaction.Type = TransactionType.Undefined;
 
 			// Update tables: this is mandatory for the pinpad to recognize the card inserted.
-			this.authorizer.UpdateTables(1, true);
+			this.authorizer.UpdateTables(3, false);
 
 			// Waits for the card:
 			do

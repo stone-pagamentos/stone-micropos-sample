@@ -35,14 +35,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>pizzamachine_key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="MicroPos.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MicroPos.Core.dll.1.2.2\lib\net40\MicroPos.Core.dll</HintPath>
+      <HintPath>..\packages\MicroPos.Core.Pack.1.2.3\lib\net40\MicroPos.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />

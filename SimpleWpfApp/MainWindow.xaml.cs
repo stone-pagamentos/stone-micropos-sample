@@ -159,7 +159,7 @@ namespace SimpleWpfApp
 		private void PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
 		{
 			// Regex that matches disallowed text
-			Regex regex = new Regex("[^0-9,-]+"); 
+			Regex regex = new Regex("[^0-9.-]+"); 
 			e.Handled = regex.IsMatch(e.Text);
 		}
 		/// <summary>
