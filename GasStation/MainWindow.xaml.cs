@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 
-namespace GasStationMachine
+namespace GasStation
 {
 	/// <summary>
 	/// Interaction logic for MainWindow.xaml

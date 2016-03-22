@@ -7,8 +7,8 @@
     <ProjectGuid>{FED091BA-086C-46B2-B1F4-CCDDCD7D7CB8}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GasStationMachine</RootNamespace>
-    <AssemblyName>GasStationMachine</AssemblyName>
+    <RootNamespace>GasStation</RootNamespace>
+    <AssemblyName>GasStation</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -67,9 +67,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="GasStation.cs" />
+    <Compile Include="GasStationMachine.cs" />
     <Compile Include="GasStationAuthorizer.cs" />
-    <Compile Include="IGasStation.cs" />
+    <Compile Include="IGasStationMachine.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

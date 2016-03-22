@@ -14,7 +14,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GasStationMachine
+namespace GasStation
 {
 	public class GasStationAuthorizer
 	{
@@ -116,7 +116,7 @@ namespace GasStationMachine
 				readCard.Wait();
 
 				string authorizationMessage;
-				bool status = this.BuyThePizza(card, transaction, out authorizationMessage);
+				bool status = this.BuyGas(card, transaction, out authorizationMessage);
 
 				// Verify response
 				if (status == true)
@@ -196,7 +196,7 @@ namespace GasStationMachine
 		/// <param name="transaction">Information about the transaction.</param>
 		/// <param name="authorizationMessage">Authorization message returned.</param>
 		/// <returns></returns>
-		public bool BuyThePizza (ICard card, ITransactionEntry transaction, out string authorizationMessage)
+		public bool BuyGas (ICard card, ITransactionEntry transaction, out string authorizationMessage)
 		{
 			Pin pin;
 
