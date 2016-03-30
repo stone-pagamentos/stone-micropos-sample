@@ -6,6 +6,8 @@ using Poi.Sdk.Model.Utilities;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows;
+using Pinpad.Sdk.Model.TypeCode;
+using System.Threading.Tasks;
 
 namespace SimpleWpfApp
 {
@@ -88,5 +90,5 @@ namespace SimpleWpfApp
 				return string.Format("[Erro: {0}]", reasonCode);
 			}
 		}
-	}
+    }
 }

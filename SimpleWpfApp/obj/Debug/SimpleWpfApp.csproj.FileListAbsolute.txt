@@ -26,3 +26,17 @@ C:\buy4-prototype\stone-micropos-sample\SimpleWpfApp\obj\Debug\SimpleWpfApp.Prop
 C:\buy4-prototype\stone-micropos-sample\SimpleWpfApp\obj\Debug\SimpleWpfApp.csproj.GenerateResource.Cache
 C:\buy4-prototype\stone-micropos-sample\SimpleWpfApp\obj\Debug\SimpleWpfApp.exe
 C:\buy4-prototype\stone-micropos-sample\SimpleWpfApp\obj\Debug\SimpleWpfApp.pdb
+C:\Buy4 Projects\MicroPos\stone-micropos-sample\SimpleWpfApp\bin\Debug\SimpleWpfApp.exe.config
+C:\Buy4 Projects\MicroPos\stone-micropos-sample\SimpleWpfApp\bin\Debug\SimpleWpfApp.exe
+C:\Buy4 Projects\MicroPos\stone-micropos-sample\SimpleWpfApp\bin\Debug\SimpleWpfApp.pdb
+C:\Buy4 Projects\MicroPos\stone-micropos-sample\SimpleWpfApp\bin\Debug\MicroPos.Core.dll
+C:\Buy4 Projects\MicroPos\stone-micropos-sample\SimpleWpfApp\obj\Debug\SimpleWpfApp.csprojResolveAssemblyReference.cache
+C:\Buy4 Projects\MicroPos\stone-micropos-sample\SimpleWpfApp\obj\Debug\MainWindow.baml
+C:\Buy4 Projects\MicroPos\stone-micropos-sample\SimpleWpfApp\obj\Debug\MainWindow.g.cs
+C:\Buy4 Projects\MicroPos\stone-micropos-sample\SimpleWpfApp\obj\Debug\App.g.cs
+C:\Buy4 Projects\MicroPos\stone-micropos-sample\SimpleWpfApp\obj\Debug\SimpleWpfApp_MarkupCompile.cache
+C:\Buy4 Projects\MicroPos\stone-micropos-sample\SimpleWpfApp\obj\Debug\SimpleWpfApp.g.resources
+C:\Buy4 Projects\MicroPos\stone-micropos-sample\SimpleWpfApp\obj\Debug\SimpleWpfApp.Properties.Resources.resources
+C:\Buy4 Projects\MicroPos\stone-micropos-sample\SimpleWpfApp\obj\Debug\SimpleWpfApp.csproj.GenerateResource.Cache
+C:\Buy4 Projects\MicroPos\stone-micropos-sample\SimpleWpfApp\obj\Debug\SimpleWpfApp.exe
+C:\Buy4 Projects\MicroPos\stone-micropos-sample\SimpleWpfApp\obj\Debug\SimpleWpfApp.pdb

@@ -13,6 +13,8 @@ using Poi.Sdk.Authorization;
 using Poi.Sdk;
 using Poi.Sdk.Model._2._0;
 using Poi.Sdk.Cancellation;
+using Pinpad.Sdk.Exceptions;
+using Pinpad.Sdk.Model.Exceptions;
 
 namespace SimpleWpfApp
 {
@@ -105,8 +107,19 @@ namespace SimpleWpfApp
 			transaction.CaptureTransaction = true;
 			ICard card;
 
-			// Envia para o autorizador:
-			PoiResponseBase poiResponse = this.authorizer.Authorize(transaction, out card);
+            // Envia para o autorizador:
+            PoiResponseBase poiResponse = null;
+
+            try
+            {
+                poiResponse = this.authorizer.Authorize(transaction, out card);
+            }
+            catch (ExpiredCardException)
+            {
+                this.Log("Cartão expirado.");
+                this.authorizer.PromptForCardRemoval("CARTAO EXPIRADO");
+                return;
+            }
 
 			if (poiResponse == null)
 			{

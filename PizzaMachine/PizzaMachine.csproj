@@ -42,7 +42,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="MicroPos.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MicroPos.Core.Pack.1.2.3\lib\net40\MicroPos.Core.dll</HintPath>
+      <HintPath>..\packages\MicroPos.Core.Pack.1.2.4\lib\net40\MicroPos.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -101,7 +101,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="MicroPos documentation.chm" />
+    <None Include="Documentation for MicroPos desktop.chm" />
     <None Include="packages.config" />
     <None Include="pizzamachine_key.snk" />
     <None Include="Properties\Settings.settings">
@@ -114,11 +114,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="image\cupcake-vending-machine.jpg" />
-    <Resource Include="image\mayd-vending-machine.jpg" />
     <Resource Include="image\pizza-vending-machine.jpg" />
-    <Resource Include="image\vending-machine.jpg" />
-    <Resource Include="image\wine-vending-machine.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="image\pizza-icon-512.png" />

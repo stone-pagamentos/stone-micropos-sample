@@ -12,3 +12,17 @@ C:\buy4-prototype\stone-micropos-sample\PizzaMachine\obj\Debug\PizzaMachine.Prop
 C:\buy4-prototype\stone-micropos-sample\PizzaMachine\obj\Debug\PizzaMachine.csproj.GenerateResource.Cache
 C:\buy4-prototype\stone-micropos-sample\PizzaMachine\obj\Debug\PizzaMachine.exe
 C:\buy4-prototype\stone-micropos-sample\PizzaMachine\obj\Debug\PizzaMachine.pdb
+C:\Buy4 Projects\MicroPos\stone-micropos-sample\PizzaMachine\bin\Debug\PizzaMachine.exe.config
+C:\Buy4 Projects\MicroPos\stone-micropos-sample\PizzaMachine\obj\Debug\PizzaMachine.exe
+C:\Buy4 Projects\MicroPos\stone-micropos-sample\PizzaMachine\obj\Debug\PizzaMachine.pdb
+C:\Buy4 Projects\MicroPos\stone-micropos-sample\PizzaMachine\obj\Debug\MainWindow.g.cs
+C:\Buy4 Projects\MicroPos\stone-micropos-sample\PizzaMachine\obj\Debug\App.g.cs
+C:\Buy4 Projects\MicroPos\stone-micropos-sample\PizzaMachine\obj\Debug\PizzaMachine_MarkupCompile.cache
+C:\Buy4 Projects\MicroPos\stone-micropos-sample\PizzaMachine\obj\Debug\PizzaMachine_MarkupCompile.lref
+C:\Buy4 Projects\MicroPos\stone-micropos-sample\PizzaMachine\obj\Debug\MainWindow.baml
+C:\Buy4 Projects\MicroPos\stone-micropos-sample\PizzaMachine\obj\Debug\PizzaMachine.g.resources
+C:\Buy4 Projects\MicroPos\stone-micropos-sample\PizzaMachine\bin\Debug\PizzaMachine.exe
+C:\Buy4 Projects\MicroPos\stone-micropos-sample\PizzaMachine\bin\Debug\PizzaMachine.pdb
+C:\Buy4 Projects\MicroPos\stone-micropos-sample\PizzaMachine\bin\Debug\MicroPos.Core.dll
+C:\Buy4 Projects\MicroPos\stone-micropos-sample\PizzaMachine\obj\Debug\PizzaMachine.Properties.Resources.resources
+C:\Buy4 Projects\MicroPos\stone-micropos-sample\PizzaMachine\obj\Debug\PizzaMachine.csproj.GenerateResource.Cache
