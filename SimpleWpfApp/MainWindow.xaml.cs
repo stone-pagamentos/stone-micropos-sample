@@ -121,7 +121,7 @@ namespace SimpleWpfApp
                 return;
             }
 
-			if (poiResponse == null)
+            if (poiResponse == null)
 			{
 				this.Log("Um erro ocorreu durante a transação.");
 				return;
@@ -335,19 +335,16 @@ namespace SimpleWpfApp
 		/// <param name="e">Click event arguments.</param>
 		private void DownloadTables(object sender, RoutedEventArgs e)
 		{
-			// TODO: DownloadTables`. Not implemented yet by the Core.
-
-			//this.authorizer.
-			//this.Log("Atualizando...");
-			//bool isUpdated = this.authorizer.UpdateTables(1, true);
-			//if (isUpdated == true)
-			//{
-			//	this.Log("Tabelas atualizadas com sucesso.");
-			//}
-			//else
-			//{
-			//	this.Log("Erro ao atualizar as tabelas.");
-			//}
-		}
+            this.Log("Atualizando...");
+            bool isUpdated = this.authorizer.UpdateTables(1, true);
+            if (isUpdated == true)
+            {
+                this.Log("Tabelas atualizadas com sucesso.");
+            }
+            else
+            {
+                this.Log("Erro ao atualizar as tabelas.");
+            }
+        }
 	}
 }
