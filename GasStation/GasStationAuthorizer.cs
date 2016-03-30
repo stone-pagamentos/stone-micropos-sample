@@ -13,18 +13,14 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace GasStation
 {
 	public class GasStationAuthorizer
 	{
-		CardPaymentAuthorizer authorizer;
+		public CardPaymentAuthorizer Authorizer;
 		DisplayableMessages gasStationMessages;
-
-		/// <summary>
-		/// The window which controls the main screen.
-		/// </summary>
-		public MainWindow View { get; set; }
 
 		/// <summary>
 		/// SAK. 
@@ -39,93 +35,40 @@ namespace GasStation
 		/// </summary>
 		public string ManagementUri { get { return "https://tmsproxy.stone.com.br"; } }
 
-		public GasStationAuthorizer (MainWindow view)
+		public GasStationAuthorizer ()
 		{
-			this.View = view;
-
 			// Creates all pinpad messages:
 			this.gasStationMessages = new DisplayableMessages();
-			this.gasStationMessages.ApprovedMessage = "Aprovado :-)";
-			this.gasStationMessages.DeclinedMessage = "Nao autorizada";
-			this.gasStationMessages.InitializationMessage = "olá...";
+			this.gasStationMessages.ApprovedMessage = "Approved :-)";
+			this.gasStationMessages.DeclinedMessage = "Not approved";
+			this.gasStationMessages.InitializationMessage = "hello...";
 			this.gasStationMessages.MainLabel = "gas station";
-			this.gasStationMessages.ProcessingMessage = "processando...";
+			this.gasStationMessages.ProcessingMessage = "processing...";
 
 			// Establishes connection with the pinpad.
 			MicroPos.Platform.Desktop.DesktopInitializer.Initialize();
-			this.authorizer = new CardPaymentAuthorizer(this.SaleAffiliationKey, this.AuthorizationUri, this.ManagementUri, null, this.gasStationMessages);
 
-			// Attach event to read all transaction status:
-			this.authorizer.OnStateChanged += this.OnStatusChange;
-		}
-
-		public void TurnOn ()
-		{
 			do
 			{
-				ITransactionEntry transaction = null;
-				ICard card = null;
-
-				int? pump = 0;
-
-				Task readPump = new Task(() =>
+				try
 				{
-					do
-					{
-						pump = this.authorizer.PinpadController.Keyboard.GetNumericInput(GertecMessageInFirstLineCode.EnterNumber, GertecMessageInSecondLineCode.GasPump, 20);
-						
-					} while (pump != 0 && pump.HasValue == false);
-
-				});
-				readPump.Start();
-				readPump.Wait();
-
-				transaction = new TransactionEntry();
-
-				// We know very little about the transaction:
-				transaction.CaptureTransaction = true;
-				transaction.Type = TransactionType.Undefined;
-
-				decimal amount = 0;
-
-				this.View.Dispatcher.Invoke<decimal>(() =>
+					this.Authorizer = new CardPaymentAuthorizer(this.SaleAffiliationKey, this.AuthorizationUri, this.ManagementUri, null, this.gasStationMessages);
+					break;
+				}
+				catch (Exception)
 				{
-					switch (pump.Value)
+					MessageBoxResult result = MessageBox.Show("Try again?", "Pinpad not found", MessageBoxButton.YesNo);
+					if (result == MessageBoxResult.Yes)
 					{
-						case 1:
-							Decimal.TryParse(this.View.uxTbxBump1.Text, out amount); break;
-						case 2:
-							Decimal.TryParse(this.View.uxTbxBump2.Text, out amount); break;
-						case 3:
-							Decimal.TryParse(this.View.uxTbxBump3.Text, out amount); break;
-						case 4:
-							Decimal.TryParse(this.View.uxTbxBump4.Text, out amount); break;
-						default:
-							amount = 0; break;
+						continue;
 					}
-					
-					return amount;
-				});
-
-				if (amount == 0) { continue; }
-
-				transaction.Amount = amount;
-
-				// Asks for a card to be inserted or swiped:
-				Task readCard = new Task(() => this.WaitForCard(transaction, out card));
-				readCard.Start();
-				readCard.Wait();
-
-				string authorizationMessage;
-				bool status = this.BuyGas(card, transaction, out authorizationMessage);
-
-				// Verify response
-				if (status == true)
-				{ this.ShowSomething("approved!", ":-D", DisplayPaddingType.Center, true); }
-				else
-				{ this.ShowSomething("not approved", ":-(", DisplayPaddingType.Center, true); }
-			}
-			while (true);
+					else
+					{
+						System.Environment.Exit(0);
+						break;
+					}
+				}
+			} while (true);
 		}
 
 		/// <summary>
@@ -138,14 +81,14 @@ namespace GasStation
 			ResponseStatus readingStatus;
 
 			// Update tables: this is mandatory for the pinpad to recognize the card inserted.
-			this.authorizer.UpdateTables(1, false);
+			this.Authorizer.UpdateTables(1, false);
 
 			// Waits for the card:
 			do
 			{
 				try
 				{
-					readingStatus = this.authorizer.ReadCard(out cardRead, transaction);
+					readingStatus = this.Authorizer.ReadCard(out cardRead, transaction);
 
 					if (readingStatus == ResponseStatus.OperationCancelled)
 					{
@@ -155,13 +98,12 @@ namespace GasStation
 				}
 				catch (ExpiredCardException)
 				{
-					this.ShowSomething(string.Empty, "cartao expirado", DisplayPaddingType.Center, true);
+					//this.ShowSomething(string.Empty, "cartao expirado", DisplayPaddingType.Center, true);
 					cardRead = null;
 					return;
 				}
 			} while (readingStatus != ResponseStatus.Ok);
 		}
-
 		/// <summary>
 		/// Show something in pinpad display.
 		/// </summary>
@@ -171,7 +113,7 @@ namespace GasStation
 		/// <param name="waitForWey">Whether the pinpad should wait for a key.</param>
 		public void ShowSomething (string firstLine, string secondLine, DisplayPaddingType padding, bool waitForWey = false)
 		{
-			this.authorizer.PinpadController.Display.ShowMessage(firstLine, secondLine, padding);
+			this.Authorizer.PinpadController.Display.ShowMessage(firstLine, secondLine, padding);
 
 			Task waitForKeyTask = new Task(() =>
 			{
@@ -180,7 +122,7 @@ namespace GasStation
 					PinpadKeyCode key = PinpadKeyCode.Undefined;
 					do
 					{
-						key = this.authorizer.PinpadController.Keyboard.GetKey();
+						key = this.Authorizer.PinpadController.Keyboard.GetKey();
 					} while (key == PinpadKeyCode.Undefined);
 				}
 			});
@@ -188,7 +130,6 @@ namespace GasStation
 			waitForKeyTask.Start();
 			waitForKeyTask.Wait();
 		}
-
 		/// <summary>
 		/// Reads the card password.
 		/// Perfoms an authorization operation.
@@ -204,11 +145,15 @@ namespace GasStation
 			authorizationMessage = string.Empty;
 
 			// Tries to read the card password:
-			if (this.authorizer.ReadPassword(out pin, card, transaction.Amount) != ResponseStatus.Ok)
-			{ return false; }
+			try
+			{
+				if (this.Authorizer.ReadPassword(out pin, card, transaction.Amount) != ResponseStatus.Ok)
+				{ return false; }
+			}
+			catch (Exception) { return false; }
 
 			// Tries to authorize the transaction:
-			PoiResponseBase response = this.authorizer.Authorize(card, transaction, pin);
+			PoiResponseBase response = this.Authorizer.Authorize(card, transaction, pin);
 
 			// Verifies if there were any return:
 			if (response == null)
@@ -239,7 +184,7 @@ namespace GasStation
 				return false;
 			}
 		}
-
+		
 		// Internally used:
 		/// <summary>
 		/// Verifies if the authorization was declined or not.
@@ -267,14 +212,6 @@ namespace GasStation
 				response.Data.AuthorisationResponse.TransactionResponse.AuthorisationResult.ResponseToAuthorisation.ResponseReason,
 				(int) response.Data.AuthorisationResponse.TransactionResponse.AuthorisationResult.ResponseToAuthorisation.Response);
 		}
-		/// <summary>
-		/// Executed when the authorization status change.
-		/// </summary>
-		/// <param name="sender">Authorization provider.</param>
-		/// <param name="e">Transaction status.</param>
-		private void OnStatusChange (object sender, EventArgs e)
-		{
-			Debug.WriteLine(e.ToString());
-		}
+		
 	}
 }

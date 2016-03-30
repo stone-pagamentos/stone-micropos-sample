@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Globalization;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
@@ -10,10 +12,12 @@ namespace GasStation
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-		GasStationAuthorizer authorizer;
+		GasStationMachine authorizer;
 
 		public MainWindow ()
 		{
+			Thread.CurrentThread.CurrentCulture = new CultureInfo("pt-BR");
+			Thread.CurrentThread.CurrentUICulture = new CultureInfo("pt-BR");
 			InitializeComponent();
 			Loaded += this.OnBegin;
 		}
@@ -33,7 +37,22 @@ namespace GasStation
 		/// </summary>
 		private void OnActuallyBegin ()
 		{
-			Task.Run(() => this.authorizer = new GasStationAuthorizer(this)).Wait();
+			this.uxLblStatus.Content = "Connecting to the pinpad...";
+			Application.Current.Dispatcher.Invoke(DispatcherPriority.Background,
+										  new Action(delegate
+										  { }));
+			Task.Run(() => this.authorizer = new GasStationMachine(this)).Wait();
+			if (this.authorizer == null)
+			{
+				this.uxLblStatus.Content = "Pinpad not found.";
+			}
+			else
+			{
+				this.uxLblStatus.Content = "Pinpad connected.";
+			}
+			Application.Current.Dispatcher.Invoke(DispatcherPriority.Background,
+										  new Action(delegate
+										  { }));
 			Task.Run(() => this.authorizer.TurnOn());
 		}
 	}

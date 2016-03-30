@@ -13,10 +13,11 @@ C:\buy4-prototype\stone-micropos-sample\GasStationMachine\obj\Debug\GasStation.c
 C:\buy4-prototype\stone-micropos-sample\GasStationMachine\obj\Debug\GasStation.exe
 C:\buy4-prototype\stone-micropos-sample\GasStationMachine\obj\Debug\GasStation.pdb
 C:\buy4-prototype\stone-micropos-sample\GasStation\bin\Debug\GasStation.exe.config
+C:\buy4-prototype\stone-micropos-sample\GasStation\bin\Debug\GasStation.exe.manifest
+C:\buy4-prototype\stone-micropos-sample\GasStation\bin\Debug\GasStation.application
 C:\buy4-prototype\stone-micropos-sample\GasStation\bin\Debug\GasStation.exe
 C:\buy4-prototype\stone-micropos-sample\GasStation\bin\Debug\GasStation.pdb
 C:\buy4-prototype\stone-micropos-sample\GasStation\bin\Debug\MicroPos.Core.dll
-C:\buy4-prototype\stone-micropos-sample\GasStation\obj\Debug\GasStation.csprojResolveAssemblyReference.cache
 C:\buy4-prototype\stone-micropos-sample\GasStation\obj\Debug\MainWindow.g.cs
 C:\buy4-prototype\stone-micropos-sample\GasStation\obj\Debug\App.g.cs
 C:\buy4-prototype\stone-micropos-sample\GasStation\obj\Debug\GasStation_MarkupCompile.cache
@@ -25,5 +26,7 @@ C:\buy4-prototype\stone-micropos-sample\GasStation\obj\Debug\MainWindow.baml
 C:\buy4-prototype\stone-micropos-sample\GasStation\obj\Debug\GasStation.g.resources
 C:\buy4-prototype\stone-micropos-sample\GasStation\obj\Debug\GasStation.Properties.Resources.resources
 C:\buy4-prototype\stone-micropos-sample\GasStation\obj\Debug\GasStation.csproj.GenerateResource.Cache
+C:\buy4-prototype\stone-micropos-sample\GasStation\obj\Debug\GasStation.exe.manifest
+C:\buy4-prototype\stone-micropos-sample\GasStation\obj\Debug\GasStation.application
 C:\buy4-prototype\stone-micropos-sample\GasStation\obj\Debug\GasStation.exe
 C:\buy4-prototype\stone-micropos-sample\GasStation\obj\Debug\GasStation.pdb

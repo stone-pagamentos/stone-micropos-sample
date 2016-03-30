@@ -5,16 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GasStation"
         mc:Ignorable="d"
-        Title="MainWindow" Height="252.088" Width="535.96">
-    <Grid Margin="8,0,6,-1" HorizontalAlignment="Center" Width="514">
-        <TextBox x:Name="uxTbxBump1" Text="0.10" HorizontalAlignment="Left" Height="50" Margin="10,48,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="244" FontFamily="Arial Rounded MT Bold" FontSize="26.667" Foreground="#FF218F00" SelectionBrush="#FF00530F" TextAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="uxTbxBump2" Text="0.20" HorizontalAlignment="Left" Height="50" Margin="259,48,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="244" FontFamily="Arial Rounded MT Bold" FontSize="26.667" Foreground="#FF218F00" SelectionBrush="#FF00530F" TextAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="uxTbxBump3" Text="0.30" HorizontalAlignment="Left" Height="50" Margin="10,147,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="244" FontFamily="Arial Rounded MT Bold" FontSize="26.667" Foreground="#FF218F00" SelectionBrush="#FF00530F" TextAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="uxTbxBump4" Text="0.40" HorizontalAlignment="Left" Height="50" Margin="259,147,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="244" FontFamily="Arial Rounded MT Bold" FontSize="26.667" Foreground="#FF218F00" SelectionBrush="#FF00530F" TextAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Label Content="Bomba 1" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontFamily="Arial Rounded MT Bold" FontSize="21.333" Foreground="#FF707070"/>
-        <Label Content="Bomba 2" HorizontalAlignment="Left" Margin="259,8,0,0" VerticalAlignment="Top" FontFamily="Arial Rounded MT Bold" FontSize="21.333" Foreground="#FF707070"/>
-        <Label Content="Bomba 3" HorizontalAlignment="Left" Margin="10,107,0,0" VerticalAlignment="Top" FontFamily="Arial Rounded MT Bold" FontSize="21.333" Foreground="#FF707070"/>
-        <Label Content="Bomba 4" HorizontalAlignment="Left" Margin="259,107,0,0" VerticalAlignment="Top" FontFamily="Arial Rounded MT Bold" FontSize="21.333" Foreground="#FF707070"/>
+        Title="Gas Station (demo)" Height="178.088" Width="296.627"
+        Foreground="ForestGreen"
+        >
 
+    <!--Icon="C:\buy4-prototype\stone-micropos-sample\GasStation\images\gas.ico" FontFamily="Lucida Console" FontSize="10.667"-->
+
+    <Grid Margin="0,0,11,-1" HorizontalAlignment="Right" Width="266">
+        <TextBox x:Name="uxTbxBump1" Text="0,00" HorizontalAlignment="Left" Height="50" Margin="12,48,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="244" FontFamily="Arial Rounded MT Bold" FontSize="26.667" Foreground="#FF218F00" SelectionBrush="#FF00530F" TextAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <Label Content="Gas Pump #1&#xD;&#xA;" HorizontalAlignment="Left" Margin="12,10,0,0" VerticalAlignment="Top" FontFamily="Arial Rounded MT Bold" FontSize="21.333" Foreground="#FF707070" Width="168"/>
+        <Label x:Name="uxLblStatus" HorizontalAlignment="Left" Margin="0,114,0,0" VerticalAlignment="Top" Width="266" Height="34">
+            <Label x:Name="label" Content=""  Background="White" Foreground="#FF00870C"/>
+        </Label>
     </Grid>
+
 </Window>
