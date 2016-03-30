@@ -13,8 +13,6 @@ C:\buy4-prototype\stone-micropos-sample\GasStationMachine\obj\Debug\GasStation.c
 C:\buy4-prototype\stone-micropos-sample\GasStationMachine\obj\Debug\GasStation.exe
 C:\buy4-prototype\stone-micropos-sample\GasStationMachine\obj\Debug\GasStation.pdb
 C:\buy4-prototype\stone-micropos-sample\GasStation\bin\Debug\GasStation.exe.config
-C:\buy4-prototype\stone-micropos-sample\GasStation\bin\Debug\GasStation.exe.manifest
-C:\buy4-prototype\stone-micropos-sample\GasStation\bin\Debug\GasStation.application
 C:\buy4-prototype\stone-micropos-sample\GasStation\bin\Debug\GasStation.exe
 C:\buy4-prototype\stone-micropos-sample\GasStation\bin\Debug\GasStation.pdb
 C:\buy4-prototype\stone-micropos-sample\GasStation\bin\Debug\MicroPos.Core.dll
@@ -26,8 +24,6 @@ C:\buy4-prototype\stone-micropos-sample\GasStation\obj\Debug\MainWindow.baml
 C:\buy4-prototype\stone-micropos-sample\GasStation\obj\Debug\GasStation.g.resources
 C:\buy4-prototype\stone-micropos-sample\GasStation\obj\Debug\GasStation.Properties.Resources.resources
 C:\buy4-prototype\stone-micropos-sample\GasStation\obj\Debug\GasStation.csproj.GenerateResource.Cache
-C:\buy4-prototype\stone-micropos-sample\GasStation\obj\Debug\GasStation.exe.manifest
-C:\buy4-prototype\stone-micropos-sample\GasStation\obj\Debug\GasStation.application
 C:\buy4-prototype\stone-micropos-sample\GasStation\obj\Debug\GasStation.exe
 C:\buy4-prototype\stone-micropos-sample\GasStation\obj\Debug\GasStation.pdb
 C:\Buy4 Projects\MicroPos\stone-micropos-sample\GasStation\bin\Debug\GasStation.exe.config
@@ -45,3 +41,4 @@ C:\Buy4 Projects\MicroPos\stone-micropos-sample\GasStation\obj\Debug\GasStation.
 C:\Buy4 Projects\MicroPos\stone-micropos-sample\GasStation\obj\Debug\GasStation.csproj.GenerateResource.Cache
 C:\Buy4 Projects\MicroPos\stone-micropos-sample\GasStation\obj\Debug\GasStation.exe
 C:\Buy4 Projects\MicroPos\stone-micropos-sample\GasStation\obj\Debug\GasStation.pdb
+C:\buy4-prototype\stone-micropos-sample\GasStation\obj\Debug\GasStation.csprojResolveAssemblyReference.cache

@@ -26,3 +26,4 @@ C:\Buy4 Projects\MicroPos\stone-micropos-sample\PizzaMachine\bin\Debug\PizzaMach
 C:\Buy4 Projects\MicroPos\stone-micropos-sample\PizzaMachine\bin\Debug\MicroPos.Core.dll
 C:\Buy4 Projects\MicroPos\stone-micropos-sample\PizzaMachine\obj\Debug\PizzaMachine.Properties.Resources.resources
 C:\Buy4 Projects\MicroPos\stone-micropos-sample\PizzaMachine\obj\Debug\PizzaMachine.csproj.GenerateResource.Cache
+C:\buy4-prototype\stone-micropos-sample\PizzaMachine\obj\Debug\PizzaMachine.csprojResolveAssemblyReference.cache

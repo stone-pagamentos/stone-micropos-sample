@@ -38,7 +38,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="MicroPos.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MicroPos.Core.dll.1.3.0\lib\net40\MicroPos.Core.dll</HintPath>
+      <HintPath>..\packages\MicroPos.Core.dll.1.4.1\lib\net40\MicroPos.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -94,7 +94,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="app.config" />
-    <None Include="Documentation for MicroPos desktop.chm" />
     <None Include="MicroPos documentation.chm" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

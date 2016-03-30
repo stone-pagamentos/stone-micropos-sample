@@ -40,3 +40,4 @@ C:\Buy4 Projects\MicroPos\stone-micropos-sample\SimpleWpfApp\obj\Debug\SimpleWpf
 C:\Buy4 Projects\MicroPos\stone-micropos-sample\SimpleWpfApp\obj\Debug\SimpleWpfApp.csproj.GenerateResource.Cache
 C:\Buy4 Projects\MicroPos\stone-micropos-sample\SimpleWpfApp\obj\Debug\SimpleWpfApp.exe
 C:\Buy4 Projects\MicroPos\stone-micropos-sample\SimpleWpfApp\obj\Debug\SimpleWpfApp.pdb
+C:\buy4-prototype\stone-micropos-sample\SimpleWpfApp\obj\Debug\SimpleWpfApp.csprojResolveAssemblyReference.cache
