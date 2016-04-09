@@ -1,6 +1,8 @@
-﻿using MicroPos.Core.Authorization;
+﻿using MicroPos.Core;
+using MicroPos.Core.Authorization;
 using Pinpad.Sdk.Model.TypeCode;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Threading;
@@ -10,7 +12,7 @@ namespace GasStation
 {
 	public class GasStationMachine : IGasStationMachine
 	{
-		private GasStationAuthorizer Authorizer;
+		public const int PINPAD_NUMBER = 2;
 
 		/// <summary>
 		/// The window which controls the main screen.
@@ -20,18 +22,22 @@ namespace GasStation
 		public GasStationMachine (MainWindow view)
 		{
 			this.View = view;
-
-			this.Authorizer = new GasStationAuthorizer();
-
-			// Attach event to read all transaction status:
-			this.Authorizer.Authorizer.OnStateChanged += this.OnStatusChange;
 		}
 
 		public void TurnOn ()
 		{
-			Thread.CurrentThread.CurrentCulture = new CultureInfo("pt-BR");
-			Thread.CurrentThread.CurrentUICulture = new CultureInfo("pt-BR");
+			ICollection<GasStationAuthorizer> authorizers = GasStationAuthorizer.CreateAll();
 
+			if (authorizers == null) { return; }
+
+			foreach (GasStationAuthorizer authorizer in authorizers)
+			{
+				Task.Run(() => this.InitiateFlow(authorizer));
+			}
+		}
+
+		private void InitiateFlow (GasStationAuthorizer authorizer)
+		{
 			do
 			{
 				ITransactionEntry transaction = null;
@@ -46,7 +52,7 @@ namespace GasStation
 					{
 						try
 						{
-							pumpStr = this.Authorizer.Authorizer.PinpadController.Keyboard.GetNumericInput(GertecMessageInFirstLineCode.EnterNumber, GertecMessageInSecondLineCode.GasPump, 1, 3, 20);
+							pumpStr = authorizer.Authorizer.PinpadController.Keyboard.GetNumericInput(GertecMessageInFirstLineCode.EnterNumber, GertecMessageInSecondLineCode.GasPump, 1, 3, 20);
 						}
 						catch (Exception) { break; }
 
@@ -55,44 +61,40 @@ namespace GasStation
 				readPump.Start();
 				readPump.Wait();
 
-				transaction = new TransactionEntry();
-
-				Int32.TryParse(pumpStr, out pump);
-				if (pump != 1) { continue; }
+				// Verifies if its a valid pump:
+				if (IsAValidPump(pumpStr, out pump) == false)
+				{ continue; }
 
 				// We know very little about the transaction:
+				transaction = new TransactionEntry();
 				transaction.CaptureTransaction = true;
 				transaction.Type = TransactionType.Undefined;
 
+				// Get transaction amount:
 				decimal amount = 0;
-
-				this.View.Dispatcher.Invoke<decimal>(() =>
+				amount = this.View.Dispatcher.Invoke<decimal>(() =>
 				{
-					if (Decimal.TryParse(this.View.uxTbxBump1.Text, out amount) == true)
-					{
-						return amount;
-					}
-
-					return 0;
+					return GetPumpuAmount(pump);
 				});
 
-				if (amount == 0) { continue; }
+				if (amount == 0)
+				{ continue; }
 
 				transaction.Amount = amount;
 
 				// Asks for a card to be inserted or swiped:
-				Task readCard = new Task(() => this.Authorizer.WaitForCard(transaction, out card));
+				Task readCard = new Task(() => authorizer.WaitForCard(transaction, out card));
 				readCard.Start();
 				readCard.Wait();
 
 				string authorizationMessage;
-				bool status = this.Authorizer.BuyGas(card, transaction, out authorizationMessage);
+				bool status = authorizer.BuyGas(card, transaction, out authorizationMessage);
 
 				// Verify response
 				if (status == true)
-				{ this.Authorizer.ShowSomething("approved!", ":-D", DisplayPaddingType.Center, true); }
+				{ authorizer.ShowSomething("approved!", ":-D", DisplayPaddingType.Center, true); }
 				else
-				{ this.Authorizer.ShowSomething("not approved", ":-(", DisplayPaddingType.Center, true); }
+				{ authorizer.ShowSomething("not approved", ":-(", DisplayPaddingType.Center, true); }
 			}
 			while (true);
 		}
@@ -100,6 +102,36 @@ namespace GasStation
 		public void TurnOff ()
 		{
 
+		}
+
+		public bool IsAValidPump (string pumpStr, out int pump)
+		{
+			if (Int32.TryParse(pumpStr, out pump) == true)
+			{
+				if (pump >= 1 && pump <= 4)
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+
+		public decimal GetPumpuAmount (int pumpId)
+		{
+			switch (pumpId)
+			{
+				case 1:
+					return Decimal.Parse(this.View.uxTbxPump1.Text);
+				case 2:
+					return Decimal.Parse(this.View.uxTbxPump2.Text);
+				case 3:
+					return Decimal.Parse(this.View.uxTbxPump3.Text);
+				case 4:
+					return Decimal.Parse(this.View.uxTbxPump4.Text);
+				default: return 0m;
+			}
 		}
 
 		/// <summary>

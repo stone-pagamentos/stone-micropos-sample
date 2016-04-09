@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -16,6 +17,7 @@ namespace GasStation
 
 		public MainWindow ()
 		{
+			MicroPos.Platform.Desktop.DesktopInitializer.Initialize();
 			Thread.CurrentThread.CurrentCulture = new CultureInfo("pt-BR");
 			Thread.CurrentThread.CurrentUICulture = new CultureInfo("pt-BR");
 			InitializeComponent();
@@ -37,23 +39,35 @@ namespace GasStation
 		/// </summary>
 		private void OnActuallyBegin ()
 		{
-			this.uxLblStatus.Content = "Connecting to the pinpad...";
+			//this.uxLblStatus.Text = "Conectando ao pinpad...";
 			Application.Current.Dispatcher.Invoke(DispatcherPriority.Background,
 										  new Action(delegate
 										  { }));
 			Task.Run(() => this.authorizer = new GasStationMachine(this)).Wait();
-			if (this.authorizer == null)
-			{
-				this.uxLblStatus.Content = "Pinpad not found.";
-			}
-			else
-			{
-				this.uxLblStatus.Content = "Pinpad connected.";
-			}
+			//if (this.authorizer == null)
+			//{
+			//	this.uxLblStatus.Text = "Pinpad não encontrado.";
+			//}
+			//else
+			//{
+			//	this.uxLblStatus.Text = "Pinpad conectado.";
+			//}
 			Application.Current.Dispatcher.Invoke(DispatcherPriority.Background,
 										  new Action(delegate
 										  { }));
 			Task.Run(() => this.authorizer.TurnOn());
+		}
+
+		/// <summary>
+		/// Not allow an alphanumeric input.
+		/// </summary>
+		/// <param name="sender">Numeric TextBox.</param>
+		/// <param name="e">Text changing arguments.</param>
+		private void PreviewTextInput (object sender, System.Windows.Input.TextCompositionEventArgs e)
+		{
+			// Regex that matches disallowed text
+			Regex regex = new Regex("[^0-9.-]+");
+			e.Handled = regex.IsMatch(e.Text);
 		}
 	}
 }

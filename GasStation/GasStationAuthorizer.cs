@@ -5,13 +5,13 @@ using Pinpad.Sdk.Model.Exceptions;
 using Pinpad.Sdk.Model.TypeCode;
 using Poi.Sdk;
 using Poi.Sdk.Authorization;
+using Poi.Sdk.Cancellation;
 using Poi.Sdk.Model._2._0;
 using Poi.Sdk.Model._2._0.TypeCodes;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -20,55 +20,38 @@ namespace GasStation
 	public class GasStationAuthorizer
 	{
 		public CardPaymentAuthorizer Authorizer;
-		DisplayableMessages gasStationMessages;
 
 		/// <summary>
 		/// SAK. 
 		/// </summary>
-		public string SaleAffiliationKey { get { return "DE756D68F20B4242BEC8F94B5ABCB448"; } }
+		public const string SaleAffiliationKey = "DE756D68F20B4242BEC8F94B5ABCB448";
 		/// <summary>
 		/// Stone Point Of Interaction server URI.
 		/// </summary>
-		public string AuthorizationUri { get { return "https://pos.stone.com.br/"; } }
+		public const string AuthorizationUri = "https://pos.stone.com.br/";
 		/// <summary>
 		/// Stone Terminal Management Service URI.
 		/// </summary>
-		public string ManagementUri { get { return "https://tmsproxy.stone.com.br"; } }
+		public const string ManagementUri = "https://tmsproxy.stone.com.br";
 
-		public GasStationAuthorizer ()
+		private GasStationAuthorizer (CardPaymentAuthorizer authorizer)
 		{
-			// Creates all pinpad messages:
-			this.gasStationMessages = new DisplayableMessages();
-			this.gasStationMessages.ApprovedMessage = "Approved :-)";
-			this.gasStationMessages.DeclinedMessage = "Not approved";
-			this.gasStationMessages.InitializationMessage = "hello...";
-			this.gasStationMessages.MainLabel = "gas station";
-			this.gasStationMessages.ProcessingMessage = "processing...";
+			this.Authorizer = authorizer;
+		}
+		public static ICollection<GasStationAuthorizer> CreateAll ()
+		{
+			ICollection<CardPaymentAuthorizer> authorizers = CardPaymentAuthorizer.GetAllDevices(SaleAffiliationKey, AuthorizationUri, ManagementUri, new DisplayableMessages() { ApprovedMessage = "Aprovada", DeclinedMessage = "Negada", InitializationMessage = "Iniciando...", MainLabel = "Stone Pagamentos", ProcessingMessage = "Processando..." });
 
-			// Establishes connection with the pinpad.
-			MicroPos.Platform.Desktop.DesktopInitializer.Initialize();
+			if (authorizers == null || authorizers.Count <= 0) { return null; }
 
-			do
+			ICollection<GasStationAuthorizer> gasAuthorizers = new List<GasStationAuthorizer>();
+
+			foreach (CardPaymentAuthorizer authorizer in authorizers)
 			{
-				try
-				{
-					this.Authorizer = new CardPaymentAuthorizer(this.SaleAffiliationKey, this.AuthorizationUri, this.ManagementUri, null, this.gasStationMessages);
-					break;
-				}
-				catch (Exception)
-				{
-					MessageBoxResult result = MessageBox.Show("Try again?", "Pinpad not found", MessageBoxButton.YesNo);
-					if (result == MessageBoxResult.Yes)
-					{
-						continue;
-					}
-					else
-					{
-						System.Environment.Exit(0);
-						break;
-					}
-				}
-			} while (true);
+				gasAuthorizers.Add(new GasStationAuthorizer(authorizer));
+			}
+
+			return gasAuthorizers;
 		}
 
 		/// <summary>
@@ -165,6 +148,13 @@ namespace GasStation
 				// The transaction was approved:
 				//this.BoughtPizzas.Add(TransactionModel.Create(transaction, card, response as AuthorizationResponse));
 				authorizationMessage = "Transação aprovada";
+
+				Task.Run(() =>
+				{
+					CancellationRequest r = CancellationRequest.CreateCancellationRequest(SaleAffiliationKey, (response as AuthorizationResponse));
+					this.Authorizer.AuthorizationProvider.SendRequest(r);
+				});
+
 				return true;
 			}
 			else
@@ -183,6 +173,8 @@ namespace GasStation
 
 				return false;
 			}
+
+			return false;
 		}
 		
 		// Internally used:
@@ -212,6 +204,6 @@ namespace GasStation
 				response.Data.AuthorisationResponse.TransactionResponse.AuthorisationResult.ResponseToAuthorisation.ResponseReason,
 				(int) response.Data.AuthorisationResponse.TransactionResponse.AuthorisationResult.ResponseToAuthorisation.Response);
 		}
-		
+
 	}
 }

@@ -41,3 +41,7 @@ C:\Buy4 Projects\MicroPos\stone-micropos-sample\SimpleWpfApp\obj\Debug\SimpleWpf
 C:\Buy4 Projects\MicroPos\stone-micropos-sample\SimpleWpfApp\obj\Debug\SimpleWpfApp.exe
 C:\Buy4 Projects\MicroPos\stone-micropos-sample\SimpleWpfApp\obj\Debug\SimpleWpfApp.pdb
 C:\buy4-prototype\stone-micropos-sample\SimpleWpfApp\obj\Debug\SimpleWpfApp.csprojResolveAssemblyReference.cache
+C:\buy4-prototype\stone-micropos-sample\SimpleWpfApp\bin\Debug\SimpleWpfApp.exe.manifest
+C:\buy4-prototype\stone-micropos-sample\SimpleWpfApp\bin\Debug\SimpleWpfApp.application
+C:\buy4-prototype\stone-micropos-sample\SimpleWpfApp\obj\Debug\SimpleWpfApp.exe.manifest
+C:\buy4-prototype\stone-micropos-sample\SimpleWpfApp\obj\Debug\SimpleWpfApp.application

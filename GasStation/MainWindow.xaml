@@ -5,18 +5,39 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GasStation"
         mc:Ignorable="d"
-        Title="Gas Station (demo)" Height="178.088" Width="296.627"
+        Title="Posto de gasolina (demo)" Height="428.088" Width="596.293"
         Foreground="ForestGreen"
-        >
+        Icon="Images/stone_icon.png" ResizeMode="NoResize">
 
     <!--Icon="C:\buy4-prototype\stone-micropos-sample\GasStation\images\gas.ico" FontFamily="Lucida Console" FontSize="10.667"-->
 
-    <Grid Margin="0,0,11,-1" HorizontalAlignment="Right" Width="266">
-        <TextBox x:Name="uxTbxBump1" Text="0,00" HorizontalAlignment="Left" Height="50" Margin="12,48,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="244" FontFamily="Arial Rounded MT Bold" FontSize="26.667" Foreground="#FF218F00" SelectionBrush="#FF00530F" TextAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Label Content="Gas Pump #1&#xD;&#xA;" HorizontalAlignment="Left" Margin="12,10,0,0" VerticalAlignment="Top" FontFamily="Arial Rounded MT Bold" FontSize="21.333" Foreground="#FF707070" Width="168"/>
-        <Label x:Name="uxLblStatus" HorizontalAlignment="Left" Margin="0,114,0,0" VerticalAlignment="Top" Width="266" Height="34">
-            <Label x:Name="label" Content=""  Background="White" Foreground="#FF00870C"/>
-        </Label>
-    </Grid>
-
+    <DockPanel Name="uxMain">
+        <!--Header-->
+        <Grid Name="UxGridHeader" DockPanel.Dock="Top" Background="#FF286E00" Height="103" Margin="172,0,0,0">
+            <TextBlock x:Name="textBlock" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Bomba de gasolina" VerticalAlignment="Top" RenderTransformOrigin="1.435,2.854" Margin="35,49,0,0" Foreground="#FFF4FFF4" FontFamily="Arial Rounded MT Bold" FontSize="21.333"/>
+        </Grid>
+        <!--Menu-->
+        <Grid Name="UxGridMenu" DockPanel.Dock="Left" Background="White" Width="172" Margin="0,-103,0,0">
+            <Image x:Name="image" Source="Images/stone_logo.png" HorizontalAlignment="Left" Height="50" VerticalAlignment="Top" Width="120" Margin="25,17,0,0"/>
+            <StackPanel  Margin="0,0,0,-15" Height="200">
+                <Button x:Name="uxBtnPumps" Height="50" Content="Bicos" BorderBrush="#FF0B7A00" Background="White" FontFamily="Arial Rounded MT Bold" Foreground="#FF595959" FontSize="16" />
+                <Button x:Name="uxBtnCancellation" Height="50" IsEnabled="False" Content="Cancelar" BorderBrush="#FF0B7A00" Background="White" FontFamily="Arial Rounded MT Bold" Foreground="#FF595959" FontSize="16" />
+                <Button x:Name="uxBtnAddPinpad" Height="50" IsEnabled="False" Content="Adicionar pinpad" BorderBrush="#FF0B7A00" Background="White" FontFamily="Arial Rounded MT Bold" Foreground="#FF595959" FontSize="16" />
+            </StackPanel>
+            <TextBlock x:Name="uxLblStatus" HorizontalAlignment="Left" Margin="10,371,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
+        </Grid>
+        <!--Body-->
+        <Border BorderBrush="#FF286E00" BorderThickness="1">
+            <Grid Name="UxGridContent" DockPanel.Dock="Bottom" Height="Auto" Background="White">
+                <Label x:Name="uxLblPump1" Content="bico 1" HorizontalAlignment="Left" Margin="82,44,0,0" VerticalAlignment="Top" FontFamily="Arial Rounded MT Bold" FontSize="16" Foreground="#FF858585"/>
+                <TextBox x:Name="uxTbxPump1" Text="1,00" PreviewTextInput="PreviewTextInput" Height="34" Margin="50,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontSize="16" FontFamily="Arial Rounded MT Bold" Foreground="#FF009321" HorizontalAlignment="Left" TextAlignment="Center" MaxLength="10"/>
+                <Label x:Name="uxLblPump2" Content="bico 2" HorizontalAlignment="Left" Margin="266,44,0,0" VerticalAlignment="Top" FontFamily="Arial Rounded MT Bold" FontSize="16" Foreground="#FF858585"/>
+                <TextBox x:Name="uxTbxPump2" Text="2,00" PreviewTextInput="PreviewTextInput" HorizontalAlignment="Left" Height="35" Margin="234,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontSize="16" FontFamily="Arial Rounded MT Bold" Foreground="#FF009321" TextAlignment="Center" MaxLength="10"/>
+                <Label x:Name="uxLblPump3" Content="bico  3" HorizontalAlignment="Left" Margin="82,166,0,0" VerticalAlignment="Top" FontFamily="Arial Rounded MT Bold" FontSize="16" Foreground="#FF858585"/>
+                <TextBox x:Name="uxTbxPump3" Text="3,00" PreviewTextInput="PreviewTextInput" HorizontalAlignment="Left" Height="32" Margin="50,200,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontSize="16" FontFamily="Arial Rounded MT Bold" Foreground="#FF009321" TextAlignment="Center" MaxLength="10"/>
+                <Label x:Name="uxLblPump4" Content="bico  4" HorizontalAlignment="Left" Margin="266,166,0,0" VerticalAlignment="Top" FontFamily="Arial Rounded MT Bold" FontSize="16" Foreground="#FF858585"/>
+                <TextBox x:Name="uxTbxPump4" Text="4,00" PreviewTextInput="PreviewTextInput" HorizontalAlignment="Left" Height="32" Margin="234,200,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontSize="16" FontFamily="Arial Rounded MT Bold" Foreground="#FF009321" TextAlignment="Center" MaxLength="10"/>
+            </Grid>
+        </Border>
+    </DockPanel>
 </Window>

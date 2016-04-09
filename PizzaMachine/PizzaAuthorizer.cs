@@ -108,7 +108,16 @@ namespace PizzaMachine
 			authorizationMessage = string.Empty;
 
 			// Tries to read the card password:
-			if (this.authorizer.ReadPassword(out pin, card, transaction.Amount) != ResponseStatus.Ok) { return false; }
+			try
+			{
+				if (this.authorizer.ReadPassword(out pin, card, transaction.Amount) != ResponseStatus.Ok) { return false; }
+			}
+			catch (Exception e)
+			{
+				pin = null;
+				Debug.WriteLine(e.Message);
+				return false;
+			}
 
 			// Tries to authorize the transaction:
 			PoiResponseBase response = this.authorizer.Authorize(card, transaction, pin);

@@ -27,3 +27,13 @@ C:\Buy4 Projects\MicroPos\stone-micropos-sample\PizzaMachine\bin\Debug\MicroPos.
 C:\Buy4 Projects\MicroPos\stone-micropos-sample\PizzaMachine\obj\Debug\PizzaMachine.Properties.Resources.resources
 C:\Buy4 Projects\MicroPos\stone-micropos-sample\PizzaMachine\obj\Debug\PizzaMachine.csproj.GenerateResource.Cache
 C:\buy4-prototype\stone-micropos-sample\PizzaMachine\obj\Debug\PizzaMachine.csprojResolveAssemblyReference.cache
+C:\buy4-prototype\stone-micropos-sample\PizzaMachine\bin\Debug\Buy4.Framework.Portable.dll
+C:\buy4-prototype\stone-micropos-sample\PizzaMachine\bin\Debug\MicroPos.CrossPlatform.dll
+C:\buy4-prototype\stone-micropos-sample\PizzaMachine\bin\Debug\MicroPos.Platform.Desktop.dll
+C:\buy4-prototype\stone-micropos-sample\PizzaMachine\bin\Debug\Pinpad.Core.dll
+C:\buy4-prototype\stone-micropos-sample\PizzaMachine\bin\Debug\Pinpad.Sdk.dll
+C:\buy4-prototype\stone-micropos-sample\PizzaMachine\bin\Debug\Pinpad.Sdk.Model.dll
+C:\buy4-prototype\stone-micropos-sample\PizzaMachine\bin\Debug\Poi.Sdk.dll
+C:\buy4-prototype\stone-micropos-sample\PizzaMachine\bin\Debug\Poi.Sdk.Model.dll
+C:\buy4-prototype\stone-micropos-sample\PizzaMachine\bin\Debug\Tms.Sdk.dll
+C:\buy4-prototype\stone-micropos-sample\PizzaMachine\bin\Debug\Tms.Sdk.Model.dll
