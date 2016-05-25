@@ -4,13 +4,13 @@
 
 ## Onde funfa?
 
-![Plataformas suportadas](https://bitbucket.org/repo/7bRg58/images/2214153541-Plataformas.png)
+![Plataformas suportadas](https://raw.githubusercontent.com/stone-pagamentos/stone-micropos-sample/master/Plataformas.png)
 
 ## Objetivo
 
 Oferecer aos nossos parceiros que possuam aplicações de pagamento/automações comerciais, ferramentas fáceis para efetuar pagamentos sem a utilização de um TEF.
 
-![Integração](https://bitbucket.org/repo/7bRg58/images/310864297-Integra%C3%A7%C3%A3o.png)
+![Integração](https://raw.githubusercontent.com/stone-pagamentos/stone-micropos-sample/master/Integra%C3%A7%C3%A3o.png)
 
 ## Dependências
 
@@ -26,7 +26,7 @@ MicroPos.Interop | MicroTef para COM interop.
 MicroPos.Platform.Uwp | MicroTef para Windows.Core (Windows 10 IoT, Windows 10, Windows Mobile 10).
 Receipt.Sdk | Envia recibos de transação, cancelamento e ativação de um terminal por e-mail.
 
-![Esquema de dependências do projeto](https://bitbucket.org/repo/7bRg58/images/2627900929-dependencies-full.png)
+![Esquema de dependências do projeto](https://raw.githubusercontent.com/stone-pagamentos/stone-micropos-sample/master/dependencies-full_%2809-05-2016%29.png)
 
 ## Como usar?
 
@@ -82,7 +82,7 @@ ICardPaymentAuthorizer authorizer = DeviceProvider.GetOneOrFirst("SAK_DE_EXEMPLO
 
 Cada ICardPaymentAuthorizer está ligado à um único pinpad.
 
-![Relação Authorizer Pinpad](https://bitbucket.org/repo/7bRg58/images/1131821080-Rela%C3%A7%C3%A3o%20Authorizer%20Pinpad.png)
+![Relação Authorizer Pinpad](https://raw.githubusercontent.com/stone-pagamentos/stone-micropos-sample/master/Rela%C3%A7%C3%A3o%20Authorizer%20Pinpad.png)
 
 Se você quiser **todos os pinpads conectados à màquina**, use:
 
