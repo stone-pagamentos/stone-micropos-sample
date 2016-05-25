@@ -142,7 +142,8 @@ status = authorizer.ReadPassword(out pin, cardRead, transaction.Amount);
 if (status != ResponseStatus.Ok) { throw new AnotherErrorException(); }
 
 // Envia a transação para o autorizador da Stone:
-IAuthorizationReport authorizationReport = authorizer.Authorize(card, transaction, pin);
+IAuthorizationReport authorizationReport = authorizer.SendAuthorizationAndGetReport(card, transaction, 
+    pin);
 ```
 
 > #### :trophy: Boa prática: utilize o ITK!
