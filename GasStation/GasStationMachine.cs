@@ -1,11 +1,9 @@
 ﻿using MicroPos.Core;
 using MicroPos.Core.Authorization;
-using Pinpad.Sdk.Model.TypeCode;
+using Pinpad.Sdk.Model;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Globalization;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace GasStation
@@ -52,7 +50,7 @@ namespace GasStation
 					{
 						try
 						{
-							pumpStr = authorizer.Authorizer.PinpadController.Keyboard.GetNumericInput(GertecMessageInFirstLineCode.EnterNumber, GertecMessageInSecondLineCode.GasPump, 1, 3, 20);
+							pumpStr = authorizer.Authorizer.PinpadFacade.Keyboard.GetNumericInput(FirstLineLabelCode.EnterNumber, SecondLineLabelCode.GasPump, 1, 3, 20);
 						}
 						catch (Exception) { break; }
 

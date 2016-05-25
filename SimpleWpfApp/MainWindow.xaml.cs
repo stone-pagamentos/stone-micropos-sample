@@ -1,6 +1,5 @@
 ﻿using MicroPos.Core;
 using MicroPos.Core.Authorization;
-using Pinpad.Sdk.Model.TypeCode;
 using System;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -8,13 +7,20 @@ using System.Windows;
 using System.Windows.Threading;
 using System.Linq;
 using System.Collections.ObjectModel;
-using Pinpad.Sdk.Connection;
 using Poi.Sdk.Authorization;
 using Poi.Sdk;
 using Poi.Sdk.Model._2._0;
 using Poi.Sdk.Cancellation;
-using Pinpad.Sdk.Exceptions;
 using Pinpad.Sdk.Model.Exceptions;
+using System.Diagnostics;
+using Pinpad.Sdk.Model;
+using Pinpad.Sdk;
+using Receipt.Sdk.Services;
+using Receipt.Sdk.Model;
+using System.Configuration;
+using System.IO;
+using System.Text;
+using System.Reflection;
 
 namespace SimpleWpfApp
 {
@@ -41,18 +47,21 @@ namespace SimpleWpfApp
 			MicroPos.Platform.Desktop.DesktopInitializer.Initialize();
 
 			// Constrói as mensagens que serão apresentadas na tela do pinpad:
-			DisplayableMessages pinpadMessages = new DisplayableMessages();
-			pinpadMessages.ApprovedMessage = ":-)";
-			pinpadMessages.DeclinedMessage = ":-(";
-			pinpadMessages.InitializationMessage = "Ola";
-			pinpadMessages.MainLabel = "Stone Pagamentos";
-			pinpadMessages.ProcessingMessage = "Processando...";
+			this.PinpadMessages = new DisplayableMessages();
+			PinpadMessages.ApprovedMessage = ":-)";
+			PinpadMessages.DeclinedMessage = ":-(";
+			PinpadMessages.InitializationMessage = "Ola";
+			PinpadMessages.MainLabel = "Stone Pagamentos";
+			PinpadMessages.ProcessingMessage = "Processando...";
 
 			this.approvedTransactions = new Collection<TransactionModel>();
 
-			// Inicializa o autorizador
-			this.authorizer = new CardPaymentAuthorizer(this.sak, this.authorizationUri, this.tmsUri, null, pinpadMessages);
-			this.authorizer.OnStateChanged += this.OnTransactionStateChange;
+			this.Authorizers = DeviceProvider.GetAll(this.sak, this.authorizationUri, this.tmsUri, PinpadMessages);
+
+			foreach (ICardPaymentAuthorizer c in this.Authorizers)
+			{
+				this.uxCbbxAllPinpads.Items.Add(c.PinpadFacade.Infos.SerialNumber);
+			}
 
 			this.uxBtnCancelTransaction.IsEnabled = false;
 		}
@@ -61,7 +70,35 @@ namespace SimpleWpfApp
 		/// </summary>
 		/// <param name="sender">Send transaction button.</param>
 		/// <param name="e">Click event arguments.</param>
-		private void InitiateTransaction(object sender, RoutedEventArgs e)
+		private void InitiateTransaction (object sender, RoutedEventArgs e)
+		{
+			// Limpa o log:
+			this.uxLog.Items.Clear();
+
+			ICardPaymentAuthorizer currentAuthorizer = this.GetCurrentPinpad();
+			if (currentAuthorizer == null) 
+			{
+				this.Log("Selecione um pinpad.");
+				return;
+			}
+
+			currentAuthorizer.OnStateChanged += this.OnTransactionStateChange;
+
+			try
+			{
+				this.InitiateTransaction();
+			}
+			catch (Exception ex)
+			{
+				Debug.WriteLine(ex.Message);
+				this.Log("Algo deu errado.");
+			}
+			finally
+			{
+				currentAuthorizer.OnStateChanged -= this.OnTransactionStateChange;
+			}
+		}
+		private void InitiateTransaction ()
 		{
 			// Limpa o log:
 			this.uxLog.Items.Clear();
@@ -69,27 +106,7 @@ namespace SimpleWpfApp
 			// Cria uma transação:
 			// Tipo da transação inválido significa que o pinpad vai perguntar ao usuário o tipo da transação.
 			TransactionType transactionType;
-			Installment installment = new Installment();
-			if (this.uxCbbxTransactionType.Text == "Debito")
-			{
-				transactionType = TransactionType.Debit;
-
-				// É débito, então não possui parcelamento:
-				installment.Number = 1;
-				installment.Type = InstallmentType.None;
-			}
-			else if (this.uxCbbxTransactionType.Text == "Credito")
-			{
-				transactionType = TransactionType.Credit;
-
-				// Cria o parcelamento:
-				installment.Number = Int16.Parse(this.uxTbxInstallmentNumber.Text);
-				installment.Type = (this.uxOptionIssuerInstallment.IsChecked == true) ? InstallmentType.Issuer : InstallmentType.Merchant;
-			}
-			else
-			{
-				transactionType = TransactionType.Undefined;
-			}
+			Installment installment = this.GetInstallment(out transactionType);
 			
 			// Pega o valor da transação
 			decimal amount;
@@ -102,56 +119,15 @@ namespace SimpleWpfApp
 
 			// Cria e configura a transação:
 			TransactionEntry transaction = new TransactionEntry(transactionType, amount);
+
 			transaction.Installment = installment;
 			transaction.InitiatorTransactionKey = this.uxTbxItk.Text;
 			transaction.CaptureTransaction = true;
-			ICard card;
 
-            // Envia para o autorizador:
-            PoiResponseBase poiResponse = null;
+			// Envia para o autorizador:
+			IAuthorizationReport report = this.SendRequest(transaction);
 
-            try
-            {
-                poiResponse = this.authorizer.Authorize(transaction, out card);
-            }
-            catch (ExpiredCardException)
-            {
-                this.Log("Cartão expirado.");
-                this.authorizer.PromptForCardRemoval("CARTAO EXPIRADO");
-                return;
-            }
-
-            if (poiResponse == null)
-			{
-				this.Log("Um erro ocorreu durante a transação.");
-				return;
-			}
-
-			// Verifica o retorno do autorizador:
-			if (poiResponse.Rejected == false && this.WasDeclined(poiResponse.OriginalResponse as AcceptorAuthorisationResponse) == false)
-			{
-				// Transaction approved:
-				this.Log("Transação aprovada.");
-
-				// Cria uma instancia de transaçào aprovada:
-				TransactionModel approvedTransaction = TransactionModel.Create(transaction, card, poiResponse as AuthorizationResponse);
-				
-				// Salva em uma collection:
-				this.approvedTransactions.Add(approvedTransaction);
-
-				// Adiciona o ATK (identificador unico da transação) ao log:
-				this.uxLbxTransactions.Items.Add(approvedTransaction.AuthorizationTransactionKey);
-			}
-			else if (poiResponse.Rejected == false && this.WasDeclined(poiResponse.OriginalResponse as AcceptorAuthorisationResponse) == true)
-			{
-				// Transaction declined:
-				this.Log("Transação declinada.");
-			}
-			else if (poiResponse.Rejected == true && poiResponse is Rejection)
-			{
-				// Transaction rejected:
-				this.Log("Transação rejeitada.");
-			}
+			this.UpdateTransactions();
 		}
 		/// <summary>
 		/// Called when the transaction status has changed.
@@ -175,22 +151,7 @@ namespace SimpleWpfApp
 			Regex regex = new Regex("[^0-9.-]+"); 
 			e.Handled = regex.IsMatch(e.Text);
 		}
-		/// <summary>
-		/// Transaction handler. If a transaction is selected, then enables cancellation button.
-		/// </summary>
-		/// <param name="sender">Transaction list.</param>
-		/// <param name="e">Selection event arguments.</param>
-		private void OnTransactionSelected(object sender, RoutedEventArgs e)
-		{
-			if (this.uxLbxTransactions.SelectedItems.Count > 1 || this.uxLbxTransactions.SelectedItems.Count <= 0)
-			{
-				this.uxBtnCancelTransaction.IsEnabled = false;
-			}
-			else
-			{
-				this.uxBtnCancelTransaction.IsEnabled = true;
-			}
-		}
+
 		/// <summary>
 		/// Updates pinpad screen with input labels.
 		/// </summary>
@@ -198,6 +159,16 @@ namespace SimpleWpfApp
 		/// <param name="e">Click event arguments.</param>
 		private void OnShowPinpadLabel(object sender, RoutedEventArgs e)
 		{
+			// Limpa o log:
+			this.uxLog.Items.Clear();
+
+			ICardPaymentAuthorizer currentAuthorizer = this.GetCurrentPinpad();
+			if (currentAuthorizer == null)
+			{
+				this.Log("Selecione um pinpad.");
+				return;
+			}
+
 			DisplayPaddingType pinpadAlignment;
 			
 			// Define o alinhamento da mensagem a ser mostrada na tela do pinpad:
@@ -209,11 +180,10 @@ namespace SimpleWpfApp
 			}
 
 			// Mostra a mensagom:
-			bool status = this.authorizer.PinpadController.Display.ShowMessage(this.uxTbxLine1.Text, this.uxTbxLine2.Text, pinpadAlignment);
+			bool status = currentAuthorizer.PinpadFacade.Display.ShowMessage(this.uxTbxLine1.Text, this.uxTbxLine2.Text, pinpadAlignment);
 
 			// Atualiza o log:
 			this.Log((status) ? "Mensagem mostrada na tela do pinpad." : "A mensagem não foi mostrada.");
-
 
 			if (this.uxOptionWaitForKey.IsChecked == true)
 			{
@@ -222,7 +192,7 @@ namespace SimpleWpfApp
 				// Espera uma tecla ser iniciada.
 				do 
 				{ 
-					key = this.authorizer.PinpadController.Keyboard.GetKey(); 
+					key = currentAuthorizer.PinpadFacade.Keyboard.GetKey(); 
 				}
 				while (key == PinpadKeyCode.Undefined);
 
@@ -236,7 +206,17 @@ namespace SimpleWpfApp
 		/// <param name="e">Click event arguments.</param>
 		private void OnCancelTransaction(object sender, RoutedEventArgs e)
 		{
-			string atk = this.uxLbxTransactions.SelectedItem.ToString();
+			// Limpa o log:
+			this.uxLog.Items.Clear();
+
+			ICardPaymentAuthorizer currentAuthorizer = this.GetCurrentPinpad();
+			if (currentAuthorizer == null)
+			{
+				this.Log("Selecione um pinpad.");
+				return;
+			}
+
+			string atk = this.uxCbbxTransactions.SelectedItem.ToString();
 
 			// Verifica se um ATK válido foi selecionado:
 			if (string.IsNullOrEmpty(atk) == true)
@@ -252,7 +232,7 @@ namespace SimpleWpfApp
 			CancellationRequest request = CancellationRequest.CreateCancellationRequestByAcquirerTransactionKey(this.sak, atk, transaction.Amount, true);
 
 			// Envia o cancelamento:
-			PoiResponseBase response = this.authorizer.AuthorizationProvider.SendRequest(request);
+			PoiResponseBase response = currentAuthorizer.AuthorizationProvider.SendRequest(request);
 
 			if (response is Rejection || this.WasDeclined(response.OriginalResponse as AcceptorCancellationResponse) == true)
 			{
@@ -264,9 +244,10 @@ namespace SimpleWpfApp
 				// Cancelamento autorizado.
 				// Retira a transação da coleção de transação aprovadas:
 				this.approvedTransactions.Remove(transaction);
-				this.uxLbxTransactions.Items.Remove(transaction.AuthorizationTransactionKey);
+				this.uxCbbxTransactions.Items.Remove(transaction.AuthorizationTransactionKey);
 			}
 
+			this.UpdateTransactions();
 		}
 		/// <summary>
 		/// Verifies if the pinpad is connected or not.
@@ -275,7 +256,16 @@ namespace SimpleWpfApp
 		/// <param name="e">Click event arguments.</param>
 		private void PingPinpad(object sender, RoutedEventArgs e)
 		{
-			if (this.authorizer.PinpadController.PinpadConnection.Ping() == true)
+			// Limpa o log:
+			this.uxLog.Items.Clear();
+
+			ICardPaymentAuthorizer currentAuthorizer = this.GetCurrentPinpad();
+			if (currentAuthorizer == null)
+			{
+				this.Log("Selecione um pinpad.");
+				return;
+			}
+			if (currentAuthorizer.PinpadFacade.Connection.Ping() == true)
 			{
 				this.Log("O pinpad está conectado.");
 			}
@@ -291,17 +281,33 @@ namespace SimpleWpfApp
 		/// <param name="e">Click event arguments.</param>
 		private void Reconnect(object sender, RoutedEventArgs e)
 		{
+			// Limpa o log:
+			this.uxLog.Items.Clear();
+
+			ICardPaymentAuthorizer currentAuthorizer = this.GetCurrentPinpad();
+			if (currentAuthorizer == null)
+			{
+				this.Log("Selecione um pinpad.");
+				return;
+			}
+
 			// Procura a porta serial que tenha um pinpad conectado e tenta estabelecer conexão com ela:
-			this.authorizer.PinpadController.PinpadConnection.Open(PinpadConnection.SearchPinpadPort());
+			currentAuthorizer.PinpadFacade.Connection =  PinpadConnection.GetFirst();
 			
 			// Verifica se conseguiu se conectar:
-			if (this.authorizer.PinpadController.PinpadConnection.IsOpen == true)
+			if (currentAuthorizer.PinpadFacade.Connection.IsOpen == true)
 			{
 				this.Log("Pinpad conectado.");
 			}
 			else
 			{
 				this.Log("Pinpad desconectado.");
+			}
+
+			// Atualiza as labels da tela dos pinpads:
+			foreach (ICardPaymentAuthorizer c in this.Authorizers)
+			{
+				c.PinpadFacade.Display.ShowMessage(c.PinpadMessages.MainLabel, null, DisplayPaddingType.Center);
 			}
 		}
 		/// <summary>
@@ -313,8 +319,18 @@ namespace SimpleWpfApp
 		{
 			string maskedPan;
 
+			// Limpa o log:
+			this.uxLog.Items.Clear();
+
+			ICardPaymentAuthorizer currentAuthorizer = this.GetCurrentPinpad();
+			if (currentAuthorizer == null)
+			{
+				this.Log("Selecione um pinpad.");
+				return;
+			}
+
 			// Get PAN:
-			AuthorizationStatus status = this.authorizer.GetSecurePan(out maskedPan);
+			AuthorizationStatus status = currentAuthorizer.GetSecurePan(out maskedPan);
 
 			// Verifies if PAN was captured correctly:
 			
@@ -335,8 +351,18 @@ namespace SimpleWpfApp
 		/// <param name="e">Click event arguments.</param>
 		private void DownloadTables(object sender, RoutedEventArgs e)
 		{
-            this.Log("Atualizando...");
-            bool isUpdated = this.authorizer.UpdateTables(1, true);
+			// Limpa o log:
+			this.uxLog.Items.Clear();
+
+			ICardPaymentAuthorizer currentAuthorizer = this.GetCurrentPinpad();
+			if (currentAuthorizer == null)
+			{
+				this.Log("Selecione um pinpad.");
+				return;
+			}
+
+			this.Log("Atualizando...");
+            bool isUpdated = currentAuthorizer.UpdateTables(1, true);
             if (isUpdated == true)
             {
                 this.Log("Tabelas atualizadas com sucesso.");
@@ -346,5 +372,186 @@ namespace SimpleWpfApp
                 this.Log("Erro ao atualizar as tabelas.");
             }
         }
+		private void OnUpdateAllPinpads (object sender, RoutedEventArgs e)
+		{
+			this.Authorizers = DeviceProvider.GetAll(this.sak, this.authorizationUri, this.tmsUri, this.PinpadMessages);
+
+			this.uxCbbxAllPinpads.Items.Clear();
+			foreach (ICardPaymentAuthorizer c in this.Authorizers)
+			{
+				this.uxCbbxAllPinpads.Items.Add(c.PinpadFacade.Infos.SerialNumber);
+			}
+		}
+
+		private Installment GetInstallment (out TransactionType transactionType)
+		{
+			Installment installment = new Installment();
+
+			if (this.uxCbbxTransactionType.Text == "Debito")
+			{
+				transactionType = TransactionType.Debit;
+
+				// É débito, então não possui parcelamento:
+				installment.Number = 1;
+				installment.Type = InstallmentType.None;
+			}
+			else if (this.uxCbbxTransactionType.Text == "Credito")
+			{
+				transactionType = TransactionType.Credit;
+
+				// Cria o parcelamento:
+				installment.Number = Int16.Parse(this.uxTbxInstallmentNumber.Text);
+				installment.Type = (this.uxOptionIssuerInstallment.IsChecked == true) ? InstallmentType.Issuer : InstallmentType.Merchant;
+			}
+			else
+			{
+				transactionType = TransactionType.Undefined;
+			}
+
+			return installment;
+		}
+		private IAuthorizationReport SendRequest (ITransactionEntry transaction)
+		{
+			ICardPaymentAuthorizer currentAuthorizer = this.GetCurrentPinpad();
+			if (currentAuthorizer == null)
+			{
+				this.Log("Selecione um pinpad.");
+			}
+
+			IAuthorizationReport response = null;
+
+			try
+			{
+				response = currentAuthorizer.Authorize(transaction);
+			}
+			catch (ExpiredCardException)
+			{
+				this.Log("Cartão expirado.");
+				currentAuthorizer.PromptForCardRemoval("CARTAO EXPIRADO");
+				return null;
+			}
+
+			if (response == null)
+			{
+				this.Log("Um erro ocorreu durante a transação.");
+				return null;
+			}
+			else
+			{
+				///response.respon
+
+				if (response.WasApproved == true)
+				{
+					this.Log("transação aprovada");
+				}
+				else
+				{
+					this.Log("transação negada " + response.ResponseCode + " " + response.ResponseReason);
+				}
+			}
+
+			// Loga as mensagens de request e response enviadas e recebidas do autorizador da Stone:
+			this.LogTransaction(response);
+
+			currentAuthorizer.PinpadFacade.Display.ShowMessage(this.PinpadMessages.MainLabel, null, DisplayPaddingType.Center);
+
+			return response;
+		}
+		private void VerifyPoiResponse (IAuthorizationReport report)
+		{
+			if (report == null) { return; }
+
+			// Verifica o retorno do autorizador:
+			if (report.WasApproved == true)
+			{
+				// Transaction approved:
+				this.Log("Transação aprovada.");
+
+				// Envia comprovante da transação por e-mail:
+				if (string.IsNullOrEmpty(this.uxTbxCustomerEmail.Text) == false)
+				{
+					try
+					{
+						ReceiptFactory.Build(ReceiptType.Transaction, this.uxTbxCustomerEmail.Text)
+							.AddBodyParameters(this.GetReceipt(report))
+							.Send();
+					}
+					catch (Exception e)
+					{
+						this.Log(e.Message);
+					}
+				}
+
+				// Cria uma instancia de transaçào aprovada:
+				TransactionModel approvedTransaction = TransactionModel.Create(report);
+
+				// Salva em uma collection:
+				this.approvedTransactions.Add(approvedTransaction);
+
+				// Adiciona o ATK (identificador unico da transação) ao log:
+				this.uxCbbxTransactions.Items.Add(approvedTransaction.AuthorizationTransactionKey);
+			}
+			else
+			{
+				this.Log("Transação negada!");
+				this.Log(report.ResponseCode + " " + report.ResponseReason);
+			}
+		}
+
+		private void LogTransaction (IAuthorizationReport report)
+		{
+			if (string.IsNullOrEmpty(this.logFilePath) == true || Directory.Exists(this.logFilePath) == false)
+			{
+				return;
+			}
+
+			StreamWriter valor = new StreamWriter(this.logFilePath + "\\log.txt", true, Encoding.ASCII);
+
+			valor.WriteLine(DateTime.Now + Environment.NewLine);
+			valor.WriteLine("Request:" + Environment.NewLine);
+			valor.Write(report.XmlRequest + Environment.NewLine + Environment.NewLine);
+			valor.WriteLine("Response" + Environment.NewLine);
+			valor.Write(report.XmlResponse + Environment.NewLine + Environment.NewLine);
+			valor.WriteLine("=============================================" + Environment.NewLine);
+
+			valor.Close();
+		}
+
+		private void UpdateTransactions ()
+		{
+			if (this.uxCbbxTransactions.Items.Count > 0)
+			{
+				this.uxBtnCancelTransaction.IsEnabled = true;
+			}
+			else
+			{
+				this.uxBtnCancelTransaction.IsEnabled = false;
+			}
+		}
+		private ICardPaymentAuthorizer GetCurrentPinpad ()
+		{
+			if (string.IsNullOrEmpty(this.uxCbbxAllPinpads.Text) == true)
+			{
+				return null;
+			}
+
+			return this.Authorizers.First(p => p.PinpadFacade.Infos.SerialNumber == this.uxCbbxAllPinpads.Text);
+		}
+		private FinancialOperationParameters GetReceipt (IAuthorizationReport report)
+		{
+			FinancialOperationParameters param = new FinancialOperationParameters();
+			param.CardBrand = report.Card.BrandName;
+			param.ClientMaskedCardNumber = report.Card.MaskedPrimaryAccountNumber;
+			param.ClientName = report.Card.CardholderName;
+			param.DisplayAidArqc = true;
+			param.DisplayCompanyInformation = false;
+			param.TransactionAid = report.Card.ApplicationId;
+			param.TransactionAmount = report.Amount;
+			param.TransactionArqc = report.Card.ApplicationCryptogram;
+			param.TransactionDateTime = report.DateTime.Value;
+			param.TransactionStoneId = report.AcquirerTransactionKey;
+
+			return param;
+		}
 	}
 }

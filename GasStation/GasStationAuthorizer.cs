@@ -1,8 +1,6 @@
 ﻿using MicroPos.Core;
-using MicroPos.Core.Authorization;
 using Pinpad.Sdk.Model;
 using Pinpad.Sdk.Model.Exceptions;
-using Pinpad.Sdk.Model.TypeCode;
 using Poi.Sdk;
 using Poi.Sdk.Authorization;
 using Poi.Sdk.Cancellation;
@@ -10,10 +8,7 @@ using Poi.Sdk.Model._2._0;
 using Poi.Sdk.Model._2._0.TypeCodes;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Threading;
 using System.Threading.Tasks;
-using System.Windows;
 
 namespace GasStation
 {
@@ -42,7 +37,8 @@ namespace GasStation
 		{
 			ICollection<CardPaymentAuthorizer> authorizers = CardPaymentAuthorizer.GetAllDevices(SaleAffiliationKey, AuthorizationUri, ManagementUri, new DisplayableMessages() { ApprovedMessage = "Aprovada", DeclinedMessage = "Negada", InitializationMessage = "Iniciando...", MainLabel = "Stone Pagamentos", ProcessingMessage = "Processando..." });
 
-			if (authorizers == null || authorizers.Count <= 0) { return null; }
+			if (authorizers == null || authorizers.Count <= 0)
+			{ return null; }
 
 			ICollection<GasStationAuthorizer> gasAuthorizers = new List<GasStationAuthorizer>();
 
@@ -96,7 +92,7 @@ namespace GasStation
 		/// <param name="waitForWey">Whether the pinpad should wait for a key.</param>
 		public void ShowSomething (string firstLine, string secondLine, DisplayPaddingType padding, bool waitForWey = false)
 		{
-			this.Authorizer.PinpadController.Display.ShowMessage(firstLine, secondLine, padding);
+			this.Authorizer.PinpadFacade.Display.ShowMessage(firstLine, secondLine, padding);
 
 			Task waitForKeyTask = new Task(() =>
 			{
@@ -105,7 +101,7 @@ namespace GasStation
 					PinpadKeyCode key = PinpadKeyCode.Undefined;
 					do
 					{
-						key = this.Authorizer.PinpadController.Keyboard.GetKey();
+						key = this.Authorizer.PinpadFacade.Keyboard.GetKey();
 					} while (key == PinpadKeyCode.Undefined);
 				}
 			});
@@ -136,7 +132,7 @@ namespace GasStation
 			catch (Exception) { return false; }
 
 			// Tries to authorize the transaction:
-			PoiResponseBase response = this.Authorizer.Authorize(card, transaction, pin);
+			PoiResponseBase response = this.Authorizer.SendAuthorization(card, transaction, pin);
 
 			// Verifies if there were any return:
 			if (response == null)

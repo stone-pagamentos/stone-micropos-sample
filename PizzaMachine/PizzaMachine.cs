@@ -2,10 +2,9 @@
 using System.Linq;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using MicroPos.Core.Authorization;
-using System.Windows.Threading;
-using Pinpad.Sdk.Model.TypeCode;
 using System.Threading.Tasks;
+using Pinpad.Sdk.Model;
+using MicroPos.Core;
 
 namespace PizzaMachine
 {

@@ -626,96 +626,6 @@
             Server address information.
             </summary>
         </member>
-        <member name="T:Dlp.Buy4.Tms.Sdk.Models.ManagementPlanReplacementResponse">
-            <summary>
-            Represents the ManagementPlanReplacement" XML message.
-            </summary>
-        </member>
-        <member name="P:Dlp.Buy4.Tms.Sdk.Models.ManagementPlanReplacementResponse.Data">
-            <summary>
-            Terminal maintenance actions to be performed by a point of interaction (POI).
-            </summary>
-        </member>
-        <member name="T:Dlp.Buy4.Tms.Sdk.Models.ManagementPlanReplacementResponse.DataSet">
-            <summary>
-            Contains all information about datasets requested.
-            </summary>
-        </member>
-        <member name="P:Dlp.Buy4.Tms.Sdk.Models.ManagementPlanReplacementResponse.DataSet.Identification">
-            <summary>
-            Identification of the data set containing the management plan.
-            </summary>
-        </member>
-        <member name="P:Dlp.Buy4.Tms.Sdk.Models.ManagementPlanReplacementResponse.DataSet.Content">
-            <summary>
-            Content of the management plan.
-            </summary>
-        </member>
-        <member name="T:Dlp.Buy4.Tms.Sdk.Models.ManagementPlanReplacementResponse.Content">
-            <summary>
-            A action collection. Theses actions represents actions to be performed by the POS.
-            </summary>
-        </member>
-        <member name="P:Dlp.Buy4.Tms.Sdk.Models.ManagementPlanReplacementResponse.Content.Action">
-            <summary>
-            Terminal management action to be performed by the point of interaction (POI).
-            </summary>
-        </member>
-        <member name="T:Dlp.Buy4.Tms.Sdk.Models.ManagementPlanReplacementResponse.Action">
-            <summary>
-            One specific action to be performed by the POS.
-            </summary>
-        </member>
-        <member name="P:Dlp.Buy4.Tms.Sdk.Models.ManagementPlanReplacementResponse.Action.Type">
-            <summary>
-            Types of action to be performed by a point of interaction (POI).
-            </summary>
-        </member>
-        <member name="P:Dlp.Buy4.Tms.Sdk.Models.ManagementPlanReplacementResponse.Action.DataSetIdentification">
-            <summary>
-            Data set on which the action has to be performed.
-            </summary>
-        </member>
-        <member name="P:Dlp.Buy4.Tms.Sdk.Models.ManagementPlanReplacementResponse.Action.Trigger">
-            <summary>
-            Event on which the action has to be activated by the point of interaction (POI).
-            </summary>
-        </member>
-        <member name="T:Dlp.Buy4.Tms.Sdk.Models.ManagementPlanReplacementData">
-            <summary>
-            The message body, embraced by the main node "MgmtPlanRplcmnt".
-            </summary>
-        </member>
-        <member name="P:Dlp.Buy4.Tms.Sdk.Models.ManagementPlanReplacementData.Header">
-            <summary>
-            Set of characteristics related to the transfer of the acceptor parameters.
-            </summary>
-        </member>
-        <member name="P:Dlp.Buy4.Tms.Sdk.Models.ManagementPlanReplacementData.ManagementPlanReplacement">
-            <summary>
-            Sequence of terminal maintenance actions to be performed by a point of interaction (POI).
-            </summary>
-        </member>
-        <member name="P:Dlp.Buy4.Tms.Sdk.Models.ManagementPlanReplacementData.SecurityTrailer">
-            <summary>
-            Trailer of the message containing a MAC or a digital signature.
-            </summary>
-        </member>
-        <member name="T:Dlp.Buy4.Tms.Sdk.Models.ManagementPlanReplacement">
-            <summary>
-            "MgmtPlan" node.
-            </summary>
-        </member>
-        <member name="P:Dlp.Buy4.Tms.Sdk.Models.ManagementPlanReplacement.PoiIdentification">
-            <summary>
-            Identification of the point of interaction for terminal management.
-            </summary>
-        </member>
-        <member name="P:Dlp.Buy4.Tms.Sdk.Models.ManagementPlanReplacement.DataSet">
-            <summary>
-            Data related to a status report of a point of interaction (POI).
-            </summary>
-        </member>
         <member name="T:Tms.Sdk.Model._2._1.MerchantParameters">
             <summary>
             Merchant configuration parameters for the point of interaction (POI).
@@ -1432,11 +1342,6 @@
             Basic merchant information.
             </summary>
         </member>
-        <member name="T:Tms.Sdk.Model.Params.ParameterBase">
-            <summary>
-            Base class to all kinds of parameter sent in a request message.
-            </summary>
-        </member>
         <member name="P:Tms.Sdk.Model.Params.MerchantParameter.SaleAffiliationKey">
             <summary>
             Unique merchant identification in acquirer.
@@ -1455,6 +1360,11 @@
         <member name="P:Tms.Sdk.Model.Params.MerchantParameter.IdentityCode">
             <summary>
             CPF/CNPJ
+            </summary>
+        </member>
+        <member name="T:Tms.Sdk.Model.Params.ParameterBase">
+            <summary>
+            Base class to all kinds of parameter sent in a request message.
             </summary>
         </member>
         <member name="F:Tms.Sdk.Model.TypeCode.TmsContactlessMode.Undefined">
@@ -1495,6 +1405,96 @@
         <member name="F:Tms.Sdk.Model.TypeCode.TmsContactlessMode.AmexChip">
             <summary>
             Amex Expresspay for EMV
+            </summary>
+        </member>
+        <member name="T:Dlp.Buy4.Tms.Sdk.Models.ManagementPlanReplacementResponse">
+            <summary>
+            Represents the ManagementPlanReplacement" XML message.
+            </summary>
+        </member>
+        <member name="P:Dlp.Buy4.Tms.Sdk.Models.ManagementPlanReplacementResponse.Data">
+            <summary>
+            Terminal maintenance actions to be performed by a point of interaction (POI).
+            </summary>
+        </member>
+        <member name="T:Dlp.Buy4.Tms.Sdk.Models.ManagementPlanReplacementResponse.DataSet">
+            <summary>
+            Contains all information about datasets requested.
+            </summary>
+        </member>
+        <member name="P:Dlp.Buy4.Tms.Sdk.Models.ManagementPlanReplacementResponse.DataSet.Identification">
+            <summary>
+            Identification of the data set containing the management plan.
+            </summary>
+        </member>
+        <member name="P:Dlp.Buy4.Tms.Sdk.Models.ManagementPlanReplacementResponse.DataSet.Content">
+            <summary>
+            Content of the management plan.
+            </summary>
+        </member>
+        <member name="T:Dlp.Buy4.Tms.Sdk.Models.ManagementPlanReplacementResponse.Content">
+            <summary>
+            A action collection. Theses actions represents actions to be performed by the POS.
+            </summary>
+        </member>
+        <member name="P:Dlp.Buy4.Tms.Sdk.Models.ManagementPlanReplacementResponse.Content.Action">
+            <summary>
+            Terminal management action to be performed by the point of interaction (POI).
+            </summary>
+        </member>
+        <member name="T:Dlp.Buy4.Tms.Sdk.Models.ManagementPlanReplacementResponse.Action">
+            <summary>
+            One specific action to be performed by the POS.
+            </summary>
+        </member>
+        <member name="P:Dlp.Buy4.Tms.Sdk.Models.ManagementPlanReplacementResponse.Action.Type">
+            <summary>
+            Types of action to be performed by a point of interaction (POI).
+            </summary>
+        </member>
+        <member name="P:Dlp.Buy4.Tms.Sdk.Models.ManagementPlanReplacementResponse.Action.DataSetIdentification">
+            <summary>
+            Data set on which the action has to be performed.
+            </summary>
+        </member>
+        <member name="P:Dlp.Buy4.Tms.Sdk.Models.ManagementPlanReplacementResponse.Action.Trigger">
+            <summary>
+            Event on which the action has to be activated by the point of interaction (POI).
+            </summary>
+        </member>
+        <member name="T:Dlp.Buy4.Tms.Sdk.Models.ManagementPlanReplacementData">
+            <summary>
+            The message body, embraced by the main node "MgmtPlanRplcmnt".
+            </summary>
+        </member>
+        <member name="P:Dlp.Buy4.Tms.Sdk.Models.ManagementPlanReplacementData.Header">
+            <summary>
+            Set of characteristics related to the transfer of the acceptor parameters.
+            </summary>
+        </member>
+        <member name="P:Dlp.Buy4.Tms.Sdk.Models.ManagementPlanReplacementData.ManagementPlanReplacement">
+            <summary>
+            Sequence of terminal maintenance actions to be performed by a point of interaction (POI).
+            </summary>
+        </member>
+        <member name="P:Dlp.Buy4.Tms.Sdk.Models.ManagementPlanReplacementData.SecurityTrailer">
+            <summary>
+            Trailer of the message containing a MAC or a digital signature.
+            </summary>
+        </member>
+        <member name="T:Dlp.Buy4.Tms.Sdk.Models.ManagementPlanReplacement">
+            <summary>
+            "MgmtPlan" node.
+            </summary>
+        </member>
+        <member name="P:Dlp.Buy4.Tms.Sdk.Models.ManagementPlanReplacement.PoiIdentification">
+            <summary>
+            Identification of the point of interaction for terminal management.
+            </summary>
+        </member>
+        <member name="P:Dlp.Buy4.Tms.Sdk.Models.ManagementPlanReplacement.DataSet">
+            <summary>
+            Data related to a status report of a point of interaction (POI).
             </summary>
         </member>
     </members>

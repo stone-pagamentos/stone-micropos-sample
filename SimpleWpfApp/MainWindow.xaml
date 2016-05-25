@@ -16,23 +16,29 @@
                         <ColumnDefinition/>
                         <ColumnDefinition Width="0*"/>
                     </Grid.ColumnDefinitions>
-                    <ListBox x:Name="uxLbxTransactions" SelectionChanged="OnTransactionSelected" HorizontalAlignment="Left" Height="322" Margin="157,46,0,0" VerticalAlignment="Top" Width="149" Background="#FFEAEAEA" BorderBrush="#FFE2E2E2" Foreground="#FF464646"/>
-                    <Button x:Name="uxBtnTransaction" Click="InitiateTransaction" Content="Enviar transação" HorizontalAlignment="Left" Margin="24,285,0,0" VerticalAlignment="Top" Width="114" Background="#FF0C8000" BorderBrush="#FF00AE08" Foreground="White" Height="30" RenderTransformOrigin="0.421,1.8" FontFamily="Gotham Bold"/>
-                    <Label Content="Transações" HorizontalAlignment="Left" Margin="157,10,0,0" VerticalAlignment="Top" Width="141" FontFamily="Arial Rounded MT Bold" FontSize="16" Foreground="#FF7A7A7A" Height="29"/>
-                    <TextBox Name="uxTbxTransactionAmount" PreviewTextInput="PreviewTextInput"  HorizontalAlignment="Left" Height="23" Margin="23,197,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="114"/>
-                    <Label Content="Valor:" HorizontalAlignment="Left" Margin="23,171,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.525,1.115" Height="26" Width="40"/>
-                    <ComboBox Name="uxCbbxTransactionType" HorizontalAlignment="Left" Margin="23,44,0,0" VerticalAlignment="Top" Width="114" Height="22">
+                    <Button x:Name="uxBtnTransaction" Click="InitiateTransaction" Content="Enviar transação" HorizontalAlignment="Left" Margin="189,276,0,0" VerticalAlignment="Top" Width="128" Background="#FF0C8000" BorderBrush="#FF00AE08" Foreground="White" Height="30" RenderTransformOrigin="0.421,1.8" FontFamily="Gotham Bold"/>
+                    <TextBox Name="uxTbxTransactionAmount" PreviewTextInput="PreviewTextInput"  HorizontalAlignment="Left" Height="23" Margin="94,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="114"/>
+                    <Label Content="Valor:" HorizontalAlignment="Left" Margin="24,110,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.525,1.115" Height="26" Width="40"/>
+                    <ComboBox Name="uxCbbxTransactionType" HorizontalAlignment="Left" Margin="94,10,0,0" VerticalAlignment="Top" Width="114" Height="22">
                         <ListBoxItem Content="Credito"/>
                         <ListBoxItem Content="Debito"/>
                     </ComboBox>
-                    <Label Content="Tipo da transação:" HorizontalAlignment="Left" Margin="23,18,0,0" VerticalAlignment="Top" Height="26" Width="107"/>
-                    <RadioButton Name="uxOptionEstablishmentInstallment" Content="Sem juros" HorizontalAlignment="Left" Margin="23,134,0,0" VerticalAlignment="Top" Height="15" Width="71"/>
-                    <TextBox Name="uxTbxInstallmentNumber" PreviewTextInput="PreviewTextInput"  HorizontalAlignment="Left" Height="23" Margin="23,97,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="114"/>
-                    <Label Content="Parcelas:" HorizontalAlignment="Left" Margin="23,71,0,0" VerticalAlignment="Top" Height="26" Width="56"/>
-                    <RadioButton Name="uxOptionIssuerInstallment" Content="Com juros" HorizontalAlignment="Left" Margin="23,150,0,0" VerticalAlignment="Top" Width="115" Height="12"/>
-                    <TextBox x:Name="uxTbxItk" HorizontalAlignment="Left" Height="23" Margin="24,252,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="114"/>
-                    <Label Content="ID da transação:" HorizontalAlignment="Left" Margin="24,225,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.525,1.115" Height="26" Width="95"/>
-                    <Button x:Name="uxBtnCancelTransaction" Click="OnCancelTransaction" Content="Cancelar transação" HorizontalAlignment="Left" Margin="18,337,0,-33" VerticalAlignment="Top" Width="125" Background="#FF990000" BorderBrush="#FFFF2727" Foreground="White" Height="30" RenderTransformOrigin="0.421,1.8" FontFamily="Gotham Bold"/>
+                    <Label Content="Tipo da &#xD;&#xA;transação:" HorizontalAlignment="Left" Margin="23,-5,0,0" VerticalAlignment="Top" Height="43" Width="107"/>
+                    <RadioButton Name="uxOptionEstablishmentInstallment" Content="Sem juros" HorizontalAlignment="Left" Margin="94,82,0,0" VerticalAlignment="Top" Height="15" Width="71"/>
+                    <TextBox Name="uxTbxInstallmentNumber" PreviewTextInput="PreviewTextInput"  HorizontalAlignment="Left" Height="23" Margin="94,58,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="149"/>
+                    <Label Content="Parcelas:" HorizontalAlignment="Left" Margin="24,55,0,0" VerticalAlignment="Top" Height="26" Width="56"/>
+                    <RadioButton Name="uxOptionIssuerInstallment" Content="Com juros" HorizontalAlignment="Left" Margin="169,82,0,0" VerticalAlignment="Top" Width="115" Height="15"/>
+                    <TextBox x:Name="uxTbxItk" HorizontalAlignment="Left" Height="23" Margin="94,155,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="114"/>
+                    <Label Content="ID da &#xD;&#xA;transação:" HorizontalAlignment="Left" Margin="23,141,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.525,1.115" Height="40" Width="95"/>
+                    <Button x:Name="uxBtnCancelTransaction" Click="OnCancelTransaction" Content="Cancelar transação" HorizontalAlignment="Left" Margin="189,345,0,0" VerticalAlignment="Top" Width="125" Background="#FF990000" BorderBrush="#FFFF2727" Foreground="White" Height="30" RenderTransformOrigin="0.421,1.8" FontFamily="Gotham Bold"/>
+
+                    <Label Content="Pinpad:" HorizontalAlignment="Left" Margin="24,195,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.525,1.115" Height="26" Width="60"/>
+                    <ComboBox Name="uxCbbxAllPinpads" Margin="94,195,116,173" />
+
+                    <TextBox Name="uxTbxCustomerEmail" ToolTip="O comprovante da transação será enviado para esse e-mail." Margin="94,233,10,139"/>
+
+                    <ComboBox Name="uxCbbxTransactions" Margin="24,345,148,19"/>
+                    <Label Content="E-mail:" ToolTip="O comprovante da transação será enviado para esse e-mail." HorizontalAlignment="Left" Margin="24,231,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.525,1.115" Height="26" Width="60"/>
                 </Grid>
 
             </TabItem>
@@ -58,22 +64,28 @@
             </TabItem>
             <TabItem Header="Outros" Margin="77,-2,-81,0">
                 <Grid Margin="0,0,-2,0">
-                    <Label Content="Ping para o pinpad:" HorizontalAlignment="Left" Margin="10,39,0,0" VerticalAlignment="Top" Width="166" FontFamily="Arial Rounded MT Bold" FontSize="16" Foreground="#FF7A7A7A" Height="29"/>
-                    <Button x:Name="uxBtnSendPing" Click="PingPinpad" Content="Ping!" HorizontalAlignment="Left" Margin="181,38,0,0" VerticalAlignment="Top" Width="120" Background="#FF0C8000" BorderBrush="#FF00AE08" Foreground="White" Height="30" RenderTransformOrigin="0.421,1.8" FontFamily="Gotham Bold"/>
-                    <Label Content="Reconectar:" HorizontalAlignment="Left" Margin="10,107,0,0" VerticalAlignment="Top" Width="166" FontFamily="Arial Rounded MT Bold" FontSize="16" Foreground="#FF7A7A7A" Height="29"/>
-                    <Label MaxWidth="400" Margin="10,123,0,252" FontFamily="Tahoma" HorizontalAlignment="Left" Width="166">
-                        <TextBlock TextWrapping="Wrap" Width="157"><Run Text="As vezes é necessário refazer o processo de conexão"/><InlineUIContainer>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="55*"/>
+                        <ColumnDefinition Width="274*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Ping para o pinpad:" HorizontalAlignment="Left" Margin="10,39,0,0" VerticalAlignment="Top" Width="166" FontFamily="Arial Rounded MT Bold" FontSize="16" Foreground="#FF7A7A7A" Height="29" Grid.ColumnSpan="2"/>
+                    <Button x:Name="uxBtnSendPing" Click="PingPinpad" Content="Ping!" HorizontalAlignment="Left" Margin="126.129,38,0,0" VerticalAlignment="Top" Width="120" Background="#FF0C8000" BorderBrush="#FF00AE08" Foreground="White" Height="30" RenderTransformOrigin="0.421,1.8" FontFamily="Gotham Bold" Grid.Column="1"/>
+                    <Label MaxWidth="400" Margin="13,253,0,108" FontFamily="Tahoma" HorizontalAlignment="Left" Width="166" Grid.ColumnSpan="2">
+                        <TextBlock TextWrapping="Wrap" Width="157"><Run Text="Refaz o processo de conexão com todos os pinpads conectados."/><InlineUIContainer>
                     		</InlineUIContainer><Run Text="."/></TextBlock>
                     </Label>
-                    <Button x:Name="uxBtnReconnect" Click="Reconnect" Content="Reconectar" HorizontalAlignment="Left" Margin="181,108,0,0" VerticalAlignment="Top" Width="120" Background="#FF0C8000" BorderBrush="#FF00AE08" Foreground="White" Height="30" RenderTransformOrigin="0.421,1.8" FontFamily="Gotham Bold"/>
-                    <Label Content="Capturar PAN:" HorizontalAlignment="Left" Margin="10,180,0,0" VerticalAlignment="Top" Width="166" FontFamily="Arial Rounded MT Bold" FontSize="16" Foreground="#FF7A7A7A" Height="29"/>
-                    <Label MaxWidth="400" Margin="0,197,153,168" FontFamily="Tahoma" HorizontalAlignment="Right" Width="166">
+                    <Label Content="Capturar PAN:" HorizontalAlignment="Left" Margin="10,103,0,0" VerticalAlignment="Top" Width="166" FontFamily="Arial Rounded MT Bold" FontSize="16" Foreground="#FF7A7A7A" Height="29" Grid.ColumnSpan="2"/>
+                    <Label MaxWidth="400" Margin="0,120,153,245" FontFamily="Tahoma" HorizontalAlignment="Right" Width="166" Grid.ColumnSpan="2">
                         <TextBlock TextWrapping="Wrap" Width="157" Height="44"><Run Text="Usado para fazer cancelamento com cartão presencial"/><InlineUIContainer>
                     		</InlineUIContainer><Run Text="."/></TextBlock>
                     </Label>
-                    <Button x:Name="uxBtnGetPan" Click="GetPan" Content="Caturar PAN!" HorizontalAlignment="Left" Margin="181,181,0,0" VerticalAlignment="Top" Width="120" Background="#FF0C8000" BorderBrush="#FF00AE08" Foreground="White" Height="30" RenderTransformOrigin="0.421,1.8" FontFamily="Gotham Bold"/>
-                    <Label Content="Download de tabelas:" HorizontalAlignment="Left" Margin="10,256,0,0" VerticalAlignment="Top" Width="177" FontFamily="Arial Rounded MT Bold" FontSize="16" Foreground="#FF7A7A7A" Height="29"/>
-                    <Button x:Name="uxBtnDownloadTables" Click="DownloadTables" Content="Download" HorizontalAlignment="Left" Margin="201,255,0,0" VerticalAlignment="Top" Width="100" Background="#FF0C8000" BorderBrush="#FF00AE08" Foreground="White" Height="30" RenderTransformOrigin="0.421,1.8" FontFamily="Gotham Bold"/>
+                    <Button x:Name="uxBtnGetPan" Click="GetPan" Content="Caturar PAN!" HorizontalAlignment="Left" Margin="126,104,0,0" VerticalAlignment="Top" Width="120" Background="#FF0C8000" BorderBrush="#FF00AE08" Foreground="White" Height="30" RenderTransformOrigin="0.421,1.8" FontFamily="Gotham Bold" Grid.Column="1"/>
+                    <Label Content="Download de tabelas:" HorizontalAlignment="Left" Margin="13,179,0,0" VerticalAlignment="Top" Width="177" FontFamily="Arial Rounded MT Bold" FontSize="16" Foreground="#FF7A7A7A" Height="29" Grid.ColumnSpan="2"/>
+                    <Button x:Name="uxBtnDownloadTables" Click="DownloadTables" Content="Download" HorizontalAlignment="Left" Margin="146,180,0,0" VerticalAlignment="Top" Width="100" Background="#FF0C8000" BorderBrush="#FF00AE08" Foreground="White" Height="30" RenderTransformOrigin="0.421,1.8" FontFamily="Gotham Bold" Grid.Column="1"/>
+
+                    <Label Content="Pinpads conectados:" HorizontalAlignment="Left" Margin="13,235,0,0" VerticalAlignment="Top" Width="177" FontFamily="Arial Rounded MT Bold" FontSize="16" Foreground="#FF7A7A7A" Height="29" Grid.ColumnSpan="2"/>
+                    <Button x:Name="uxBtnUpdatePinpads" Click="OnUpdateAllPinpads" Content="Update pinpads" HorizontalAlignment="Left" Margin="146,236,0,0" VerticalAlignment="Top" Width="100" Background="#FF0C8000" BorderBrush="#FF00AE08" Foreground="White" Height="30" RenderTransformOrigin="0.421,1.8" FontFamily="Gotham Bold" Grid.Column="1"/>
+
                 </Grid>
             </TabItem>
 

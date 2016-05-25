@@ -1,5 +1,5 @@
-﻿using MicroPos.Core.Authorization;
-using Pinpad.Sdk.Model.TypeCode;
+﻿using MicroPos.Core;
+using Pinpad.Sdk.Model;
 using Poi.Sdk.Authorization;
 using Poi.Sdk.Model._2._0;
 using System;

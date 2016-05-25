@@ -1,8 +1,9 @@
 ﻿using Poi.Sdk.Authorization;
 using Poi.Sdk.Model._2._0;
 using MicroPos.Core.Authorization;
-using Pinpad.Sdk.Model.TypeCode;
 using System;
+using Pinpad.Sdk.Model;
+using MicroPos.Core;
 
 namespace SimpleWpfApp
 {
@@ -54,7 +55,7 @@ namespace SimpleWpfApp
 		/// <summary>
 		/// Transaction response code.
 		/// </summary>
-		public int ResponseCode { get; set; }
+		public string ResponseCode { get; set; }
 		/// <summary>
 		/// Transaction response reason.
 		/// </summary>
@@ -81,29 +82,29 @@ namespace SimpleWpfApp
 		/// <param name="cardInfo">Card information obtained from the authorization process.</param>
 		/// <param name="rawApprovedTransaction">Transaction information returned from STONE authorization service.</param>
 		/// <returns>A transaction model.</returns>
-		public static TransactionModel Create(TransactionEntry transactionEntry, ICard cardInfo, AuthorizationResponse rawApprovedTransaction)
+		public static TransactionModel Create(IAuthorizationReport report)
 		{
 			TransactionModel transaction = new TransactionModel();
 
 			// Mapeando informações da transação:
-			transaction.Amount = transactionEntry.Amount;
-			transaction.DateTime = DateTime.Now;
-			transaction.InitiatorTransactionKey = transactionEntry.InitiatorTransactionKey;
-			transaction.InstallmentCount = transactionEntry.Installment.Number;
+			transaction.Amount = report.Amount;
+			transaction.DateTime = report.DateTime.Value;
+			transaction.InitiatorTransactionKey = report.InitiatorTransactionKey;
+			transaction.InstallmentCount = report.Installment.Number;
 			
 			// Mapeando informações direto do retorno do autorizador da Stone.
-			transaction.AuthorizationTransactionKey = rawApprovedTransaction.AcquirerTransactionKey;
-			transaction.ResponseCode = (int)(rawApprovedTransaction.OriginalResponse as AcceptorAuthorisationResponse).Data.AuthorisationResponse.TransactionResponse.AuthorisationResult.ResponseToAuthorisation.Response;
-			transaction.ResponseReason = (rawApprovedTransaction.OriginalResponse as AcceptorAuthorisationResponse).Data.AuthorisationResponse.TransactionResponse.AuthorisationResult.ResponseToAuthorisation.ResponseReason;
-			transaction.TransactionType = transactionEntry.Type;
+			transaction.AuthorizationTransactionKey = report.AcquirerTransactionKey;
+			transaction.ResponseCode = report.ResponseCode;
+			transaction.ResponseReason = report.ResponseReason;
+			transaction.TransactionType = report.TransactionType.Value;
 			
 			// Mapeando informações do cartão:
-			transaction.Aid = cardInfo.ApplicationId;
-			transaction.BrandName = cardInfo.BrandName;
-			transaction.CardholderName = cardInfo.CardholderName;
-			transaction.BrandId = cardInfo.BrandId;
-			transaction.Arqc = cardInfo.ApplicationCryptogram;
-			transaction.MaskedPan = cardInfo.MaskedPrimaryAccountNumber;
+			transaction.Aid = report.Card.ApplicationId;
+			transaction.BrandName = report.Card.BrandName;
+			transaction.CardholderName = report.Card.CardholderName;
+			transaction.BrandId = report.Card.BrandId;
+			transaction.Arqc = report.Card.ApplicationCryptogram;
+			transaction.MaskedPan = report.Card.MaskedPrimaryAccountNumber;
 
 			return transaction;
 		}

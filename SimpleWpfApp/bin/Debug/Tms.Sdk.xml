@@ -9,41 +9,6 @@
             Representing an activation request interfaced.
             </summary>
         </member>
-        <member name="T:Tms.Sdk.MessageBase">
-            <summary>
-            Any class representing a message to be sent or received must implement this class.
-            </summary>
-        </member>
-        <member name="M:Tms.Sdk.MessageBase.GetAsIso20022RawXml">
-            <summary>
-            Retrieves the original XML trading message.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Tms.Sdk.RequestBase.GetAsIso20022RawXml">
-            <summary>
-            Retrieves the original XML trading message.
-            </summary>
-            <returns>Returns the raw xml sent (the OriginalRequest property represents its info as a class).</returns>
-        </member>
-        <member name="M:Tms.Sdk.Activation.ActivationRequest.CreateActivationRequest(System.String,Tms.Sdk.Common.Entry.DataSetEntry,System.String)">
-            <summary>
-            Acts as a constructor. Must implement some convertion data or validation before returning a new instance.
-            </summary>
-            <param name="saleAffilitationKey">Unique merchant identification</param>
-            <param name="shortName">Merchant/establishment name</param>
-            <param name="dataSetEntry">Represents a data set to be downloaded</param>
-            <returns>ActivationRequest intance</returns>
-        </member>
-        <member name="M:Tms.Sdk.Activation.ActivationRequest.Validate(System.String,System.String,Tms.Sdk.Common.Entry.DataSetEntry)">
-            <summary>
-            Responsible to throw exception in case of invalid request.
-            </summary>
-            <param name="saleAffilitationKey">Unique merchant identification</param>
-            <param name="shortName">Merchant name</param>
-            <param name="dataSetEntry">Represents a data set to be downloaded</param>
-            <returns></returns>
-        </member>
         <member name="P:Tms.Sdk.Activation.ActivationRequest.SaleAffilitationKey">
             <summary>
             Sale affiliation key, unique merchant identification.
@@ -64,11 +29,23 @@
             On an Activation Request, this field is always Merchant Parameters.
             </summary>
         </member>
-        <member name="M:Tms.Sdk.ResponseBase.GetAsIso20022RawXml">
+        <member name="M:Tms.Sdk.Activation.ActivationRequest.CreateActivationRequest(System.String,Tms.Sdk.Common.Entry.DataSetEntry,System.String)">
             <summary>
-            Retrieves the original XML trading message.
+            Acts as a constructor. Must implement some convertion data or validation before returning a new instance.
             </summary>
-            <returns>Returns the raw xml received (the OriginalRequest property represents its info as a class).</returns>
+            <param name="saleAffilitationKey">Unique merchant identification</param>
+            <param name="shortName">Merchant/establishment name</param>
+            <param name="dataSetEntry">Represents a data set to be downloaded</param>
+            <returns>ActivationRequest intance</returns>
+        </member>
+        <member name="M:Tms.Sdk.Activation.ActivationRequest.Validate(System.String,System.String,Tms.Sdk.Common.Entry.DataSetEntry)">
+            <summary>
+            Responsible to throw exception in case of invalid request.
+            </summary>
+            <param name="saleAffilitationKey">Unique merchant identification</param>
+            <param name="shortName">Merchant name</param>
+            <param name="dataSetEntry">Represents a data set to be downloaded</param>
+            <returns></returns>
         </member>
         <member name="M:Tms.Sdk.Activation.ActivationResponse.#ctor(Tms.Sdk.Model._2._1.TmsResponseBase)">
             <summary>
@@ -87,15 +64,6 @@
             This kind of request is answered through a AcceptorConfigurationUpdate message.
             </summary>
         </member>
-        <member name="M:Tms.Sdk.Download.DownloadRequest.CreateDownloadRequest(System.String,System.Collections.ObjectModel.Collection{Tms.Sdk.Common.Entry.DataSetEntry})">
-            <summary>
-            Creates a download request, requiring mandatory data.
-            </summary>
-            <param name="sak">Sale affiliation key</param>
-            <param name="dataSetEntryCollection">Collection of DataSets which will be requested</param>
-            <returns>DownloadRequest instance</returns>
-            <exception cref="T:System.InvalidOperationException">Thrown when one or more parameters are invalid. Inner exception is set with parameter details.</exception>
-        </member>
         <member name="P:Tms.Sdk.Download.DownloadRequest.SaleAffilitationKey">
             <summary>
             Sale affiliation key, unique merchant identification.
@@ -106,9 +74,23 @@
             Collection of DataSetEntry, which represents a data set to be downloaded.
             </summary>
         </member>
+        <member name="M:Tms.Sdk.Download.DownloadRequest.CreateDownloadRequest(System.String,System.Collections.ObjectModel.Collection{Tms.Sdk.Common.Entry.DataSetEntry})">
+            <summary>
+            Creates a download request, requiring mandatory data.
+            </summary>
+            <param name="sak">Sale affiliation key</param>
+            <param name="dataSetEntryCollection">Collection of DataSets which will be requested</param>
+            <returns>DownloadRequest instance</returns>
+            <exception cref="T:System.InvalidOperationException">Thrown when one or more parameters are invalid. Inner exception is set with parameter details.</exception>
+        </member>
         <member name="T:Tms.Sdk.Download.DownloadResponse">
             <summary>
             Represents download response information, returned by the acquirer host and mapped by the Tms.Sdk.
+            </summary>
+        </member>
+        <member name="P:Tms.Sdk.Download.DownloadResponse.DownloadReportCollection">
+            <summary>
+            Collection of reports returned by the host. Contains information based on the collection of Parameters sent at the DownloadRequest <see cref="T:Tms.Sdk.Download.DownloadRequest"/> <seealso cref="T:Tms.Sdk.Common.CommonParam.PoiComponentParameter"/>.
             </summary>
         </member>
         <member name="M:Tms.Sdk.Download.DownloadResponse.CreateDownloadResponse(Tms.Sdk.Model._2._1.TmsResponseBase,System.Collections.ObjectModel.Collection{Tms.Sdk.Download.Report.DownloadReport})">
@@ -119,11 +101,6 @@
             <param name="downloadReportCollection">Collection of reports returned by the host already mapped. <see cref="T:Tms.Sdk.Mapping.DownloadResponseMapper"/></param>
             <returns>DownloadResponse instance</returns>
             <exception cref="T:System.InvalidOperationException">Thrown when one or more parameters are invalid. Inner exception is set with parameter details.</exception>
-        </member>
-        <member name="P:Tms.Sdk.Download.DownloadResponse.DownloadReportCollection">
-            <summary>
-            Collection of reports returned by the host. Contains information based on the collection of Parameters sent at the DownloadRequest <see cref="T:Tms.Sdk.Download.DownloadRequest"/> <seealso cref="T:Tms.Sdk.Common.CommonParam.PoiComponentParameter"/>.
-            </summary>
         </member>
         <member name="T:Tms.Sdk.Download.Entry.TmsAid">
             <summary>
@@ -290,7 +267,7 @@
             Terminal/Reader CVM (Cardholder Verification Method) Required Limit 
             </summary>
         </member>
-        <member name="P:Tms.Sdk.Download.Entry.TmsAid.ContaclessApplicationVersion">
+        <member name="P:Tms.Sdk.Download.Entry.TmsAid.ContactlessApplicationVersion">
             <summary>
             Contactless Application Version. (TAG 9F6D)
             PayPass Mag Stripe Application Version Number (Terminal).
@@ -434,14 +411,46 @@
             - "2": credit.
             </summary>
         </member>
+        <member name="T:Tms.Sdk.Download.Entry.ServerAddress">
+            <summary>
+            Network parameters of the host.
+            (host address)
+            </summary>
+        </member>
+        <member name="P:Tms.Sdk.Download.Entry.ServerAddress.PrimaryAddress">
+            <summary>
+            First option address.
+            </summary>
+        </member>
+        <member name="P:Tms.Sdk.Download.Entry.ServerAddress.PrimaryPortNumber">
+            <summary>
+            Must match PrimaryAddress. <see cref="P:Tms.Sdk.Download.Entry.ServerAddress.PrimaryAddress"/>
+            </summary>
+        </member>
+        <member name="F:Tms.Sdk.Download.Entry.ServerAddress.HasSecondaryAddress">
+            <summary>
+            If has a second option address. <see cref="P:Tms.Sdk.Download.Entry.ServerAddress.SecondaryAddress"/>
+            </summary>
+        </member>
+        <member name="P:Tms.Sdk.Download.Entry.ServerAddress.SecondaryAddress">
+            <summary>
+            Second option address.
+            </summary>
+        </member>
+        <member name="P:Tms.Sdk.Download.Entry.ServerAddress.SecondaryPortNumber">
+            <summary>
+            Must match SecondaryAddress. <see cref="P:Tms.Sdk.Download.Entry.ServerAddress.SecondaryAddress"/>
+            </summary>
+        </member>
+        <member name="P:Tms.Sdk.Download.Entry.ServerAddress.AccessCode">
+            <summary>
+            An access code to the server referred by this address.
+            If exists, this property is mandatory.
+            </summary>
+        </member>
         <member name="T:Tms.Sdk.Download.Report.AidReport">
             <summary>
             Aid Report used to keep the Aid table received through a DownloadRequest.
-            </summary>
-        </member>
-        <member name="T:Tms.Sdk.Common.CommonReport.ReportBase">
-            <summary>
-            Base class to all kinds of report received by the acquirer host.
             </summary>
         </member>
         <member name="P:Tms.Sdk.Download.Report.AidReport.AidCollection">
@@ -489,6 +498,41 @@
             Card Brand Table, containing all card brands accepted by the merchant when using Stone host.
             </summary>
         </member>
+        <member name="T:Tms.Sdk.Download.Report.DownloadReport">
+            <summary>
+            Keep data received by the acquirer host, containing information about a download response.
+            </summary>
+        </member>
+        <member name="P:Tms.Sdk.Download.Report.DownloadReport.HostCommunicationParam">
+            <summary>
+            Acceptor parameters dedicated to the communication with an acquirer host.
+            </summary>
+        </member>
+        <member name="P:Tms.Sdk.Download.Report.DownloadReport.ApplicationParams">
+            <summary>
+            Group of payment application specific configuration parameters for the point of interaction (POI) system.
+            </summary>
+        </member>
+        <member name="T:Tms.Sdk.Download.Param.ApplicationParameter">
+            <summary>
+            Payment application specific configuration parameters for the point of interaction (POI) system.
+            </summary>
+        </member>
+        <member name="P:Tms.Sdk.Download.Param.ApplicationParameter.ApplicationIdentification">
+            <summary>
+            Identification of the payment application.
+            </summary>
+        </member>
+        <member name="P:Tms.Sdk.Download.Param.ApplicationParameter.Version">
+            <summary>
+            Version of the payment application configuration parameters.
+            </summary>
+        </member>
+        <member name="P:Tms.Sdk.Download.Param.ApplicationParameter.Parameters">
+            <summary>
+            Configuration parameters used by the related payment application.
+            </summary>
+        </member>
         <member name="T:Tms.Sdk.GlobalResources">
             <summary>
               A strongly-typed resource class, for looking up localized strings, etc.
@@ -520,6 +564,21 @@
             Represents the request of a Management Plan Replacement operation, that is, terminal maintenance actions to be performed by a point of interaction (POI).
             </summary>
         </member>
+        <member name="P:Tms.Sdk.ManagementPlan.ManagementPlanRequest.SaleAffilitationKey">
+            <summary>
+            Sale affiliation key, unique merchant identification.
+            </summary>
+        </member>
+        <member name="P:Tms.Sdk.ManagementPlan.ManagementPlanRequest.DataSet">
+            <summary>
+            Collection of DataSetEntry, which represents a data set to be downloaded.
+            </summary>
+        </member>
+        <member name="P:Tms.Sdk.ManagementPlan.ManagementPlanRequest.RequestType">
+            <summary>
+            Type of the management plan request.
+            </summary>
+        </member>
         <member name="M:Tms.Sdk.ManagementPlan.ManagementPlanRequest.#ctor(System.String,System.Collections.ObjectModel.Collection{Tms.Sdk.Common.Entry.DataSetEntry})">
             <summary>
             Sets all mandatory properties.
@@ -545,25 +604,16 @@
             <exception cref="T:System.ArgumentNullException">Thrown when sak or dataSet is null.</exception>
             <exception cref="T:System.ArgumentException">Thrown when sak or dataSet is empty.</exception>
         </member>
-        <member name="P:Tms.Sdk.ManagementPlan.ManagementPlanRequest.SaleAffilitationKey">
-            <summary>
-            Sale affiliation key, unique merchant identification.
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.ManagementPlan.ManagementPlanRequest.DataSet">
-            <summary>
-            Collection of DataSetEntry, which represents a data set to be downloaded.
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.ManagementPlan.ManagementPlanRequest.RequestType">
-            <summary>
-            Type of the management plan request.
-            </summary>
-        </member>
         <member name="T:Tms.Sdk.ManagementPlan.ManagementPlanResponse">
             <summary>
             Represents the response of a management plan request.
             Contains a collection of actions to be performed by the POI.
+            </summary>
+        </member>
+        <member name="P:Tms.Sdk.ManagementPlan.ManagementPlanResponse.ActionReportCollection">
+            <summary>
+            A collection of actions to be performed by the POI.
+            This is the result (report) based on the list of actions requested in a ManagementPlanRequest. <see cref="T:Tms.Sdk.ManagementPlan.ManagementPlanRequest"/>
             </summary>
         </member>
         <member name="M:Tms.Sdk.ManagementPlan.ManagementPlanResponse.#ctor(Tms.Sdk.Model._2._1.TmsResponseBase)">
@@ -571,12 +621,6 @@
             Basic constructor.
             </summary>
             <param name="originalResponse"></param>
-        </member>
-        <member name="P:Tms.Sdk.ManagementPlan.ManagementPlanResponse.ActionReportCollection">
-            <summary>
-            A collection of actions to be performed by the POI.
-            This is the result (report) based on the list of actions requested in a ManagementPlanRequest. <see cref="T:Tms.Sdk.ManagementPlan.ManagementPlanRequest"/>
-            </summary>
         </member>
         <member name="T:Tms.Sdk.ManagementPlan.Report.ActionReport">
             <summary>
@@ -626,355 +670,6 @@
         <member name="F:Tms.Sdk.ManagementPlan.TypeCode.ManagementPlanType.ActionReport">
             <summary>
             Comparison and as a result an action to be made.
-            </summary>
-        </member>
-        <member name="T:Tms.Sdk.Mapping.ManagementPlanRequestMapper">
-            <summary>
-            Maps a interfaced request to a ISO 20022 request.
-            </summary>
-        </member>
-        <member name="M:Tms.Sdk.Mapping.ManagementPlanRequestMapper.MapToIso20022(Tms.Sdk.ManagementPlan.ManagementPlanRequest)">
-            <summary>
-            Method that maps all information. Receives an interfaced request, assembled by the user/client and returns an ISO 20022 request, ready to be send to the server.
-            </summary>
-            <param name="managementPlanRequest">Request - must be filled.</param>
-            <returns>A ISO 20022 request.</returns>
-        </member>
-        <member name="T:Tms.Sdk.Mapping.ManagementPlanResponseMapper">
-            <summary>
-            Maps a ISO 20022 response from the server into a interfaced response, that is, a class which contains all relevant data for the user/client.
-            </summary>
-        </member>
-        <member name="M:Tms.Sdk.Mapping.ManagementPlanResponseMapper.MapFromIso20022(Dlp.Buy4.Tms.Sdk.Models.ManagementPlanReplacementResponse)">
-            <summary>
-            Take a ISO 20022 request and returns an interfaced class.
-            </summary>
-            <param name="iso20022Response">ISO20022 Managemente Plan Response</param>
-            <returns>Response ready to be used to update POI's information (if needed).</returns>
-        </member>
-        <member name="T:Tms.Sdk.Common.Rejection">
-            <summary>
-            The TerminalManagementRejection message is sent by the terminal manager to reject a message request sent by an acceptor, to indicate that the received message could not be processed.
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Common.Rejection.Reason">
-            <summary>
-            Reject reason of the request or the advice.
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Common.Rejection.Information">
-            <summary>
-            Additional information related to the reject of the exchange.
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Common.Rejection.ErrorMessage">
-            <summary>
-            Original request that caused the recipient party to reject it.
-            </summary>
-        </member>
-        <member name="F:Tms.Sdk.TerminalManagementServiceClient.HttpClient">
-            <summary>
-            The HTTP client use to communicate.
-            </summary>
-        </member>
-        <member name="M:Tms.Sdk.TerminalManagementServiceClient.#ctor(System.String)">
-            <summary>
-            Create a instance of AcquirerServiceClient to communicate with the specified acquirer host.
-            </summary>
-            <param name="serviceBaseAddress">the url address of the acquirer web service.</param>
-        </member>
-        <member name="M:Tms.Sdk.TerminalManagementServiceClient.SendRequest``1(Tms.Sdk.RequestBase,System.Boolean)">
-            <summary>
-            Maps the request received as parameter to a request formatted on ISO 20022.
-            Serializes the mapped request and sends it to acquirer host.
-            Expects to receive, desserialize, demap and return the response.
-            </summary>
-            <typeparam name="T">OPTIONAL. Type of the request.</typeparam>
-            <param name="request">Request to be send to acquirer host.</param>
-            <param name="isAsynchronous">If the request will be blocking or asynchronous.</param>
-            <returns>Demapped response received by the acquirer host.</returns>
-            <exception cref="T:Dlp.Buy4.Framework.Portable.Exceptions.InvalidSerializationException">Could not serialize/desserialize request/response.</exception>
-            <exception cref="T:System.InvalidOperationException">Could not communicate to the host.</exception>
-            <exception cref="T:System.InvalidOperationException">Some invalid parameter send in request.</exception>
-            <exception cref="T:System.NotImplementedException">Request type is unknown.</exception>
-        </member>
-        <member name="M:Tms.Sdk.TerminalManagementServiceClient.Communicate``2(``0,System.String,System.Nullable{System.TimeSpan})">
-            <summary>
-            Sends a request to server, and try deserialize the response into Tout type, if is not possible try deserialize into AcceptorRejection.
-            </summary>
-            <typeparam name="Tin">type of request message</typeparam>
-            <typeparam name="Tout">Type to try deserialize the server response</typeparam>
-            <param name="iso20022Request">the request message in ISO20022 format.</param>
-            <param name="resourceUri">the route to send the request in server base address.</param>
-            <returns>an object that inherits of response base can be the Tout or a AcceptorRejection</returns>
-        </member>
-        <member name="M:Tms.Sdk.TerminalManagementServiceClient.TryDeserializeResponse``1(System.String)">
-            <summary>
-            Try deserialize the incoming string as the expected response or acceptor rejection.
-            </summary>
-            <typeparam name="T">expected response type</typeparam>
-            <param name="serializedResponse">server response as string</param>
-            <returns></returns>
-        </member>
-        <member name="P:Tms.Sdk.TerminalManagementServiceClient.Uri">
-            <summary>
-            Gets the base address of the acquirer web service.
-            </summary>
-        </member>
-        <member name="T:Tms.Sdk.ManagementPlan.Entry.ActionEntry">
-            <summary>
-            Keep properties used to perform one action by the POI/Server.
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.ManagementPlan.Entry.ActionEntry.Type">
-            <summary>
-            Type of terminal management action to be performed by a point of interaction.
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.ManagementPlan.Entry.ActionEntry.DataSetIdentification">
-            <summary>
-            DataSet information, representing the information requested/received about a specific data set. Could be a confirmation/comparison or an update to the current information in the POI.
-            </summary>
-        </member>
-        <member name="T:Tms.Sdk.ManagementPlan.Entry.EventEntry">
-            <summary>
-            Keep properties of an event caused/received by the POI.
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.ManagementPlan.Entry.EventEntry.Result">
-            <summary>
-            Result of an event.
-            This result features the action to be made.
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.ManagementPlan.Entry.EventEntry.Action">
-            <summary>
-            Action information. <see cref="T:Tms.Sdk.ManagementPlan.Entry.ActionEntry"/>
-            </summary>
-        </member>
-        <member name="T:Tms.Sdk.Download.Param.ApplicationParameter">
-            <summary>
-            Payment application specific configuration parameters for the point of interaction (POI) system.
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Download.Param.ApplicationParameter.ApplicationIdentification">
-            <summary>
-            Identification of the payment application.
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Download.Param.ApplicationParameter.Version">
-            <summary>
-            Version of the payment application configuration parameters.
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Download.Param.ApplicationParameter.Parameters">
-            <summary>
-            Configuration parameters used by the related payment application.
-            </summary>
-        </member>
-        <member name="T:Tms.Sdk.ManagementPlan.Param.ManagementPlanParameter">
-            <summary>
-            Represents the parameter a ManagementPlanRequest should send.
-            Contains all information to perform a status report operation, that could result on a list of important actions to be performed by the POI.
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.ManagementPlan.Param.ManagementPlanParameter.PoiComponent">
-            <summary>
-            Poi information.
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.ManagementPlan.Param.ManagementPlanParameter.EventCollection">
-            <summary>
-            Information about the <see cref="T:Tms.Sdk.ManagementPlan.Entry.EventEntry">event</see>. 
-            </summary>
-        </member>
-        <member name="T:Tms.Sdk.Common.Entry.DataSetIdentificationEntry">
-            <summary>
-            Identification of the required data set.
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Common.Entry.DataSetIdentificationEntry.Id">
-            <summary>
-            Identification of the required data set.
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Common.Entry.DataSetIdentificationEntry.Type">
-            <summary>
-            Category of data set.
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Common.Entry.DataSetIdentificationEntry.Version">
-            <summary>
-            Version of the data set.
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Common.Entry.DataSetIdentificationEntry.Name">
-            <summary>
-            Name of the data set.
-            </summary>
-        </member>
-        <member name="T:Tms.Sdk.Common.Entry.PoiComponentEntry">
-            <summary>
-            Data related to a component of the POI performing the status report.
-            </summary>
-        </member>
-        <member name="M:Tms.Sdk.Common.Entry.PoiComponentEntry.#ctor(Tms.Sdk.Common.TypeCode.PoiComponentEntryTypeCode,System.String,System.String,System.String)">
-            <summary>
-            Sets all PoiComponentEntry properties.
-            </summary>
-            <param name="type">Type of component belonging to a POI Terminal.</param>
-            <param name="providerId">Identifies the provider of the software, hardware or parameters of the POI component.</param>
-            <param name="id">Identification of the POI component assigned by its provider.</param>
-            <param name="serialNumber">Serial number identifying an occurrence of an hardware component.</param>
-        </member>
-        <member name="P:Tms.Sdk.Common.Entry.PoiComponentEntry.Type">
-            <summary>
-            Type of component belonging to a POI Terminal.
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Common.Entry.PoiComponentEntry.ProviderId">
-            <summary>
-            Identifies the provider of the software, hardware or parameters of the POI component.
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Common.Entry.PoiComponentEntry.Id">
-            <summary>
-            Identification of the POI component assigned by its provider.
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Common.Entry.PoiComponentEntry.ComponentSerialNumber">
-            <summary>
-            Serial number identifying an occurrence of an hardware component.
-            </summary>
-        </member>
-        <member name="T:Tms.Sdk.Download.Report.DownloadReport">
-            <summary>
-            Keep data received by the acquirer host, containing information about a download response.
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Download.Report.DownloadReport.HostCommunicationParam">
-            <summary>
-            Acceptor parameters dedicated to the communication with an acquirer host.
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Download.Report.DownloadReport.ApplicationParams">
-            <summary>
-            Group of payment application specific configuration parameters for the point of interaction (POI) system.
-            </summary>
-        </member>
-        <member name="T:Tms.Sdk.Common.CommonParam.HostCommunicationParameter">
-            <summary>
-            Acceptor parameters dedicated to the communication with an acquirer host.
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Common.CommonParam.HostCommunicationParameter.HostIdentification">
-            <summary>
-            Identification of the host.
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Common.CommonParam.HostCommunicationParameter.ServerAddress">
-            <summary>
-            Network parameters of the host.
-            </summary>
-        </member>
-        <member name="M:Tms.Sdk.Common.Entry.ContentEntry.#ctor(Tms.Sdk.Common.Entry.DataSetIdentificationEntry,Tms.Sdk.Model.Params.ParameterBase)">
-            <summary>
-            Constructor with parameter validation.
-            </summary>
-            <param name="requiredDataSet"></param>
-            <param name="parameter"></param>
-        </member>
-        <member name="M:Tms.Sdk.Common.Entry.ContentEntry.#ctor">
-            <summary>
-            Default constructor.
-            </summary>
-        </member>
-        <member name="M:Tms.Sdk.Common.Entry.ContentEntry.Validate(Tms.Sdk.Model.Params.ParameterBase,Tms.Sdk.Common.Entry.DataSetIdentificationEntry)">
-            <summary>
-            Parameter validation.
-            </summary>
-            <exception cref="T:System.ArgumentNullException">If a mandatory parameter is null</exception>
-            <exception cref="T:System.ArgumentException">If a mandatory collection of objects is empty.</exception>
-        </member>
-        <member name="P:Tms.Sdk.Common.Entry.ContentEntry.ParameterData">
-            <summary>
-            Mandatory field. Specific parameter, depending on request/response type.
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Common.Entry.ContentEntry.RequiredDataSet">
-            <summary>
-            Optional field, depending on message. CategoryCode identifies what your are requesting to download.
-            </summary>
-        </member>
-        <member name="T:Tms.Sdk.Common.Entry.DataSetEntry">
-            <summary>
-            DataSet mandatory data to any TMS request.
-            </summary>
-        </member>
-        <member name="M:Tms.Sdk.Common.Entry.DataSetEntry.#ctor(Tms.Sdk.Common.Entry.ContentEntry,Tms.Sdk.Common.Entry.DataSetIdentificationEntry)">
-            <summary>
-            Constructor. Sets each mandatory field.
-            If Data Set Identification is null, the data set type is set as Status Report.
-            </summary>
-            <param name="contentEntry">Content to be downloaded</param>
-            <param name="dataSetId">Identifier of a specific dataset</param>
-            <exception cref="T:System.InvalidOperationException">Thrown when one or more parameters are invalid. Inner exception is set with parameter details.</exception>
-        </member>
-        <member name="P:Tms.Sdk.Common.Entry.DataSetEntry.Identification">
-            <summary>
-            Identifies a specific dataset, that is, represents one dataset in the message.
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Common.Entry.DataSetEntry.Content">
-            <summary>
-            Embraces the content to be downloaded.
-            </summary>
-        </member>
-        <member name="T:Tms.Sdk.Common.CommonParam.PoiComponentParameter">
-            <summary>
-            Data related to a component of the POI performing the status report.
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Common.CommonParam.PoiComponentParameter.PoiComponentCollection">
-            <summary>
-            Collection of POI information.
-            </summary>
-        </member>
-        <member name="T:Tms.Sdk.Download.Entry.ServerAddress">
-            <summary>
-            Network parameters of the host.
-            (host address)
-            </summary>
-        </member>
-        <member name="F:Tms.Sdk.Download.Entry.ServerAddress.HasSecondaryAddress">
-            <summary>
-            If has a second option address. <see cref="P:Tms.Sdk.Download.Entry.ServerAddress.SecondaryAddress"/>
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Download.Entry.ServerAddress.PrimaryAddress">
-            <summary>
-            First option address.
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Download.Entry.ServerAddress.PrimaryPortNumber">
-            <summary>
-            Must match PrimaryAddress. <see cref="P:Tms.Sdk.Download.Entry.ServerAddress.PrimaryAddress"/>
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Download.Entry.ServerAddress.SecondaryAddress">
-            <summary>
-            Second option address.
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Download.Entry.ServerAddress.SecondaryPortNumber">
-            <summary>
-            Must match SecondaryAddress. <see cref="P:Tms.Sdk.Download.Entry.ServerAddress.SecondaryAddress"/>
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Download.Entry.ServerAddress.AccessCode">
-            <summary>
-            An access code to the server referred by this address.
-            If exists, this property is mandatory.
             </summary>
         </member>
         <member name="T:Tms.Sdk.ManagementPlan.TypeCode.ManagementPlanActionCode">
@@ -1091,6 +786,250 @@
         <member name="F:Tms.Sdk.ManagementPlan.TypeCode.ManagementPlanActionResult.UnknowKeyReference">
             <summary>
             Cryptographic key reference used for the data signature is not valid.
+            </summary>
+        </member>
+        <member name="T:Tms.Sdk.ManagementPlan.Entry.ActionEntry">
+            <summary>
+            Keep properties used to perform one action by the POI/Server.
+            </summary>
+        </member>
+        <member name="P:Tms.Sdk.ManagementPlan.Entry.ActionEntry.Type">
+            <summary>
+            Type of terminal management action to be performed by a point of interaction.
+            </summary>
+        </member>
+        <member name="P:Tms.Sdk.ManagementPlan.Entry.ActionEntry.DataSetIdentification">
+            <summary>
+            DataSet information, representing the information requested/received about a specific data set. Could be a confirmation/comparison or an update to the current information in the POI.
+            </summary>
+        </member>
+        <member name="T:Tms.Sdk.ManagementPlan.Entry.EventEntry">
+            <summary>
+            Keep properties of an event caused/received by the POI.
+            </summary>
+        </member>
+        <member name="P:Tms.Sdk.ManagementPlan.Entry.EventEntry.Result">
+            <summary>
+            Result of an event.
+            This result features the action to be made.
+            </summary>
+        </member>
+        <member name="P:Tms.Sdk.ManagementPlan.Entry.EventEntry.Action">
+            <summary>
+            Action information. <see cref="T:Tms.Sdk.ManagementPlan.Entry.ActionEntry"/>
+            </summary>
+        </member>
+        <member name="T:Tms.Sdk.ManagementPlan.Param.ManagementPlanParameter">
+            <summary>
+            Represents the parameter a ManagementPlanRequest should send.
+            Contains all information to perform a status report operation, that could result on a list of important actions to be performed by the POI.
+            </summary>
+        </member>
+        <member name="P:Tms.Sdk.ManagementPlan.Param.ManagementPlanParameter.PoiComponent">
+            <summary>
+            Poi information.
+            </summary>
+        </member>
+        <member name="P:Tms.Sdk.ManagementPlan.Param.ManagementPlanParameter.EventCollection">
+            <summary>
+            Information about the <see cref="T:Tms.Sdk.ManagementPlan.Entry.EventEntry">event</see>. 
+            </summary>
+        </member>
+        <member name="T:Tms.Sdk.Mapping.ManagementPlanRequestMapper">
+            <summary>
+            Maps a interfaced request to a ISO 20022 request.
+            </summary>
+        </member>
+        <member name="M:Tms.Sdk.Mapping.ManagementPlanRequestMapper.MapToIso20022(Tms.Sdk.ManagementPlan.ManagementPlanRequest)">
+            <summary>
+            Method that maps all information. Receives an interfaced request, assembled by the user/client and returns an ISO 20022 request, ready to be send to the server.
+            </summary>
+            <param name="managementPlanRequest">Request - must be filled.</param>
+            <returns>A ISO 20022 request.</returns>
+        </member>
+        <member name="T:Tms.Sdk.Mapping.ManagementPlanResponseMapper">
+            <summary>
+            Maps a ISO 20022 response from the server into a interfaced response, that is, a class which contains all relevant data for the user/client.
+            </summary>
+        </member>
+        <member name="M:Tms.Sdk.Mapping.ManagementPlanResponseMapper.MapFromIso20022(Dlp.Buy4.Tms.Sdk.Models.ManagementPlanReplacementResponse)">
+            <summary>
+            Take a ISO 20022 request and returns an interfaced class.
+            </summary>
+            <param name="iso20022Response">ISO20022 Managemente Plan Response</param>
+            <returns>Response ready to be used to update POI's information (if needed).</returns>
+        </member>
+        <member name="T:Tms.Sdk.MessageBase">
+            <summary>
+            Any class representing a message to be sent or received must implement this class.
+            </summary>
+        </member>
+        <member name="M:Tms.Sdk.MessageBase.GetAsIso20022RawXml">
+            <summary>
+            Retrieves the original XML trading message.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Tms.Sdk.Common.Rejection">
+            <summary>
+            The TerminalManagementRejection message is sent by the terminal manager to reject a message request sent by an acceptor, to indicate that the received message could not be processed.
+            </summary>
+        </member>
+        <member name="P:Tms.Sdk.Common.Rejection.Reason">
+            <summary>
+            Reject reason of the request or the advice.
+            </summary>
+        </member>
+        <member name="P:Tms.Sdk.Common.Rejection.Information">
+            <summary>
+            Additional information related to the reject of the exchange.
+            </summary>
+        </member>
+        <member name="P:Tms.Sdk.Common.Rejection.ErrorMessage">
+            <summary>
+            Original request that caused the recipient party to reject it.
+            </summary>
+        </member>
+        <member name="T:Tms.Sdk.Common.Entry.DataSetIdentificationEntry">
+            <summary>
+            Identification of the required data set.
+            </summary>
+        </member>
+        <member name="P:Tms.Sdk.Common.Entry.DataSetIdentificationEntry.Id">
+            <summary>
+            Identification of the required data set.
+            </summary>
+        </member>
+        <member name="P:Tms.Sdk.Common.Entry.DataSetIdentificationEntry.Type">
+            <summary>
+            Category of data set.
+            </summary>
+        </member>
+        <member name="P:Tms.Sdk.Common.Entry.DataSetIdentificationEntry.Version">
+            <summary>
+            Version of the data set.
+            </summary>
+        </member>
+        <member name="P:Tms.Sdk.Common.Entry.DataSetIdentificationEntry.Name">
+            <summary>
+            Name of the data set.
+            </summary>
+        </member>
+        <member name="T:Tms.Sdk.Common.Entry.PoiComponentEntry">
+            <summary>
+            Data related to a component of the POI performing the status report.
+            </summary>
+        </member>
+        <member name="P:Tms.Sdk.Common.Entry.PoiComponentEntry.Type">
+            <summary>
+            Type of component belonging to a POI Terminal.
+            </summary>
+        </member>
+        <member name="P:Tms.Sdk.Common.Entry.PoiComponentEntry.ProviderId">
+            <summary>
+            Identifies the provider of the software, hardware or parameters of the POI component.
+            </summary>
+        </member>
+        <member name="P:Tms.Sdk.Common.Entry.PoiComponentEntry.Id">
+            <summary>
+            Identification of the POI component assigned by its provider.
+            </summary>
+        </member>
+        <member name="P:Tms.Sdk.Common.Entry.PoiComponentEntry.ComponentSerialNumber">
+            <summary>
+            Serial number identifying an occurrence of an hardware component.
+            </summary>
+        </member>
+        <member name="M:Tms.Sdk.Common.Entry.PoiComponentEntry.#ctor(Tms.Sdk.Common.TypeCode.PoiComponentEntryTypeCode,System.String,System.String,System.String)">
+            <summary>
+            Sets all PoiComponentEntry properties.
+            </summary>
+            <param name="type">Type of component belonging to a POI Terminal.</param>
+            <param name="providerId">Identifies the provider of the software, hardware or parameters of the POI component.</param>
+            <param name="id">Identification of the POI component assigned by its provider.</param>
+            <param name="serialNumber">Serial number identifying an occurrence of an hardware component.</param>
+        </member>
+        <member name="P:Tms.Sdk.Common.Entry.ContentEntry.ParameterData">
+            <summary>
+            Mandatory field. Specific parameter, depending on request/response type.
+            </summary>
+        </member>
+        <member name="P:Tms.Sdk.Common.Entry.ContentEntry.RequiredDataSet">
+            <summary>
+            Optional field, depending on message. CategoryCode identifies what your are requesting to download.
+            </summary>
+        </member>
+        <member name="M:Tms.Sdk.Common.Entry.ContentEntry.#ctor(Tms.Sdk.Common.Entry.DataSetIdentificationEntry,Tms.Sdk.Model.Params.ParameterBase)">
+            <summary>
+            Constructor with parameter validation.
+            </summary>
+            <param name="requiredDataSet"></param>
+            <param name="parameter"></param>
+        </member>
+        <member name="M:Tms.Sdk.Common.Entry.ContentEntry.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:Tms.Sdk.Common.Entry.ContentEntry.Validate(Tms.Sdk.Model.Params.ParameterBase,Tms.Sdk.Common.Entry.DataSetIdentificationEntry)">
+            <summary>
+            Parameter validation.
+            </summary>
+            <exception cref="T:System.ArgumentNullException">If a mandatory parameter is null</exception>
+            <exception cref="T:System.ArgumentException">If a mandatory collection of objects is empty.</exception>
+        </member>
+        <member name="T:Tms.Sdk.Common.Entry.DataSetEntry">
+            <summary>
+            DataSet mandatory data to any TMS request.
+            </summary>
+        </member>
+        <member name="P:Tms.Sdk.Common.Entry.DataSetEntry.Identification">
+            <summary>
+            Identifies a specific dataset, that is, represents one dataset in the message.
+            </summary>
+        </member>
+        <member name="P:Tms.Sdk.Common.Entry.DataSetEntry.Content">
+            <summary>
+            Embraces the content to be downloaded.
+            </summary>
+        </member>
+        <member name="M:Tms.Sdk.Common.Entry.DataSetEntry.#ctor(Tms.Sdk.Common.Entry.ContentEntry,Tms.Sdk.Common.Entry.DataSetIdentificationEntry)">
+            <summary>
+            Constructor. Sets each mandatory field.
+            If Data Set Identification is null, the data set type is set as Status Report.
+            </summary>
+            <param name="contentEntry">Content to be downloaded</param>
+            <param name="dataSetId">Identifier of a specific dataset</param>
+            <exception cref="T:System.InvalidOperationException">Thrown when one or more parameters are invalid. Inner exception is set with parameter details.</exception>
+        </member>
+        <member name="T:Tms.Sdk.Common.CommonParam.HostCommunicationParameter">
+            <summary>
+            Acceptor parameters dedicated to the communication with an acquirer host.
+            </summary>
+        </member>
+        <member name="P:Tms.Sdk.Common.CommonParam.HostCommunicationParameter.HostIdentification">
+            <summary>
+            Identification of the host.
+            </summary>
+        </member>
+        <member name="P:Tms.Sdk.Common.CommonParam.HostCommunicationParameter.ServerAddress">
+            <summary>
+            Network parameters of the host.
+            </summary>
+        </member>
+        <member name="T:Tms.Sdk.Common.CommonParam.PoiComponentParameter">
+            <summary>
+            Data related to a component of the POI performing the status report.
+            </summary>
+        </member>
+        <member name="P:Tms.Sdk.Common.CommonParam.PoiComponentParameter.PoiComponentCollection">
+            <summary>
+            Collection of POI information.
+            </summary>
+        </member>
+        <member name="T:Tms.Sdk.Common.CommonReport.ReportBase">
+            <summary>
+            Base class to all kinds of report received by the acquirer host.
             </summary>
         </member>
         <member name="F:Tms.Sdk.Common.TypeCode.PoiComponentEntryTypeCode.AcquirerProtocolParameters">
@@ -1232,6 +1171,67 @@
             <summary>
             Point of interaction parameters defined by the manufacturer for instance the PIN verification capabilities.
             </summary>
+        </member>
+        <member name="F:Tms.Sdk.TerminalManagementServiceClient.HttpClient">
+            <summary>
+            The HTTP client use to communicate.
+            </summary>
+        </member>
+        <member name="P:Tms.Sdk.TerminalManagementServiceClient.Uri">
+            <summary>
+            Gets the base address of the acquirer web service.
+            </summary>
+        </member>
+        <member name="M:Tms.Sdk.TerminalManagementServiceClient.#ctor(System.String)">
+            <summary>
+            Create a instance of AcquirerServiceClient to communicate with the specified acquirer host.
+            </summary>
+            <param name="serviceBaseAddress">the url address of the acquirer web service.</param>
+        </member>
+        <member name="M:Tms.Sdk.TerminalManagementServiceClient.SendRequest``1(Tms.Sdk.RequestBase,System.Boolean)">
+            <summary>
+            Maps the request received as parameter to a request formatted on ISO 20022.
+            Serializes the mapped request and sends it to acquirer host.
+            Expects to receive, desserialize, demap and return the response.
+            </summary>
+            <typeparam name="T">OPTIONAL. Type of the request.</typeparam>
+            <param name="request">Request to be send to acquirer host.</param>
+            <param name="isAsynchronous">If the request will be blocking or asynchronous.</param>
+            <returns>Demapped response received by the acquirer host.</returns>
+            <exception cref="T:Dlp.Buy4.Framework.Portable.Exceptions.InvalidSerializationException">Could not serialize/desserialize request/response.</exception>
+            <exception cref="T:System.InvalidOperationException">Could not communicate to the host.</exception>
+            <exception cref="T:System.InvalidOperationException">Some invalid parameter send in request.</exception>
+            <exception cref="T:System.NotImplementedException">Request type is unknown.</exception>
+        </member>
+        <member name="M:Tms.Sdk.TerminalManagementServiceClient.Communicate``2(``0,System.String,System.Nullable{System.TimeSpan})">
+            <summary>
+            Sends a request to server, and try deserialize the response into Tout type, if is not possible try deserialize into AcceptorRejection.
+            </summary>
+            <typeparam name="Tin">type of request message</typeparam>
+            <typeparam name="Tout">Type to try deserialize the server response</typeparam>
+            <param name="iso20022Request">the request message in ISO20022 format.</param>
+            <param name="resourceUri">the route to send the request in server base address.</param>
+            <returns>an object that inherits of response base can be the Tout or a AcceptorRejection</returns>
+        </member>
+        <member name="M:Tms.Sdk.TerminalManagementServiceClient.TryDeserializeResponse``1(System.String)">
+            <summary>
+            Try deserialize the incoming string as the expected response or acceptor rejection.
+            </summary>
+            <typeparam name="T">expected response type</typeparam>
+            <param name="serializedResponse">server response as string</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tms.Sdk.ResponseBase.GetAsIso20022RawXml">
+            <summary>
+            Retrieves the original XML trading message.
+            </summary>
+            <returns>Returns the raw xml received (the OriginalRequest property represents its info as a class).</returns>
+        </member>
+        <member name="M:Tms.Sdk.RequestBase.GetAsIso20022RawXml">
+            <summary>
+            Retrieves the original XML trading message.
+            </summary>
+            <returns>Returns the raw xml sent (the OriginalRequest property represents its info as a class).</returns>
         </member>
     </members>
 </doc>

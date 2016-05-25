@@ -1,7 +1,6 @@
 ﻿using MicroPos.Core;
 using MicroPos.Core.Authorization;
 using Pinpad.Sdk.Model;
-using Pinpad.Sdk.Model.TypeCode;
 using Poi.Sdk;
 using Poi.Sdk.Authorization;
 using Poi.Sdk.Model._2._0;
@@ -120,7 +119,7 @@ namespace PizzaMachine
 			}
 
 			// Tries to authorize the transaction:
-			PoiResponseBase response = this.authorizer.Authorize(card, transaction, pin);
+			PoiResponseBase response = this.authorizer.SendAuthorization(card, transaction, pin);
 			
 			// Verifies if there were any return:
 			if (response == null) { return false; }
@@ -159,7 +158,7 @@ namespace PizzaMachine
 		/// <param name="waitForWey">Whether the pinpad should wait for a key.</param>
 		public void ShowSomething (string firstLine, string secondLine, DisplayPaddingType padding, bool waitForWey = false)
 		{
-			this.authorizer.PinpadController.Display.ShowMessage(firstLine, secondLine, padding);
+			this.authorizer.PinpadFacade.Display.ShowMessage(firstLine, secondLine, padding);
 
 			Task waitForKeyTask = new Task(() =>
 			{
@@ -168,7 +167,7 @@ namespace PizzaMachine
 					PinpadKeyCode key = PinpadKeyCode.Undefined;
 					do
 					{
-						key = this.authorizer.PinpadController.Keyboard.GetKey();
+						key = this.authorizer.PinpadFacade.Keyboard.GetKey();
 					} while (key == PinpadKeyCode.Undefined);
 				}
 			});

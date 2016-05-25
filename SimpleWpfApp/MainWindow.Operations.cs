@@ -6,8 +6,8 @@ using Poi.Sdk.Model.Utilities;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows;
-using Pinpad.Sdk.Model.TypeCode;
-using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Configuration;
 
 namespace SimpleWpfApp
 {
@@ -17,22 +17,18 @@ namespace SimpleWpfApp
 		/// <summary>
 		/// Provides methods to perform an authorization and PAN reading from card.
 		/// </summary>
-		internal CardPaymentAuthorizer authorizer;
+		internal ICollection<ICardPaymentAuthorizer> Authorizers;
 		/// <summary>
 		/// All transactions approved.
 		/// </summary>
 		private Collection<TransactionModel> approvedTransactions;
+		internal DisplayableMessages PinpadMessages;
 
-#if !DEBUG
-		private string sak = "9ADA76DDFA1B4368A39F2BC7D4228BB9";
-		private string authorizationUri = "https://poistaging.stone.com.br";
-		private string tmsUri = "https://tmsstaging.stone.com.br/";
-#else
-		private string sak = "DE756D68F20B4242BEC8F94B5ABCB448";
-		private string authorizationUri = "https://pos.stone.com.br/";
-		private string tmsUri = "https://tmsproxy.stone.com.br";
-#endif
 
+		private string authorizationUri = ConfigurationSettings.AppSettings ["ProductionAuthorizerUri"];
+		private string tmsUri = ConfigurationSettings.AppSettings ["ProductionTmsUri"];
+		private string sak = ConfigurationSettings.AppSettings ["ProductionSak"];
+		private readonly string logFilePath = ConfigurationManager.AppSettings ["logPath"];
 		// Methods
 		/// <summary>
 		/// Writes on log.
