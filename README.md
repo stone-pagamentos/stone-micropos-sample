@@ -245,4 +245,18 @@ CancellationRequest cancelRequest = CancellationRequest.
 authorizer.AuthorizationProvider.SendRequest(cancelRequest);
 ```
 
+### :trophy: Boa prática: desconecte o pinpad
+
+```csharp
+Task.Run(() =>
+{
+    // Cancela  o ultimo comando do pinpad:
+	this.authorizer.PinpadFacade.Communication.CancelRequest();
+	
+	// Desconecta:
+	this.authorizer.PinpadFacade.Communication.ClosePinpadConnection(this.authorizer.
+	    PinpadMessages.MainLabel);
+});
+```
+
 ## Duvidas? Entre em contato: [devmicrotef@stone.com.br](mailto:devmicrotef@stone.com.br) :octopus:
