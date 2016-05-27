@@ -21,6 +21,7 @@ using System.Configuration;
 using System.IO;
 using System.Text;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace SimpleWpfApp
 {
@@ -552,6 +553,18 @@ namespace SimpleWpfApp
 			param.TransactionStoneId = report.AcquirerTransactionKey;
 
 			return param;
+		}
+
+		private void Window_Closed (object sender, EventArgs e)
+		{
+			Task.Run(() =>
+		   {
+			   foreach (ICardPaymentAuthorizer authorizer in this.Authorizers)
+			   {
+				   authorizer.PinpadFacade.Communication.CancelRequest();
+				   authorizer.PinpadFacade.Communication.ClosePinpadConnection(authorizer.PinpadMessages.MainLabel);
+			   }
+		   });
 		}
 	}
 }

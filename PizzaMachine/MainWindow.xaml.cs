@@ -29,7 +29,7 @@ namespace PizzaMachine
         public MainWindow()
         {
             InitializeComponent();
-            this.pizzaMachine = new PizzaMachine();
+            this.pizzaMachine = new PizzaVendingMachine();
             this.ChangePizzaButtonState(false);
             Loaded += this.OnBegin;
 			Closing += this.OnClosePizzeria;
@@ -84,5 +84,10 @@ namespace PizzaMachine
 		{
 			this.pizzaMachine.TurnOff();
 		}
-    }
+
+		private void Window_Closed (object sender, EventArgs e)
+		{
+			this.pizzaMachine.PizzaAuthorizer.CloseAuthorizer();
+		}
+	}
 }

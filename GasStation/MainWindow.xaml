@@ -7,7 +7,8 @@
         mc:Ignorable="d"
         Title="Posto de gasolina (demo)" Height="428.088" Width="596.293"
         Foreground="ForestGreen"
-        Icon="Images/stone_icon.png" ResizeMode="NoResize">
+        Icon="Images/stone_icon.png" ResizeMode="NoResize"
+        Closed="Window_Closed">
 
     <!--Icon="C:\buy4-prototype\stone-micropos-sample\GasStation\images\gas.ico" FontFamily="Lucida Console" FontSize="10.667"-->
 

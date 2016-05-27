@@ -44,14 +44,7 @@ namespace GasStation
 										  new Action(delegate
 										  { }));
 			Task.Run(() => this.authorizer = new GasStationMachine(this)).Wait();
-			//if (this.authorizer == null)
-			//{
-			//	this.uxLblStatus.Text = "Pinpad não encontrado.";
-			//}
-			//else
-			//{
-			//	this.uxLblStatus.Text = "Pinpad conectado.";
-			//}
+
 			Application.Current.Dispatcher.Invoke(DispatcherPriority.Background,
 										  new Action(delegate
 										  { }));
@@ -68,6 +61,11 @@ namespace GasStation
 			// Regex that matches disallowed text
 			Regex regex = new Regex("[^0-9.-]+");
 			e.Handled = regex.IsMatch(e.Text);
+		}
+
+		private void Window_Closed (object sender, EventArgs e)
+		{
+			this.authorizer.TurnOff();
 		}
 	}
 }

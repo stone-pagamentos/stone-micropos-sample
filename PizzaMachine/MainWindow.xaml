@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FoodMachine"
         mc:Ignorable="d"
-        Title="pizza machine" Height="510.063" Width="347.071" Icon="C:\buy4-prototype\stone-micropos-sample\PizzaMachine\image\pizza-icon-512.png">
+        Title="pizza machine" Height="510.063" Width="347.071" Icon="C:\buy4-prototype\stone-micropos-sample\PizzaMachine\image\pizza-icon-512.png"
+        Closed="Window_Closed">
+    
     <Grid Name="uxGridMain" Margin="253,336,0,0">
         <Image Source="C:\buy4-prototype\stone-micropos-sample\PizzaMachine\image\pizza-vending-machine.jpg" Margin="-252,-335,0,0" />
         <Button Name="uxBtnPizza1" Content="1" FontSize="6" Click="OnPizzaPicked" Margin="9,-137,58,261" />

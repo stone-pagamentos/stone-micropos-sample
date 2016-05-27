@@ -12,6 +12,8 @@ namespace GasStation
 	{
 		public const int PINPAD_NUMBER = 2;
 
+		ICollection<GasStationAuthorizer> authorizers;
+
 		/// <summary>
 		/// The window which controls the main screen.
 		/// </summary>
@@ -24,11 +26,11 @@ namespace GasStation
 
 		public void TurnOn ()
 		{
-			ICollection<GasStationAuthorizer> authorizers = GasStationAuthorizer.CreateAll();
+			this.authorizers = GasStationAuthorizer.CreateAll();
 
-			if (authorizers == null) { return; }
+			if (this.authorizers == null) { return; }
 
-			foreach (GasStationAuthorizer authorizer in authorizers)
+			foreach (GasStationAuthorizer authorizer in this.authorizers)
 			{
 				Task.Run(() => this.InitiateFlow(authorizer));
 			}
@@ -99,7 +101,14 @@ namespace GasStation
 
 		public void TurnOff ()
 		{
-
+			Task.Run(() =>
+			{
+				foreach (GasStationAuthorizer authorizer in this.authorizers)
+				{
+					authorizer.Authorizer.PinpadFacade.Communication.CancelRequest();
+					authorizer.Authorizer.PinpadFacade.Communication.ClosePinpadConnection(authorizer.Authorizer.PinpadMessages.MainLabel);
+				}
+			});
 		}
 
 		public bool IsAValidPump (string pumpStr, out int pump)

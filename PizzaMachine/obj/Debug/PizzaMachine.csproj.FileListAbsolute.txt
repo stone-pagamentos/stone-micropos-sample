@@ -39,7 +39,6 @@ C:\buy4-prototype\stone-micropos-sample\PizzaMachine\bin\Debug\Receipt.Sdk.xml
 C:\buy4-prototype\stone-micropos-sample\PizzaMachine\bin\Debug\Receipt.Sdk.Model.xml
 C:\buy4-prototype\stone-micropos-sample\PizzaMachine\bin\Debug\Tms.Sdk.xml
 C:\buy4-prototype\stone-micropos-sample\PizzaMachine\bin\Debug\Tms.Sdk.Model.xml
-C:\buy4-prototype\stone-micropos-sample\PizzaMachine\obj\Debug\PizzaMachine.csprojResolveAssemblyReference.cache
 C:\buy4-prototype\stone-micropos-sample\PizzaMachine\obj\Debug\MainWindow.g.cs
 C:\buy4-prototype\stone-micropos-sample\PizzaMachine\obj\Debug\App.g.cs
 C:\buy4-prototype\stone-micropos-sample\PizzaMachine\obj\Debug\PizzaMachine_MarkupCompile.cache

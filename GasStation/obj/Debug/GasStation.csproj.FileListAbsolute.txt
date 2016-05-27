@@ -56,7 +56,6 @@ C:\buy4-prototype\stone-micropos-sample\GasStation\bin\Debug\Receipt.Sdk.xml
 C:\buy4-prototype\stone-micropos-sample\GasStation\bin\Debug\Receipt.Sdk.Model.xml
 C:\buy4-prototype\stone-micropos-sample\GasStation\bin\Debug\Tms.Sdk.xml
 C:\buy4-prototype\stone-micropos-sample\GasStation\bin\Debug\Tms.Sdk.Model.xml
-C:\buy4-prototype\stone-micropos-sample\GasStation\obj\Debug\GasStation.csprojResolveAssemblyReference.cache
 C:\buy4-prototype\stone-micropos-sample\GasStation\obj\Debug\MainWindow.g.cs
 C:\buy4-prototype\stone-micropos-sample\GasStation\obj\Debug\App.g.cs
 C:\buy4-prototype\stone-micropos-sample\GasStation\obj\Debug\GasStation_MarkupCompile.cache

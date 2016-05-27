@@ -28,7 +28,6 @@ C:\buy4-prototype\stone-micropos-sample\SimpleWpfApp\bin\Debug\Receipt.Sdk.xml
 C:\buy4-prototype\stone-micropos-sample\SimpleWpfApp\bin\Debug\Receipt.Sdk.Model.xml
 C:\buy4-prototype\stone-micropos-sample\SimpleWpfApp\bin\Debug\Tms.Sdk.xml
 C:\buy4-prototype\stone-micropos-sample\SimpleWpfApp\bin\Debug\Tms.Sdk.Model.xml
-C:\buy4-prototype\stone-micropos-sample\SimpleWpfApp\obj\Debug\SimpleWpfApp.csprojResolveAssemblyReference.cache
 C:\buy4-prototype\stone-micropos-sample\SimpleWpfApp\obj\Debug\MainWindow.baml
 C:\buy4-prototype\stone-micropos-sample\SimpleWpfApp\obj\Debug\MainWindow.g.cs
 C:\buy4-prototype\stone-micropos-sample\SimpleWpfApp\obj\Debug\App.g.cs

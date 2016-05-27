@@ -175,6 +175,14 @@ namespace PizzaMachine
 			waitForKeyTask.Start();
 			waitForKeyTask.Wait();
 		}
+		public void CloseAuthorizer ()
+		{
+			Task.Run(() =>
+			{
+				this.authorizer.PinpadFacade.Communication.CancelRequest();
+				this.authorizer.PinpadFacade.Communication.ClosePinpadConnection(this.authorizer.PinpadMessages.MainLabel);
+			});
+		}
 
 		// Internally used:
 		/// <summary>
