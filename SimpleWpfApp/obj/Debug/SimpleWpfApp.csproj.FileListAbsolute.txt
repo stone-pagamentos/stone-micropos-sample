@@ -39,3 +39,4 @@ C:\buy4-prototype\stone-micropos-sample\SimpleWpfApp\obj\Debug\SimpleWpfApp.pdb
 C:\buy4-prototype\stone-micropos-sample\SimpleWpfApp\bin\Debug\MicroPos.CrossPlatform.dll
 C:\buy4-prototype\stone-micropos-sample\SimpleWpfApp\bin\Debug\Buy4.Framework.Portable.xml
 C:\buy4-prototype\stone-micropos-sample\SimpleWpfApp\bin\Debug\MicroPos.CrossPlatform.xml
+C:\buy4-prototype\stone-micropos-sample\SimpleWpfApp\obj\Debug\SimpleWpfApp.csprojResolveAssemblyReference.cache

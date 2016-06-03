@@ -1,10 +1,6 @@
 ﻿using MicroPos.Core;
 using MicroPos.Core.Authorization;
 using Pinpad.Sdk.Model;
-using Poi.Sdk;
-using Poi.Sdk.Authorization;
-using Poi.Sdk.Model._2._0;
-using Poi.Sdk.Model._2._0.TypeCodes;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -182,19 +178,6 @@ namespace PizzaVendingMachine
 			waitForKeyTask.Start();
 			waitForKeyTask.Wait();
 		}
-<<<<<<< HEAD
-		public void CloseAuthorizer ()
-		{
-			Task.Run(() =>
-			{
-				this.authorizer.PinpadFacade.Communication.CancelRequest();
-				this.authorizer.PinpadFacade.Communication.ClosePinpadConnection(this.authorizer.PinpadMessages.MainLabel);
-			});
-		}
-
-		// Internally used:
-=======
->>>>>>> develop
 		/// <summary>
 		/// Closes the authorizer and releases the pinpad.
 		/// </summary>

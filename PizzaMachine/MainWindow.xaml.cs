@@ -29,7 +29,7 @@ namespace PizzaVendingMachine
         public MainWindow()
         {
             InitializeComponent();
-            this.pizzaMachine = new PizzaVendingMachine();
+            this.pizzaMachine = new PizzaMachine();
             this.ChangePizzaButtonState(false);
             Loaded += this.OnBegin;
 			Closing += this.OnClosePizzeria;

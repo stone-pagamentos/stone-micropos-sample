@@ -8,7 +8,7 @@ using MicroPos.Core;
 
 namespace PizzaVendingMachine
 {
-	public class PizzaVendingMachine : IPizzaMachine
+	public class PizzaMachine : IPizzaMachine
 	{
 		// Constants
 		/// <summary>
@@ -34,7 +34,7 @@ namespace PizzaVendingMachine
 		/// <summary>
 		/// Creates all pizzas available.
 		/// </summary>
-		public PizzaVendingMachine()
+		public PizzaMachine()
 		{
 			this.Pizzas = new Collection<Pizza>();
 			this.PizzaAuthorizer = new PizzaAuthorizer();
