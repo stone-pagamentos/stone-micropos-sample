@@ -5,19 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GasStation"
         mc:Ignorable="d"
-        Title="Posto de gasolina (demo)" Height="428.088" Width="596.293"
+        Title="Posto de gasolina (demo)" 
+        Height="428.088" Width="596.293"
         Foreground="ForestGreen"
-        Icon="Images/stone_icon.png" ResizeMode="NoResize"
-        Closed="Window_Closed">
-
-    <!--Icon="C:\buy4-prototype\stone-micropos-sample\GasStation\images\gas.ico" FontFamily="Lucida Console" FontSize="10.667"-->
+        Icon="Images/stone_icon.png" 
+        ResizeMode="NoResize">
 
     <DockPanel Name="uxMain">
-        <!--Header-->
         <Grid Name="UxGridHeader" DockPanel.Dock="Top" Background="#FF286E00" Height="103" Margin="172,0,0,0">
             <TextBlock x:Name="textBlock" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Bomba de gasolina" VerticalAlignment="Top" RenderTransformOrigin="1.435,2.854" Margin="35,49,0,0" Foreground="#FFF4FFF4" FontFamily="Arial Rounded MT Bold" FontSize="21.333"/>
         </Grid>
-        <!--Menu-->
         <Grid Name="UxGridMenu" DockPanel.Dock="Left" Background="White" Width="172" Margin="0,-103,0,0">
             <Image x:Name="image" Source="Images/stone_logo.png" HorizontalAlignment="Left" Height="50" VerticalAlignment="Top" Width="120" Margin="25,17,0,0"/>
             <StackPanel  Margin="0,0,0,-15" Height="200">
@@ -27,7 +24,6 @@
             </StackPanel>
             <TextBlock x:Name="uxLblStatus" HorizontalAlignment="Left" Margin="10,371,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
         </Grid>
-        <!--Body-->
         <Border BorderBrush="#FF286E00" BorderThickness="1">
             <Grid Name="UxGridContent" DockPanel.Dock="Bottom" Height="Auto" Background="White">
                 <Label x:Name="uxLblPump1" Content="bico 1" HorizontalAlignment="Left" Margin="82,44,0,0" VerticalAlignment="Top" FontFamily="Arial Rounded MT Bold" FontSize="16" Foreground="#FF858585"/>
@@ -41,4 +37,5 @@
             </Grid>
         </Border>
     </DockPanel>
+
 </Window>

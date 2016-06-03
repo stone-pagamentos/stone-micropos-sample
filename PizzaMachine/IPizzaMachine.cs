@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace PizzaMachine
+namespace PizzaVendingMachine
 {
 	/// <summary>
 	/// Pizza machine.

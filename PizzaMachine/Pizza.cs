@@ -1,4 +1,4 @@
-﻿namespace PizzaMachine
+﻿namespace PizzaVendingMachine
 {
     /// <summary>
     /// Represents a pizza. Nham.

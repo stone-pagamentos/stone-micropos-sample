@@ -7,7 +7,7 @@ using System.Threading;
 using System.Windows.Threading;
 using System.Threading.Tasks;
 
-namespace PizzaMachine
+namespace PizzaVendingMachine
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

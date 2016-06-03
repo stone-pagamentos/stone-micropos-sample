@@ -55,7 +55,7 @@ namespace SimpleWpfApp
 			PinpadMessages.MainLabel = "Stone Pagamentos";
 			PinpadMessages.ProcessingMessage = "Processando...";
 
-			this.approvedTransactions = new Collection<TransactionModel>();
+			this.approvedTransactions = new Collection<IAuthorizationReport>();
 
 			this.Authorizers = DeviceProvider.GetAll(this.sak, this.authorizationUri, this.tmsUri, PinpadMessages);
 
@@ -146,10 +146,10 @@ namespace SimpleWpfApp
 		/// </summary>
 		/// <param name="sender">Numeric TextBox.</param>
 		/// <param name="e">Text changing arguments.</param>
-		private void PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+		private new void PreviewTextInput (object sender, System.Windows.Input.TextCompositionEventArgs e)
 		{
 			// Regex that matches disallowed text
-			Regex regex = new Regex("[^0-9.-]+"); 
+			Regex regex = new Regex("[^0-9.-]+");
 			e.Handled = regex.IsMatch(e.Text);
 		}
 
@@ -227,7 +227,7 @@ namespace SimpleWpfApp
 			}
 
 			// Seleciona a transação a ser cancelada de acordo com o ATK:
-			TransactionModel transaction = this.approvedTransactions.Where(t => t.AuthorizationTransactionKey == atk).First();
+			IAuthorizationReport transaction = this.approvedTransactions.Where(t => t.AcquirerTransactionKey == atk).First();
 
 			// Cria a requisiçào de cancelamento:
 			CancellationRequest request = CancellationRequest.CreateCancellationRequestByAcquirerTransactionKey(this.sak, atk, transaction.Amount, true);
@@ -245,7 +245,7 @@ namespace SimpleWpfApp
 				// Cancelamento autorizado.
 				// Retira a transação da coleção de transação aprovadas:
 				this.approvedTransactions.Remove(transaction);
-				this.uxCbbxTransactions.Items.Remove(transaction.AuthorizationTransactionKey);
+				this.uxCbbxTransactions.Items.Remove(transaction.AcquirerTransactionKey);
 			}
 
 			this.UpdateTransactions();
@@ -266,9 +266,10 @@ namespace SimpleWpfApp
 				this.Log("Selecione um pinpad.");
 				return;
 			}
-			if (currentAuthorizer.PinpadFacade.Connection.Ping() == true)
+			if (currentAuthorizer.PinpadFacade.Communication.Ping() == true)
 			{
 				this.Log("O pinpad está conectado.");
+				currentAuthorizer.PinpadFacade.Display.ShowMessage(currentAuthorizer.PinpadMessages.MainLabel, null, DisplayPaddingType.Center);
 			}
 			else
 			{
@@ -293,10 +294,10 @@ namespace SimpleWpfApp
 			}
 
 			// Procura a porta serial que tenha um pinpad conectado e tenta estabelecer conexão com ela:
-			currentAuthorizer.PinpadFacade.Connection =  PinpadConnection.GetFirst();
+			bool status = currentAuthorizer.PinpadFacade.Communication.OpenPinpadConnection();
 			
 			// Verifica se conseguiu se conectar:
-			if (currentAuthorizer.PinpadFacade.Connection.IsOpen == true)
+			if (status == true)
 			{
 				this.Log("Pinpad conectado.");
 			}
@@ -437,19 +438,9 @@ namespace SimpleWpfApp
 				this.Log("Um erro ocorreu durante a transação.");
 				return null;
 			}
-			else
-			{
-				///response.respon
 
-				if (response.WasApproved == true)
-				{
-					this.Log("transação aprovada");
-				}
-				else
-				{
-					this.Log("transação negada " + response.ResponseCode + " " + response.ResponseReason);
-				}
-			}
+			// Handle poi response:
+			this.VerifyPoiResponse(response);
 
 			// Loga as mensagens de request e response enviadas e recebidas do autorizador da Stone:
 			this.LogTransaction(response);
@@ -483,14 +474,11 @@ namespace SimpleWpfApp
 					}
 				}
 
-				// Cria uma instancia de transaçào aprovada:
-				TransactionModel approvedTransaction = TransactionModel.Create(report);
-
 				// Salva em uma collection:
-				this.approvedTransactions.Add(approvedTransaction);
+				this.approvedTransactions.Add(report);
 
 				// Adiciona o ATK (identificador unico da transação) ao log:
-				this.uxCbbxTransactions.Items.Add(approvedTransaction.AuthorizationTransactionKey);
+				this.uxCbbxTransactions.Items.Add(report.AcquirerTransactionKey);
 			}
 			else
 			{

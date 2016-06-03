@@ -56,7 +56,7 @@ namespace GasStation
 		/// </summary>
 		/// <param name="sender">Numeric TextBox.</param>
 		/// <param name="e">Text changing arguments.</param>
-		private void PreviewTextInput (object sender, System.Windows.Input.TextCompositionEventArgs e)
+		private new void PreviewTextInput (object sender, System.Windows.Input.TextCompositionEventArgs e)
 		{
 			// Regex that matches disallowed text
 			Regex regex = new Regex("[^0-9.-]+");

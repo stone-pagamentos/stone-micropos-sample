@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Pinpad.Sdk.Model;
 using MicroPos.Core;
 
-namespace PizzaMachine
+namespace PizzaVendingMachine
 {
 	public class PizzaVendingMachine : IPizzaMachine
 	{
@@ -111,7 +111,7 @@ namespace PizzaMachine
 		/// </summary>
 		public void TurnOff ()
 		{
-			this.PizzaAuthorizer.ShowSomething("pizza machine", "is OFF", DisplayPaddingType.Center, false);
+			this.PizzaAuthorizer.CloseAuthorizer();
 		}
 	}
 }

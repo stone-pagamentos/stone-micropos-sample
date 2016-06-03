@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaMachine", "PizzaMachine\PizzaMachine.csproj", "{E00EE72D-7F30-47A8-887D-1C9F67A69CD5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaVendingMachine", "PizzaMachine\PizzaVendingMachine.csproj", "{E00EE72D-7F30-47A8-887D-1C9F67A69CD5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleWpfApp", "SimpleWpfApp\SimpleWpfApp.csproj", "{23B7614C-A159-4617-A7D9-2D795D6D5AAC}"
 EndProject
