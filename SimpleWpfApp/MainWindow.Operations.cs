@@ -21,19 +21,18 @@ namespace SimpleWpfApp
 		/// <summary>
 		/// All transactions approved.
 		/// </summary>
-		private Collection<TransactionModel> approvedTransactions;
+		private Collection<IAuthorizationReport> approvedTransactions;
 		internal DisplayableMessages PinpadMessages;
 
-
-		private string authorizationUri = ConfigurationSettings.AppSettings ["ProductionAuthorizerUri"];
-		private string tmsUri = ConfigurationSettings.AppSettings ["ProductionTmsUri"];
-		private string sak = ConfigurationSettings.AppSettings ["ProductionSak"];
+		private string authorizationUri = ConfigurationManager.AppSettings ["ProductionAuthorizerUri"];
+		private string tmsUri = ConfigurationManager.AppSettings ["ProductionTmsUri"];
+		private string sak = ConfigurationManager.AppSettings ["ProductionSak"];
 		private readonly string logFilePath = ConfigurationManager.AppSettings ["logPath"];
 		// Methods
 		/// <summary>
 		/// Writes on log.
 		/// </summary>
-		/// <param name="log">Message to be logged.</param>
+		/// <param name="log">Message to be logged.</param>07311324
 		private void Log(string log, params object[] args)
 		{
 			string message = string.Format(log, args);

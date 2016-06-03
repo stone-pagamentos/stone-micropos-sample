@@ -11,7 +11,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
-namespace PizzaMachine
+namespace PizzaVendingMachine
 {
 	/// <summary>
 	/// Pizza authorizer.
@@ -21,12 +21,12 @@ namespace PizzaMachine
 		/// <summary>
 		/// Authorization provider.
 		/// </summary>
-		private CardPaymentAuthorizer authorizer;
+		private ICardPaymentAuthorizer authorizer;
 
 		/// <summary>
 		/// Collection of bougth pizzas.
 		/// </summary>
-		public ICollection<TransactionModel> BoughtPizzas { get; private set; }
+		public ICollection<IAuthorizationReport> BoughtPizzas { get; private set; }
 		/// <summary>
 		/// Messages presented on pinpad screen.
 		/// </summary>
@@ -50,7 +50,7 @@ namespace PizzaMachine
 		/// </summary>
 		public PizzaAuthorizer()
 		{
-			this.BoughtPizzas = new Collection<TransactionModel>();
+			this.BoughtPizzas = new Collection<IAuthorizationReport>();
 
 			// Creates all pinpad messages:
 			this.PizzaMachineMessages = new DisplayableMessages();
@@ -62,7 +62,7 @@ namespace PizzaMachine
 
 			// Establishes connection with the pinpad.
 			MicroPos.Platform.Desktop.DesktopInitializer.Initialize();
-			this.authorizer = new CardPaymentAuthorizer(this.SaleAffiliationKey, this.AuthorizationUri, this.ManagementUri, null, this.PizzaMachineMessages);
+			this.authorizer = DeviceProvider.GetOneOrFirst(this.SaleAffiliationKey, this.AuthorizationUri, this.ManagementUri, this.PizzaMachineMessages);
 
 			// Attach event to read all transaction status:
 			this.authorizer.OnStateChanged += this.OnStatusChange; 
@@ -90,7 +90,24 @@ namespace PizzaMachine
 			do
 			{
 				readingStatus = this.authorizer.ReadCard(out cardRead, transaction);
+				if (readingStatus == ResponseStatus.Ok && transaction.Type == TransactionType.Undefined)
+				{
+					transaction.Type = this.GetManualTransactionType();
+				}
 			} while (readingStatus != ResponseStatus.Ok);
+		}
+		private TransactionType GetManualTransactionType ()
+		{
+			PinpadKeyCode key;
+
+			do
+			{
+				this.authorizer.PinpadFacade.Display.ShowMessage("F1 - Credito", "F2 - Debito", DisplayPaddingType.Center);
+				key = this.authorizer.PinpadFacade.Keyboard.GetKey();
+			}
+			while (key != PinpadKeyCode.Function1 && key != PinpadKeyCode.Function2);
+
+			return (key == PinpadKeyCode.Function1) ? TransactionType.Credit : TransactionType.Debit;
 		}
 		/// <summary>
 		/// Reads the card password.
@@ -119,33 +136,23 @@ namespace PizzaMachine
 			}
 
 			// Tries to authorize the transaction:
-			PoiResponseBase response = this.authorizer.SendAuthorization(card, transaction, pin);
-			
+			IAuthorizationReport report = this.authorizer.SendAuthorizationAndGetReport(card, transaction, pin);
+
 			// Verifies if there were any return:
-			if (response == null) { return false; }
+			if (report == null) { return false; }
 
 			// Verifies authorization response:
-			if (response.Rejected == false && (response as AuthorizationResponse).Approved == true)
+			if (report.WasApproved == true)
 			{
 				// The transaction was approved:
-				this.BoughtPizzas.Add(TransactionModel.Create(transaction, card, response as AuthorizationResponse));
+				this.BoughtPizzas.Add(report);
 				authorizationMessage = "Transação aprovada";
 				return true;
 			}
 			else
 			{
-				// The transaction was rejected or declined:
-				if (response.Rejected == true && response is Rejection)
-				{
-					// Transaction was rejected:
-					authorizationMessage = "Transação rejeitada";
-				}
-				else if (this.WasDeclined(response.OriginalResponse as AcceptorAuthorisationResponse) == true)
-				{
-					// Transaction was declined:
-					authorizationMessage = this.GetDeclinedMessage(response.OriginalResponse as AcceptorAuthorisationResponse);
-				}
-
+				// Transaction was declined:
+				authorizationMessage = string.Format("({0}) {1}", report.ResponseCode, report.ResponseReason);
 				return false;
 			}
 		}
@@ -175,32 +182,19 @@ namespace PizzaMachine
 			waitForKeyTask.Start();
 			waitForKeyTask.Wait();
 		}
+		/// <summary>
+		/// Closes the authorizer and releases the pinpad.
+		/// </summary>
+		public void CloseAuthorizer ()
+		{
+			Task.Run(() =>
+			{
+				this.authorizer.PinpadFacade.Communication.CancelRequest();
+				this.authorizer.PinpadFacade.Communication.ClosePinpadConnection(this.authorizer.PinpadMessages.MainLabel);
+			});	
+		}
 
 		// Internally used:
-		/// <summary>
-		/// Verifies if the authorization was declined or not.
-		/// </summary>
-		/// <param name="response">Authorization response.</param>
-		/// <returns>If the authorization was declined or not.</returns>
-		private bool WasDeclined(AcceptorAuthorisationResponse response)
-		{
-			if (response == null) { return true; }
-
-			return response.Data.AuthorisationResponse.TransactionResponse.AuthorisationResult.ResponseToAuthorisation.Response != ResponseCode.Approved;
-		}
-		/// <summary>
-		/// Gets the message returned by the POI in case of a declined authorization.
-		/// </summary>
-		/// <param name="response">Response from the POI.</param>
-		/// <returns>Declining message.</returns>
-		private string GetDeclinedMessage(AcceptorAuthorisationResponse response)
-		{
-			if (response == null) { return ""; }
-
-			return string.Format("{0} (ERRO: {1})",
-				response.Data.AuthorisationResponse.TransactionResponse.AuthorisationResult.ResponseToAuthorisation.ResponseReason,
-				(int)response.Data.AuthorisationResponse.TransactionResponse.AuthorisationResult.ResponseToAuthorisation.Response);
-		}
 		/// <summary>
 		/// Executed when the authorization status change.
 		/// </summary>

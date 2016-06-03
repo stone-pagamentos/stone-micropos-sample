@@ -14,7 +14,7 @@ namespace GasStation
 {
 	public class GasStationAuthorizer
 	{
-		public CardPaymentAuthorizer Authorizer;
+		public ICardPaymentAuthorizer Authorizer;
 
 		/// <summary>
 		/// SAK. 
@@ -29,20 +29,19 @@ namespace GasStation
 		/// </summary>
 		public const string ManagementUri = "https://tmsproxy.stone.com.br";
 
-		private GasStationAuthorizer (CardPaymentAuthorizer authorizer)
+		private GasStationAuthorizer (ICardPaymentAuthorizer authorizer)
 		{
 			this.Authorizer = authorizer;
 		}
 		public static ICollection<GasStationAuthorizer> CreateAll ()
 		{
-			ICollection<CardPaymentAuthorizer> authorizers = CardPaymentAuthorizer.GetAllDevices(SaleAffiliationKey, AuthorizationUri, ManagementUri, new DisplayableMessages() { ApprovedMessage = "Aprovada", DeclinedMessage = "Negada", InitializationMessage = "Iniciando...", MainLabel = "Stone Pagamentos", ProcessingMessage = "Processando..." });
+			ICollection<ICardPaymentAuthorizer> authorizers = DeviceProvider.GetAll(SaleAffiliationKey, AuthorizationUri, ManagementUri, new DisplayableMessages() { ApprovedMessage = "Aprovada", DeclinedMessage = "Negada", InitializationMessage = "Iniciando...", MainLabel = "Stone Pagamentos", ProcessingMessage = "Processando..." });
 
-			if (authorizers == null || authorizers.Count <= 0)
-			{ return null; }
+			if (authorizers == null || authorizers.Count <= 0) { return null; }
 
 			ICollection<GasStationAuthorizer> gasAuthorizers = new List<GasStationAuthorizer>();
 
-			foreach (CardPaymentAuthorizer authorizer in authorizers)
+			foreach (ICardPaymentAuthorizer authorizer in authorizers)
 			{
 				gasAuthorizers.Add(new GasStationAuthorizer(authorizer));
 			}
@@ -69,19 +68,37 @@ namespace GasStation
 				{
 					readingStatus = this.Authorizer.ReadCard(out cardRead, transaction);
 
+					if (readingStatus == ResponseStatus.Ok && transaction.Type == TransactionType.Undefined)
+					{
+						transaction.Type = this.GetManualTransactionType();
+					}
+
 					if (readingStatus == ResponseStatus.OperationCancelled)
 					{
 						cardRead = null;
 						return;
 					}
 				}
-				catch (ExpiredCardException)
+				catch (Exception)
 				{
 					//this.ShowSomething(string.Empty, "cartao expirado", DisplayPaddingType.Center, true);
 					cardRead = null;
 					return;
 				}
 			} while (readingStatus != ResponseStatus.Ok);
+		}
+		private TransactionType GetManualTransactionType ()
+		{
+			PinpadKeyCode key;
+
+			do
+			{
+				this.Authorizer.PinpadFacade.Display.ShowMessage("Enter - Credito", "Clear - Debito", DisplayPaddingType.Center);
+				key = this.Authorizer.PinpadFacade.Keyboard.GetKey();
+			}
+			while (key != PinpadKeyCode.Return && key != PinpadKeyCode.Backspace);
+
+			return (key == PinpadKeyCode.Return) ? TransactionType.Credit : TransactionType.Debit;
 		}
 		/// <summary>
 		/// Show something in pinpad display.
@@ -126,28 +143,25 @@ namespace GasStation
 			// Tries to read the card password:
 			try
 			{
-				if (this.Authorizer.ReadPassword(out pin, card, transaction.Amount) != ResponseStatus.Ok)
-				{ return false; }
+				if (this.Authorizer.ReadPassword(out pin, card, transaction.Amount) != ResponseStatus.Ok) { return false; }
 			}
 			catch (Exception) { return false; }
 
 			// Tries to authorize the transaction:
-			PoiResponseBase response = this.Authorizer.SendAuthorization(card, transaction, pin);
+			IAuthorizationReport report = this.Authorizer.SendAuthorizationAndGetReport(card, transaction, pin);
 
 			// Verifies if there were any return:
-			if (response == null)
-			{ return false; }
+			if (report == null) { return false; }
 
 			// Verifies authorization response:
-			if (response.Rejected == false && (response as AuthorizationResponse).Approved == true)
+			if (report.WasApproved == true)
 			{
 				// The transaction was approved:
-				//this.BoughtPizzas.Add(TransactionModel.Create(transaction, card, response as AuthorizationResponse));
 				authorizationMessage = "Transação aprovada";
 
 				Task.Run(() =>
 				{
-					CancellationRequest r = CancellationRequest.CreateCancellationRequest(SaleAffiliationKey, (response as AuthorizationResponse));
+					CancellationRequest r = CancellationRequest.CreateCancellationRequest(SaleAffiliationKey, (report.RawResponse as AuthorizationResponse));
 					this.Authorizer.AuthorizationProvider.SendRequest(r);
 				});
 
@@ -156,50 +170,9 @@ namespace GasStation
 			else
 			{
 				// The transaction was rejected or declined:
-				if (response.Rejected == true && response is Rejection)
-				{
-					// Transaction was rejected:
-					authorizationMessage = "Transação rejeitada";
-				}
-				else if (this.WasDeclined(response.OriginalResponse as AcceptorAuthorisationResponse) == true)
-				{
-					// Transaction was declined:
-					authorizationMessage = this.GetDeclinedMessage(response.OriginalResponse as AcceptorAuthorisationResponse);
-				}
-
+				authorizationMessage = string.Format("({0}) {1}", report.ResponseCode, report.ResponseReason);
 				return false;
 			}
-
-			return false;
 		}
-		
-		// Internally used:
-		/// <summary>
-		/// Verifies if the authorization was declined or not.
-		/// </summary>
-		/// <param name="response">Authorization response.</param>
-		/// <returns>If the authorization was declined or not.</returns>
-		private bool WasDeclined (AcceptorAuthorisationResponse response)
-		{
-			if (response == null)
-			{ return true; }
-
-			return response.Data.AuthorisationResponse.TransactionResponse.AuthorisationResult.ResponseToAuthorisation.Response != ResponseCode.Approved;
-		}
-		/// <summary>
-		/// Gets the message returned by the POI in case of a declined authorization.
-		/// </summary>
-		/// <param name="response">Response from the POI.</param>
-		/// <returns>Declining message.</returns>
-		private string GetDeclinedMessage (AcceptorAuthorisationResponse response)
-		{
-			if (response == null)
-			{ return ""; }
-
-			return string.Format("{0} (ERRO: {1})",
-				response.Data.AuthorisationResponse.TransactionResponse.AuthorisationResult.ResponseToAuthorisation.ResponseReason,
-				(int) response.Data.AuthorisationResponse.TransactionResponse.AuthorisationResult.ResponseToAuthorisation.Response);
-		}
-
 	}
 }
