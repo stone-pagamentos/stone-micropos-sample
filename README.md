@@ -245,4 +245,96 @@ CancellationRequest cancelRequest = CancellationRequest.
 authorizer.AuthorizationProvider.SendRequest(cancelRequest);
 ```
 
-## Duvidas? Entre em contato: [devmicrotef@stone.com.br](mailto:devmicrotef@stone.com.br) :octopus:
+### :trophy: Boa prática: desconecte o pinpad
+
+```csharp
+Task.Run(() =>
+{
+    // Cancela  o ultimo comando do pinpad:
+	this.authorizer.PinpadFacade.Communication.CancelRequest();
+	
+	// Desconecta:
+	this.authorizer.PinpadFacade.Communication.ClosePinpadConnection(this.authorizer.
+	    PinpadMessages.MainLabel);
+});
+```
+
+### Envio de Comprovantes
+Esta SDK implementa emissão de comprovante (*vulgo: notinha*) de operações como: Transação, Cancelamento de Transação e Ativação de Terminal.
+
+**Utilizando esta funcionalidade**
+
+- Para um e-mail de ativação:
+
+```csharp
+IReceiptService service = ReceiptFactory.Build(ReceiptType.Activation, "garrick.ollivander@ollivanders.com.uk");
+
+ActivationBodyParameters parameters = new ActivationBodyParameters
+{
+    CompanyName = "Ollivanders",
+    CompanyAddress = "Diagon Alley",
+    CompanyLegalIdentification = "000.000.000-00",
+    CompanyStoneCode = "000 000 000"
+};
+
+service.AddBodyParameters(parameters);
+service.Send();
+```
+
+- Para um e-mail de transação:
+
+```csharp
+IReceiptService service = ReceiptFactory.Build(ReceiptType.Transaction, "garrick.ollivander@ollivanders.com.uk");
+
+FinancialOperationParameters parameters = new FinancialOperationParameters
+{
+    CardBrand = "MASTER - DEBITO",
+    ClientMaskedCardNumber = "1234 **** **** 7890",
+    ClientName = "Garrick Ollivander",
+    CompanyName = "Ollivanders",
+    CompanyAddress = "Diagon Alley",
+    CompanyTaxDocumentNumber = "123098",
+    DisplayAidArqc = true,
+    DisplayCompanyInformation = true,
+    TransactionAid = "123456",
+    TransactionAmount = 0.02m,
+    TransactionArqc = "1234567890",
+    TransactionDateTime = DateTime.Now,
+    TransactionStoneId = "12345678"
+};
+
+service.AddBodyParameters(parameters);
+service.Send();
+```
+
+- Para um e-mail de cancelamento de transação:
+
+```csharp
+IReceiptService service = ReceiptFactory.Build(ReceiptType.Cancellation, "garrick.ollivander@ollivanders.com.uk");
+
+FinancialOperationParameters parameters = new FinancialOperationParameters
+{
+    CardBrand = "MASTER - DEBITO",
+    ClientMaskedCardNumber = "1234 **** **** 7890",
+    ClientName = "Garrick Ollivander",
+    CompanyName = "Ollivanders",
+    CompanyAddress = "Diagon Alley",
+    CompanyTaxDocumentNumber = "123098",
+    DisplayAidArqc = true,
+    DisplayCompanyInformation = true,
+    TransactionAid = "123456",
+    TransactionAmount = 0.02m,
+    TransactionArqc = "1234567890",
+    TransactionDateTime = DateTime.Now,
+    TransactionStoneId = "12345678"
+};
+
+service.AddBodyParameters(parameters);
+service.Send();
+```
+
+
+## Duvidas? 
+Entre em contato: [devmicrotef@stone.com.br](mailto:devmicrotef@stone.com.br) 
+
+:octopus:
