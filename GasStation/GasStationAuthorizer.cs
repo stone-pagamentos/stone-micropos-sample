@@ -1,11 +1,7 @@
 ﻿using MicroPos.Core;
 using Pinpad.Sdk.Model;
-using Pinpad.Sdk.Model.Exceptions;
-using Poi.Sdk;
 using Poi.Sdk.Authorization;
 using Poi.Sdk.Cancellation;
-using Poi.Sdk.Model._2._0;
-using Poi.Sdk.Model._2._0.TypeCodes;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

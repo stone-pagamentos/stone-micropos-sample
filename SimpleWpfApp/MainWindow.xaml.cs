@@ -402,7 +402,9 @@ namespace SimpleWpfApp
 				transactionType = TransactionType.Credit;
 
 				// Cria o parcelamento:
-				installment.Number = Int16.Parse(this.uxTbxInstallmentNumber.Text);
+				short number = 0;
+				Int16.TryParse(this.uxTbxInstallmentNumber.Text, out number);
+				installment.Number = number;
 				installment.Type = (this.uxOptionIssuerInstallment.IsChecked == true) ? InstallmentType.Issuer : InstallmentType.Merchant;
 			}
 			else
