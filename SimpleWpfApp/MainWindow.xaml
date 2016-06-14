@@ -43,7 +43,7 @@
                 </Grid>
 
             </TabItem>
-            <TabItem Margin="27,-2,-77,0" Header="Pinpad">
+            <TabItem Margin="27,-2,-77,0" Header="Pinpad" HorizontalAlignment="Left" Width="100">
                 <Grid Margin="0,0,-2,0">
                     <Label MaxWidth="400" Margin="5,2.5" FontFamily="Tahoma">
                         <TextBlock TextWrapping="Wrap" Width="309"><Run Text="Envia uma mensagem para a tela do pinpad. O pinpad suporta duas mensagens, cada uma com no máximo 16 caracteres"/><InlineUIContainer>
@@ -63,7 +63,14 @@
                     <CheckBox Name="uxOptionWaitForKey" Content="Esperar por tecla?" Margin="103,301,106,102" />
                 </Grid>
             </TabItem>
-            <TabItem Header="Outros" Margin="77,-2,-81,0">
+            <TabItem Header="Ativação" Margin="27,-2,-31,0">
+                <Grid Margin="0,0,-2,0">
+                    <Label Content="StoneCode" HorizontalAlignment="Left" Margin="107,118,0,0" VerticalAlignment="Top" Width="109" FontFamily="Arial Rounded MT Bold" FontSize="16" Foreground="#FF7A7A7A" Height="29"/>
+                    <TextBox Name="uxTbxStoneCode" HorizontalAlignment="Left" Height="23" Margin="70,160,0,0" MaxLength="16" VerticalAlignment="Top" Width="183"/>
+                    <Button x:Name="uxBtnActivation" Click="OnActivation" Content="Ativar" HorizontalAlignment="Left" Margin="107,221,0,0" VerticalAlignment="Top" Width="100" Background="#FF0C8000" BorderBrush="#FF00AE08" Foreground="White" Height="30" RenderTransformOrigin="0.421,1.8" FontFamily="Gotham Bold"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Outros" Margin="31,-2,-35,0">
                 <Grid Margin="0,0,-2,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="55*"/>

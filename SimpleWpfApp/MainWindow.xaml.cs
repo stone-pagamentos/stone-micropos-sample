@@ -22,6 +22,8 @@ using System.IO;
 using System.Text;
 using System.Reflection;
 using System.Threading.Tasks;
+using Tms.Sdk;
+using Tms.Sdk.Model;
 
 namespace SimpleWpfApp
 {
@@ -47,6 +49,8 @@ namespace SimpleWpfApp
 			// Inicializa a plataforma desktop:
 			MicroPos.Platform.Desktop.DesktopInitializer.Initialize();
 
+			this.Tms = TmsProvider.Get(this.tmsUri);
+
 			// Constrói as mensagens que serão apresentadas na tela do pinpad:
 			this.PinpadMessages = new DisplayableMessages();
 			PinpadMessages.ApprovedMessage = ":-)";
@@ -59,6 +63,7 @@ namespace SimpleWpfApp
 
 			this.Authorizers = DeviceProvider.GetAll(this.sak, this.authorizationUri, this.tmsUri, PinpadMessages);
 
+			this.uxCbbxAllPinpads.Items.Clear();
 			foreach (ICardPaymentAuthorizer c in this.Authorizers)
 			{
 				this.uxCbbxAllPinpads.Items.Add(c.PinpadFacade.Infos.SerialNumber);
@@ -384,7 +389,11 @@ namespace SimpleWpfApp
 				this.uxCbbxAllPinpads.Items.Add(c.PinpadFacade.Infos.SerialNumber);
 			}
 		}
-
+		/// <summary>
+		/// Pega o tipo de parcelamento e o tipo de transação (débito, crédito).
+		/// </summary>
+		/// <param name="transactionType">Tipo da transação.</param>
+		/// <returns>Opções de parcelmamento.</returns>
 		private Installment GetInstallment (out TransactionType transactionType)
 		{
 			Installment installment = new Installment();
@@ -414,6 +423,11 @@ namespace SimpleWpfApp
 
 			return installment;
 		}
+		/// <summary>
+		/// Envia a transação para a SDK da Stone.
+		/// </summary>
+		/// <param name="transaction">Transação a ser capturada.</param>
+		/// <returns>Report da transação.</returns>
 		private IAuthorizationReport SendRequest (ITransactionEntry transaction)
 		{
 			ICardPaymentAuthorizer currentAuthorizer = this.GetCurrentPinpad();
@@ -451,6 +465,11 @@ namespace SimpleWpfApp
 
 			return response;
 		}
+		/// <summary>
+		/// Verifica a resposta do autorizador. Se a transação foi bem sucedida,
+		/// grava a transação na lista da transações da classe.
+		/// </summary>
+		/// <param name="report">Resposta do autorizador.</param>
 		private void VerifyPoiResponse (IAuthorizationReport report)
 		{
 			if (report == null) { return; }
@@ -488,7 +507,10 @@ namespace SimpleWpfApp
 				this.Log(report.ResponseCode + " " + report.ResponseReason);
 			}
 		}
-
+		/// <summary>
+		/// Loga o XML da transação em um arquivo definido pelo app.config.
+		/// </summary>
+		/// <param name="report">Resposta do autorizador.</param>
 		private void LogTransaction (IAuthorizationReport report)
 		{
 			if (string.IsNullOrEmpty(this.logFilePath) == true || Directory.Exists(this.logFilePath) == false)
@@ -507,7 +529,9 @@ namespace SimpleWpfApp
 
 			valor.Close();
 		}
-
+		/// <summary>
+		/// Atualiza o combobox com as transações autorizadas.
+		/// </summary>
 		private void UpdateTransactions ()
 		{
 			if (this.uxCbbxTransactions.Items.Count > 0)
@@ -519,6 +543,10 @@ namespace SimpleWpfApp
 				this.uxBtnCancelTransaction.IsEnabled = false;
 			}
 		}
+		/// <summary>
+		/// Retorna o pinpad selecionado.
+		/// </summary>
+		/// <returns></returns>
 		private ICardPaymentAuthorizer GetCurrentPinpad ()
 		{
 			if (string.IsNullOrEmpty(this.uxCbbxAllPinpads.Text) == true)
@@ -528,6 +556,12 @@ namespace SimpleWpfApp
 
 			return this.Authorizers.First(p => p.PinpadFacade.Infos.SerialNumber == this.uxCbbxAllPinpads.Text);
 		}
+		/// <summary>
+		/// Mapeia os dados sobra a transação (retornados na resposta do autorizador)
+		/// para criar um recibo virtual (para ser mandado por email).
+		/// </summary>
+		/// <param name="report">Resposta do autorizador.</param>
+		/// <returns>Parametros para criar o recibo virtual.</returns>
 		private FinancialOperationParameters GetReceipt (IAuthorizationReport report)
 		{
 			FinancialOperationParameters param = new FinancialOperationParameters();
@@ -544,7 +578,11 @@ namespace SimpleWpfApp
 
 			return param;
 		}
-
+		/// <summary>
+		/// Chamado quando a aplicação é fechada.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void Window_Closed (object sender, EventArgs e)
 		{
 			Task.Run(() =>
@@ -555,6 +593,51 @@ namespace SimpleWpfApp
 				   authorizer.PinpadFacade.Communication.ClosePinpadConnection(authorizer.PinpadMessages.MainLabel);
 			   }
 		   });
+		}
+		/// <summary>
+		/// Chamado quando o botão da ativação é clicado.
+		/// Se o StoneCode digitado for válido, inicia uma ativação.
+		/// Se a ativação for bem sucedida, atualiza o SAK da aplicação
+		/// pelo novo SAK e atualiza toda a lista de pinpads conectados 
+		/// para usarem o mesmo SAK.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void OnActivation (object sender, RoutedEventArgs e)
+		{
+			this.uxLog.Items.Clear();
+
+			if (string.IsNullOrEmpty(this.uxTbxStoneCode.Text) == true)
+			{
+				this.Log("StoneCode inválido");
+			}
+			else
+			{
+				IActivationReport report = this.Tms.Activate(this.uxTbxStoneCode.Text);
+
+				if (report != null)
+				{
+					if (report.WasSuccessful == true)
+					{
+						this.Log(report.CompanyName);
+						this.Log(report.Address.ToString());
+						this.Log(report.IdentityCode);
+						this.Log(report.SaleAffiliationKey);
+
+						this.sak = report.SaleAffiliationKey;
+						this.Setup(null, new RoutedEventArgs());
+					}
+					else
+					{
+						this.Log("Não foi possível ativar.");
+						this.Log("{0} - {1}", report.ResponseCode, report.ResponseReason);
+					}
+				}
+				else
+				{
+					this.Log("Algo deu errado.");
+				}
+			}
 		}
 	}
 }

@@ -102,204 +102,6 @@
             <returns>DownloadResponse instance</returns>
             <exception cref="T:System.InvalidOperationException">Thrown when one or more parameters are invalid. Inner exception is set with parameter details.</exception>
         </member>
-        <member name="T:Tms.Sdk.Download.Entry.TmsAid">
-            <summary>
-            Application Identifier.
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Download.Entry.TmsAid.AcquirerNumber">
-            <summary>
-            Acquirer identifier. Responsible for the AID table (in ABECS, Stone is represented by "8").
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Download.Entry.TmsAid.ApplicationId">
-            <summary>
-            Application Identifier (AID).
-            AID – Application.
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Download.Entry.TmsAid.TefBrandId">
-            <summary>
-            Brand identification in BrandTable.
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Download.Entry.TmsAid.ApplicationName">
-            <summary>
-            Application name.
-            Preferred mnemonic associated with the AID.
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Download.Entry.TmsAid.AidLength">
-            <summary>
-            AID field length.
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Download.Entry.TmsAid.Priority">
-            <summary>
-            Indicates the priority of a given application or group of applications in a directory
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Download.Entry.TmsAid.TargetPercentage">
-            <summary>
-            Target Percentage to be Used for Random Selection
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Download.Entry.TmsAid.MaximumTargetPercentage">
-            <summary>
-            Maximum Target Percentage to be used for Biased Random Selection:
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Download.Entry.TmsAid.FloorLimit">
-            <summary>
-            Indicates the floor limit in the terminal in conjunction with the AID.
-            In case of Brazil, represented at centavo.
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Download.Entry.TmsAid.TerminalActionCodeDenial">
-            <summary>
-            Terminal Action Code – Denial.
-            - This specifies the terminal's conditions to reject a transaction.
-            - Specifies the acquirer’s conditions that cause the denial of a transaction without attempt to go online
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Download.Entry.TmsAid.TerminalActionCodeDefault">
-            <summary>
-            Terminal Action Code – Default.
-            Specifies the acquirer’s conditions that cause a transaction to be rejected if it might have been approved online, but the terminal is unable to process the transaction online
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Download.Entry.TmsAid.TerminalActionCodeOnline">
-            <summary>
-            Terminal Action Code – Online.
-            - Specifies the acquirer’s conditions that cause a transaction to be transmitted online
-            - This specifies the terminals's conditions to approve a transaction online.
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Download.Entry.TmsAid.DefaultDynamicDataObjectList">
-            <summary>
-            Default Dynamic Data Authentication Data Object List
-            
-            The DDOL is a list of data that the card requires if the DDA (Dynamic Data Authentication of card and terminal data to verify that the card application and data are genuine.)
-            method is used during Data Authentication, and the terminal may also store a default DDOL that can be used if the DDOL is not present in the data from the card.
-            The terminal uses the DOL processing rules to format the requested data and then sends it to the card in the Internal Authenticate command.
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Download.Entry.TmsAid.DefaultTransactionDataObjectList">
-            <summary>
-            Default Transaction Certificate Data Object List:
-            The TDOL is a list of data that the terminal must use as the input when it needs to calculate a transaction cryptogram hash, 
-            and the terminal may also store a default TDOL that can be used if the TDOL is not present in the data from the card. 
-            The terminal uses the DOL (Data Object List) processing rules to format the requested data, but this is only required 
-            if the transaction cryptogram hash is required by either of the CDOL.
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Download.Entry.TmsAid.ApplicationVersion">
-            <summary>
-            Application version number. (TAG 9F09)
-            Version number assigned by the payment system for the application.
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Download.Entry.TmsAid.AidIndex">
-            <summary>
-            Recorder index in this table (from "01" to "99").
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Download.Entry.TmsAid.ApplicationType">
-            <summary>
-            Application type (from "01" to "98").
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Download.Entry.TmsAid.TerminalCountryCode">
-            <summary>
-            Terminal country code. (TAG 9F1A)
-            Indicates the country of the terminal, represented according to ISO 3166
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Download.Entry.TmsAid.TerminalCurrencyCode">
-            <summary>
-            Transaction Currency Code. (TAG 5F36)
-            Indicates the currency in which the account is managed according to ISO 4217
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Download.Entry.TmsAid.TerminalCurrencyExponent">
-            <summary>
-            Transaction Currency Exponent. (TAG 5F36)
-            Indicates the implied position of the decimal point from the right of the amount represented according to ISO 4217.
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Download.Entry.TmsAid.AdditionalTerminalCapabilities">
-            <summary>
-            Additional Terminal Capabilities. (TAG 9F40)
-            Indicates the data input and output capabilities of the terminal
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Download.Entry.TmsAid.TerminalType">
-            <summary>
-            Terminal Type. (TAG 9F35)
-            Indicates the environment of the terminal, its communications capability, and its operational control
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Download.Entry.TmsAid.ContactlessZeroAmount">
-            <summary>
-            Indicated an action to Contactless Module if reset ("0") transaction amount.
-            - false: unsupported;
-            - true: support, but only online.
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Download.Entry.TmsAid.ContactlessMode">
-            <summary>
-            Contactless mode.
-            Terminal capability to the referred AID, in case it's located in a CTLS.
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Download.Entry.TmsAid.ContactlessTransactionLimit">
-            <summary>
-            Terminal/Reader Contactless Transaction Limit.
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Download.Entry.TmsAid.ContactlessFloorLimit">
-            <summary>
-            Terminal/Reader Contactless Floor Limit.
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Download.Entry.TmsAid.ContactlessCvmLimit">
-            <summary>
-            Terminal/Reader CVM (Cardholder Verification Method) Required Limit 
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Download.Entry.TmsAid.ContactlessApplicationVersion">
-            <summary>
-            Contactless Application Version. (TAG 9F6D)
-            PayPass Mag Stripe Application Version Number (Terminal).
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Download.Entry.TmsAid.MerchantId">
-            <summary>
-            Merchant Identifier. (TAG 9F16)
-            When concatenated with the Acquirer Identifier, uniquely identifies a given merchant
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Download.Entry.TmsAid.TerminalId">
-            <summary>
-            Terminal Identification. (TAG 9F1C)
-            When concatenated with the Acquirer Identifier, uniquely identifies a given merchant
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Download.Entry.TmsAid.MerchantCategoryCode">
-            <summary>
-            Merchant Category Code. (TAG 9F15)
-            Classifies the type of business being done by the merchant, represented according to ISO 8583:1993 for Card Acceptor Business Code.
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Download.Entry.TmsAid.TerminalCapabilities">
-            <summary>
-            Terminal Capabilities. (TAG 9F33)
-            Indicates:
-                - the card data input,
-                - CVM: Carholder Verification Method
-                - security capabilities of the terminal.
-            </summary>
-        </member>
         <member name="T:Tms.Sdk.Download.Entry.TmsBinRange">
             <summary>
             Represents a specific BIN in <see cref="!:BinRangeReport">Bin Range Table</see>.
@@ -323,70 +125,6 @@
         <member name="P:Tms.Sdk.Download.Entry.TmsBinRange.DataSetVersion">
             <summary>
             DataSet version.
-            </summary>
-        </member>
-        <member name="T:Tms.Sdk.Download.Entry.TmsCapk">
-            <summary>
-            Certification Authority Public Key. 
-            Embraces all Certificated Authority public keys, used by EMV cards at an authentication process and PIN encryption during an offline transaction.
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Download.Entry.TmsCapk.AcquirerNumber">
-            <summary>
-            Acquirer identifier. Responsible for the AID table (in ABECS, Stone is represented by "8").
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Download.Entry.TmsCapk.CapkIndex">
-            <summary>
-            Certification Authority Public Key Index.
-            (TAG 9f22)
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Download.Entry.TmsCapk.CapkIndexInTable">
-            <summary>
-            Table record index (from "01" to "99").
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Download.Entry.TmsCapk.CheckSum">
-            <summary>
-            Result of an algorithm that verifies the integrity of CAPK data. If this CheckSum doesn't match with it's correspondent, it means data are corrupted.
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Download.Entry.TmsCapk.CheckSumStatus">
-            <summary>
-            Whether checksum exists or not.
-            - false: unused;
-            - true: used.
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Download.Entry.TmsCapk.DataSetVersion">
-            <summary>
-            DataSet version.
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Download.Entry.TmsCapk.Exponent">
-            <summary>
-            Certification Authority Public Key Exponent.
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Download.Entry.TmsCapk.ExponentLength">
-            <summary>
-            <see cref="P:Tms.Sdk.Download.Entry.TmsCapk.Exponent">Exponent</see> field length.
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Download.Entry.TmsCapk.Modulus">
-            <summary>
-            Certification Authority Public Key Modulus.
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Download.Entry.TmsCapk.ModulusLength">
-            <summary>
-            <see cref="P:Tms.Sdk.Download.Entry.TmsCapk.Modulus">Modulus</see> field length.
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.Download.Entry.TmsCapk.RecordedIdentification">
-            <summary>
-            Recorded Application Provider Identifier.
             </summary>
         </member>
         <member name="T:Tms.Sdk.Download.Entry.TmsCardBrand">
@@ -532,6 +270,127 @@
             <summary>
             Configuration parameters used by the related payment application.
             </summary>
+        </member>
+        <member name="T:Tms.Sdk.Entities.ActivationReport">
+            <summary>
+            Report for an <see cref="M:Tms.Sdk.Model.ITmsClient.Activate(System.String)">activation operation</see>.
+            </summary>
+        </member>
+        <member name="F:Tms.Sdk.Entities.ActivationReport.RawActivationReport">
+            <summary>
+            Raw activation report.
+            </summary>
+        </member>
+        <member name="P:Tms.Sdk.Entities.ActivationReport.WasSuccessful">
+            <summary>
+            Defines if the activation has succeed.
+            </summary>
+        </member>
+        <member name="P:Tms.Sdk.Entities.ActivationReport.ResponseReason">
+            <summary>
+            Activation response reason (if any).
+            </summary>
+        </member>
+        <member name="P:Tms.Sdk.Entities.ActivationReport.ResponseCode">
+            <summary>
+            Activation response code (if any).
+            </summary>
+        </member>
+        <member name="P:Tms.Sdk.Entities.ActivationReport.Address">
+            <summary>
+            Merchant address.
+            </summary>
+        </member>
+        <member name="P:Tms.Sdk.Entities.ActivationReport.IdentityCode">
+            <summary>
+            Merchant CNPJ or CPF.
+            </summary>
+        </member>
+        <member name="P:Tms.Sdk.Entities.ActivationReport.CompanyName">
+            <summary>
+            Company name.
+            </summary>
+        </member>
+        <member name="P:Tms.Sdk.Entities.ActivationReport.SaleAffiliationKey">
+            <summary>
+            Sale affiliation key is a unique key for a merchant (StoneCode) 
+            AND a capture method (MicroPos, Mobile, TEF, POS).
+            </summary>
+        </member>
+        <member name="P:Tms.Sdk.Entities.ActivationReport.XmlRequest">
+            <summary>
+            XML sent to Stone TMS.
+            </summary>
+        </member>
+        <member name="P:Tms.Sdk.Entities.ActivationReport.XmlResponse">
+            <summary>
+            XML received from Stone TMS.
+            </summary>
+        </member>
+        <member name="M:Tms.Sdk.Entities.ActivationReport.#ctor(Tms.Sdk.Activation.ActivationRequest,Tms.Sdk.ResponseBase)">
+            <summary>
+            Creates the report.
+            </summary>
+            <param name="activationRequest">Activation request received from TMS.</param>
+            <param name="activationResponse">Activation response returned from TMS.</param>
+        </member>
+        <member name="T:Tms.Sdk.Entities.TableDownloadReport">
+            <summary>
+            Report for a <see cref="M:Tms.Sdk.Model.ITmsClient.DownloadTables(System.String)">download tables operation</see>.
+            </summary>
+        </member>
+        <member name="F:Tms.Sdk.Entities.TableDownloadReport.RawResponse">
+            <summary>
+            Raw response from TMS.
+            </summary>
+        </member>
+        <member name="P:Tms.Sdk.Entities.TableDownloadReport.WereTableDownloaded">
+            <summary>
+            Define if table were downloaded.
+            </summary>
+        </member>
+        <member name="P:Tms.Sdk.Entities.TableDownloadReport.ResponseCode">
+            <summary>
+            Table download response code (if any).
+            </summary>
+        </member>
+        <member name="P:Tms.Sdk.Entities.TableDownloadReport.ResponseReason">
+            <summary>
+            Table download response reason (if any).
+            </summary>
+        </member>
+        <member name="P:Tms.Sdk.Entities.TableDownloadReport.Capks">
+            <summary>
+            CAPKs downloaded.
+            </summary>
+        </member>
+        <member name="P:Tms.Sdk.Entities.TableDownloadReport.Aids">
+            <summary>
+            AIDs downloaded.
+            </summary>
+        </member>
+        <member name="P:Tms.Sdk.Entities.TableDownloadReport.XmlRequest">
+            <summary>
+            XML sent to Stone TMS.
+            </summary>
+        </member>
+        <member name="P:Tms.Sdk.Entities.TableDownloadReport.XmlResponse">
+            <summary>
+            XML received from Stone TMS.
+            </summary>
+        </member>
+        <member name="M:Tms.Sdk.Entities.TableDownloadReport.#ctor(Tms.Sdk.Download.DownloadRequest,Tms.Sdk.ResponseBase)">
+            <summary>
+            Creates the report.
+            </summary>
+            <param name="request">Table download request.</param>
+            <param name="response">Table download response.</param>
+        </member>
+        <member name="M:Tms.Sdk.Entities.TableDownloadReport.SetTables(System.Collections.ObjectModel.Collection{Tms.Sdk.Download.Report.DownloadReport})">
+            <summary>
+            Set CAPK and AID tables.
+            </summary>
+            <param name="tables">Tables returned from TMS.</param>
         </member>
         <member name="T:Tms.Sdk.GlobalResources">
             <summary>
@@ -959,7 +818,7 @@
             Optional field, depending on message. CategoryCode identifies what your are requesting to download.
             </summary>
         </member>
-        <member name="M:Tms.Sdk.Common.Entry.ContentEntry.#ctor(Tms.Sdk.Common.Entry.DataSetIdentificationEntry,Tms.Sdk.Model.Params.ParameterBase)">
+        <member name="M:Tms.Sdk.Common.Entry.ContentEntry.#ctor(Tms.Sdk.Common.Entry.DataSetIdentificationEntry,Tms.Sdk.Model.ParameterBase)">
             <summary>
             Constructor with parameter validation.
             </summary>
@@ -971,7 +830,7 @@
             Default constructor.
             </summary>
         </member>
-        <member name="M:Tms.Sdk.Common.Entry.ContentEntry.Validate(Tms.Sdk.Model.Params.ParameterBase,Tms.Sdk.Common.Entry.DataSetIdentificationEntry)">
+        <member name="M:Tms.Sdk.Common.Entry.ContentEntry.Validate(Tms.Sdk.Model.ParameterBase,Tms.Sdk.Common.Entry.DataSetIdentificationEntry)">
             <summary>
             Parameter validation.
             </summary>
@@ -1172,55 +1031,6 @@
             Point of interaction parameters defined by the manufacturer for instance the PIN verification capabilities.
             </summary>
         </member>
-        <member name="F:Tms.Sdk.TerminalManagementServiceClient.HttpClient">
-            <summary>
-            The HTTP client use to communicate.
-            </summary>
-        </member>
-        <member name="P:Tms.Sdk.TerminalManagementServiceClient.Uri">
-            <summary>
-            Gets the base address of the acquirer web service.
-            </summary>
-        </member>
-        <member name="M:Tms.Sdk.TerminalManagementServiceClient.#ctor(System.String)">
-            <summary>
-            Create a instance of AcquirerServiceClient to communicate with the specified acquirer host.
-            </summary>
-            <param name="serviceBaseAddress">the url address of the acquirer web service.</param>
-        </member>
-        <member name="M:Tms.Sdk.TerminalManagementServiceClient.SendRequest``1(Tms.Sdk.RequestBase,System.Boolean)">
-            <summary>
-            Maps the request received as parameter to a request formatted on ISO 20022.
-            Serializes the mapped request and sends it to acquirer host.
-            Expects to receive, desserialize, demap and return the response.
-            </summary>
-            <typeparam name="T">OPTIONAL. Type of the request.</typeparam>
-            <param name="request">Request to be send to acquirer host.</param>
-            <param name="isAsynchronous">If the request will be blocking or asynchronous.</param>
-            <returns>Demapped response received by the acquirer host.</returns>
-            <exception cref="T:Dlp.Buy4.Framework.Portable.Exceptions.InvalidSerializationException">Could not serialize/desserialize request/response.</exception>
-            <exception cref="T:System.InvalidOperationException">Could not communicate to the host.</exception>
-            <exception cref="T:System.InvalidOperationException">Some invalid parameter send in request.</exception>
-            <exception cref="T:System.NotImplementedException">Request type is unknown.</exception>
-        </member>
-        <member name="M:Tms.Sdk.TerminalManagementServiceClient.Communicate``2(``0,System.String,System.Nullable{System.TimeSpan})">
-            <summary>
-            Sends a request to server, and try deserialize the response into Tout type, if is not possible try deserialize into AcceptorRejection.
-            </summary>
-            <typeparam name="Tin">type of request message</typeparam>
-            <typeparam name="Tout">Type to try deserialize the server response</typeparam>
-            <param name="iso20022Request">the request message in ISO20022 format.</param>
-            <param name="resourceUri">the route to send the request in server base address.</param>
-            <returns>an object that inherits of response base can be the Tout or a AcceptorRejection</returns>
-        </member>
-        <member name="M:Tms.Sdk.TerminalManagementServiceClient.TryDeserializeResponse``1(System.String)">
-            <summary>
-            Try deserialize the incoming string as the expected response or acceptor rejection.
-            </summary>
-            <typeparam name="T">expected response type</typeparam>
-            <param name="serializedResponse">server response as string</param>
-            <returns></returns>
-        </member>
         <member name="M:Tms.Sdk.ResponseBase.GetAsIso20022RawXml">
             <summary>
             Retrieves the original XML trading message.
@@ -1232,6 +1042,113 @@
             Retrieves the original XML trading message.
             </summary>
             <returns>Returns the raw xml sent (the OriginalRequest property represents its info as a class).</returns>
+        </member>
+        <member name="T:Tms.Sdk.TmsClient">
+            <summary>
+            "Terminal Management Service" Client. Perform operations as:
+            	- Activation
+            	- Table download
+            	- Management plan reports
+            </summary>
+        </member>
+        <member name="F:Tms.Sdk.TmsClient.TmsHttpClient">
+            <summary>
+            The HTTP client use to communicate.
+            </summary>
+        </member>
+        <member name="M:Tms.Sdk.TmsClient.#ctor(System.String)">
+            <summary>
+            Constructor that creates a HTTP client to communicate with Stone TMS.
+            </summary>
+            <param name="tmsUri">Stone TMS URI.</param>
+        </member>
+        <member name="M:Tms.Sdk.TmsClient.Activate(System.String)">
+            <summary>
+            Activates a terminal based on the stone code.
+            </summary>
+            <param name="stoneCode">Merchant Stone Code.</param>
+            <returns>Returns an activation report with all information about the activation proccess.</returns>
+        </member>
+        <member name="M:Tms.Sdk.TmsClient.DownloadTables(System.String)">
+            <summary>
+            Downloads tables (AID and CAPK) for a MicroPos SAK.
+            </summary>
+            <param name="sak">Sale affiliation key.</param>
+            <returns>Download tables report with all information about the operation.</returns>
+        </member>
+        <member name="M:Tms.Sdk.TmsClient.Send``1(Tms.Sdk.RequestBase)">
+            <summary>
+            Sends a request to TMS.
+            </summary>
+            <typeparam name="T">Request type.</typeparam>
+            <param name="request">Request.</param>
+            <returns>TMS response.</returns>
+        </member>
+        <member name="M:Tms.Sdk.TmsClient.GetResponse``1(Tms.Sdk.Model._2._1.StatusReport)">
+            <summary>
+            Receives TMS raw response.
+            </summary>
+            <typeparam name="T">Response type.</typeparam>
+            <param name="iso20022Request">TMS response.</param>
+            <returns>TMS response.</returns>
+        </member>
+        <member name="M:Tms.Sdk.TmsClient.GetMappedRequest(Tms.Sdk.RequestBase)">
+            <summary>
+            Creates a request (to be sent to TMS) based on the request received as parameter.
+            </summary>
+            <param name="request">Request.</param>
+            <returns>A corresponding request, ready to be send to TMS.</returns>
+        </member>
+        <member name="M:Tms.Sdk.TmsClient.GetMappedResponse``1(Tms.Sdk.Model._2._1.TmsResponseBase)">
+            <summary>
+            Creates a response based on the raw response received from Stone TMS.
+            </summary>
+            <param name="request">Raw response.</param>
+            <returns>A corresponding response.</returns>
+        </member>
+        <member name="M:Tms.Sdk.TmsClient.Communicate``2(``0,System.String,System.Nullable{System.TimeSpan})">
+            <summary>
+            Sends a request to server, and try deserialize the response into Tout type, if is not possible try deserialize into AcceptorRejection.
+            </summary>
+            <typeparam name="Tin">type of request message</typeparam>
+            <typeparam name="Tout">Type to try deserialize the server response</typeparam>
+            <param name="iso20022Request">the request message in ISO20022 format.</param>
+            <param name="resourceUri">the route to send the request in server base address.</param>
+            <returns>an object that inherits of response base can be the Tout or a AcceptorRejection</returns>
+        </member>
+        <member name="M:Tms.Sdk.TmsClient.TryDeserializeResponse``1(System.String)">
+            <summary>
+            Try deserialize the incoming string as the expected response or acceptor rejection.
+            </summary>
+            <typeparam name="T">expected response type</typeparam>
+            <param name="serializedResponse">server response as string</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tms.Sdk.TmsClient.SetupActivationRequest(System.String)">
+            <summary>
+            Set up activation request based on stone code. This method is responsible for creating the request.
+            </summary>
+            <param name="stoneCode">Code emitted by Stone, representing an unique merchant.</param>
+            <returns>The activation request created.</returns>
+        </member>
+        <member name="M:Tms.Sdk.TmsClient.SetupTableDownloadRequest(System.String)">
+            <summary>
+            Set up a download request.
+            </summary>
+            <param name="saleAffiliationKey">Terminal Sale Affiliation Key (SAK).</param>
+            <returns>DownloadRequest ready to be send.</returns>
+        </member>
+        <member name="T:Tms.Sdk.TmsProvider">
+            <summary>
+            TMS client provider.
+            </summary>
+        </member>
+        <member name="M:Tms.Sdk.TmsProvider.Get(System.String)">
+            <summary>
+            Creates a TMS client.
+            </summary>
+            <param name="tmsUri">Stone TMS URI.</param>
+            <returns>TMS client.</returns>
         </member>
     </members>
 </doc>
