@@ -15,15 +15,15 @@ namespace GasStation
 		/// <summary>
 		/// SAK. 
 		/// </summary>
-		public const string SaleAffiliationKey = "DE756D68F20B4242BEC8F94B5ABCB448";
+		public const string SaleAffiliationKey = "EB3CBA876FC04D3EB85D9AB7B6830A96";
 		/// <summary>
 		/// Stone Point Of Interaction server URI.
 		/// </summary>
-		public const string AuthorizationUri = "https://pos.stone.com.br/";
+		public const string AuthorizationUri = "https://poistaging.stone.com.br";
 		/// <summary>
 		/// Stone Terminal Management Service URI.
 		/// </summary>
-		public const string ManagementUri = "https://tmsproxy.stone.com.br";
+		public const string ManagementUri = "https://tmsstaging.stone.com.br/";
 
 		private GasStationAuthorizer (ICardPaymentAuthorizer authorizer)
 		{

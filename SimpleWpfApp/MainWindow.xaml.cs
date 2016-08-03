@@ -448,6 +448,12 @@ namespace SimpleWpfApp
 				currentAuthorizer.PromptForCardRemoval("CARTAO EXPIRADO");
 				return null;
 			}
+			catch (CardHasChipException)
+			{
+				this.Log("Cartão possui chip. Insira o cartão.");
+				currentAuthorizer.PromptForCardRemoval("CARTAO POSSUI CHIP");
+				return null;
+			}
 
 			if (response == null)
 			{

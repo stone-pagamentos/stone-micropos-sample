@@ -30,15 +30,15 @@ namespace PizzaVendingMachine
 		/// <summary>
 		/// SAK. 
 		/// </summary>
-		public string SaleAffiliationKey { get { return "DE756D68F20B4242BEC8F94B5ABCB448"; } }
+		public string SaleAffiliationKey { get { return "EB3CBA876FC04D3EB85D9AB7B6830A96"; } }
 		/// <summary>
 		/// Stone Point Of Interaction server URI.
 		/// </summary>
-		public string AuthorizationUri { get { return "https://pos.stone.com.br/"; } }
+		public string AuthorizationUri { get { return "https://poistaging.stone.com.br"; } }
 		/// <summary>
 		/// Stone Terminal Management Service URI.
 		/// </summary>
-		public string ManagementUri { get { return "https://tmsproxy.stone.com.br"; } }
+		public string ManagementUri { get { return "https://tmsstaging.stone.com.br/"; } }
 
 		/// <summary>
 		/// Creates all pinpad messages.

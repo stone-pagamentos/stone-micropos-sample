@@ -41,17 +41,6 @@ namespace SimpleWpfApp
 			this.uxLog.Items.Add(string.Format("{0}: {1}", DateTime.Now.ToString("HH:mm:ss"), message));
 		}
 		/// <summary>
-		/// Verifies if the authorization was declined or not.
-		/// </summary>
-		/// <param name="response">Authorization response.</param>
-		/// <returns>If the authorization was declined or not.</returns>
-		private bool WasDeclined(AcceptorAuthorisationResponse response)
-		{
-			if (response == null) { return true; }
-
-			return response.Data.AuthorisationResponse.TransactionResponse.AuthorisationResult.ResponseToAuthorisation.Response != ResponseCode.Approved;
-		}
-		/// <summary>
 		/// Verifies if the cancellation was declined or not.
 		/// </summary>
 		/// <param name="response">Cancellation response.</param>
