@@ -117,15 +117,29 @@ DisplayableMessages pinpadMessages = new DisplayableMessages()
 Se você **conhece a porta serial** a qual o pinpad está conectado, utilize:
 
 ```csharp
-ICardPaymentAuthorizer authorizer = DeviceProvider.GetOneOrFirst("SAK_DE_EXEMPLO", "authorizador.com",
-    "tms.com", pinpadMessages, "COM6");
+try
+{
+    ICardPaymentAuthorizer authorizer = DeviceProvider.GetOneOrFirst("SAK_DE_EXEMPLO", "authorizador.com",
+        "tms.com", pinpadMessages, "COM6");
+}
+catch (PinpadNotFoundException)
+{
+    // Nenhum pinpad conectado à máquina   
+}
 ```
 
 Se você não souber, utilize:
 
 ```csharp
-ICardPaymentAuthorizer authorizer = DeviceProvider.GetOneOrFirst("SAK_DE_EXEMPLO", "authorizador.com",
-    "tms.com", pinpadMessages);
+try
+{
+    ICardPaymentAuthorizer authorizer = DeviceProvider.GetOneOrFirst("SAK_DE_EXEMPLO", "authorizador.com",
+        "tms.com", pinpadMessages);
+}
+catch (PinpadNotFoundException)
+{
+    // Nenhum pinpad conectado à máquina   
+}
 ```
 
 Cada ICardPaymentAuthorizer está ligado à um único pinpad.
@@ -135,8 +149,15 @@ Cada ICardPaymentAuthorizer está ligado à um único pinpad.
 Se você quiser **todos os pinpads conectados à màquina**, use:
 
 ```csharp
-ICollection<ICardPaymentAuthorizer> authorizers = DeviceProvider.GetAll("SAK_DE_EXEMPLO",
-    "authorizador.com", "tms.com", pinpadMessages);
+try
+{
+    ICollection<ICardPaymentAuthorizer> authorizers = DeviceProvider.GetAll("SAK_DE_EXEMPLO",
+        "authorizador.com", "tms.com", pinpadMessages);
+}
+catch (PinpadNotFoundException)
+{
+    // Nenhum pinpad conectado à máquina   
+}
 ```
 
 ### Passar uma transação
@@ -154,8 +175,19 @@ TransactionEntry transaction = new TransactionEntry(TransactionType.Debit, 0.1m)
 // Boa prática: sempre utilize o ITK!
 transaction.InitiatorTransactionKey = "algum identificador";
 
-// Inicia o fluxo transacional:
-IAuthorizationReport report = authorizer.Authorize(transaction);
+try
+{
+    // Inicia o fluxo transacional:
+    IAuthorizationReport report = authorizer.Authorize(transaction);
+}
+catch (ExpiredCardException)
+{
+    // Um cartão expirado foi passado/inserido   
+}
+catch (CardHasChipException)
+{
+    // Um cartão que tem chip foi passado como tarja   
+}
 ```
 
 #### Fluxo alternativo
@@ -172,13 +204,25 @@ TransactionEntry transaction = new TransactionEntry()
 };
 
 ICard cardRead;
+ResponseStatus status = ResponseStatus.Undefined;
 
-// Lê o cartão.
-// Como o tipo da transação não foi especificado, o pinpad perguntará se a
-// transação é de crédito ou débito. Se o cartão for apenas de crédito ou
-// apenas de débito, o pinpad escolherá automaticamente.
-ResponseStatus status = authorizer.ReadCard(out cardRead, transaction);
-if (status != ResponseStatus.Ok) { throw new SomeErrorException(); }
+try
+{
+    // Lê o cartão.
+    // Como o tipo da transação não foi especificado, o pinpad perguntará se a
+    // transação é de crédito ou débito. Se o cartão for apenas de crédito ou
+    // apenas de débito, o pinpad escolherá automaticamente.
+    status = authorizer.ReadCard(out cardRead, transaction);
+    if (status != ResponseStatus.Ok) { throw new SomeErrorException(); }
+}
+catch (ExpiredCardException)
+{
+    // Um cartão expirado foi passado/inserido   
+}
+catch (CardHasChipException)
+{
+    // Um cartão que tem chip foi passado como tarja   
+}
 
 // Método FICTICIO, em que um suposto serviço retorna o valor da transação:
 transaction.Amount = this.AutomationService.GetAmount();
@@ -247,15 +291,28 @@ TransactionEntry transaction = new TransactionEntry(TransactionType.Debit, 0.1m)
 // Boa prática: sempre utilize o ITK!
 transaction.InitiatorTransactionKey = "algum identificador";
 
-// Envia a transação para o autorizador da Stone:
-IAuthorizationReport report = authorizer.Authorize(transaction);
+IAuthorizationReport report = null;
+
+try
+{
+    // Envia a transação para o autorizador da Stone:
+    report = authorizer.Authorize(transaction);
+}
+catch (ExpiredCardException)
+{
+    // Um cartão expirado foi passado/inserido   
+}
+catch (CardHasChipException)
+{
+    // Um cartão que tem chip foi passado como tarja   
+}
 
 CancellationRequest cancelRequest = CancellationRequest.CreateCancellationRequest("SAK_DE_EXEMPLO",
     report.RawResponse);
 authorizer.AuthorizationProvider.SendRequest(cancelRequest);
 ```
 
-**Para cancelar uma transação através de um ID da transação, considere:**
+**Para cancelar uma transação através de um ID da transação, considere o seguinte trecho de código:**
 
 ```csharp
 // Cria um tipo de parcelamento: crédito em 4 vezes sem juros:
@@ -265,8 +322,21 @@ Installment installment = new Installment() { Type = InstallmentType.Merchant, N
 TransactionEntry transactionToCancel = new TransactionEntry(TransactionType.Credit, 120m, installment,
     "ITK_DE_EXEMPLO");
 
-// Autoriza
-IAuthorizationReport authorizationReport = authorizer.Authorize(transactionToCancel);
+IAuthorizationReport authorizationReport = null;
+
+try
+{
+    // Autoriza
+    authorizationReport = authorizer.Authorize(transactionToCancel);
+}
+catch (ExpiredCardException)
+{
+    // Um cartão expirado foi passado/inserido   
+}
+catch (CardHasChipException)
+{
+    // Um cartão que tem chip foi passado como tarja   
+}
 ```
 
 - Para cancelar uma transação através do ITK:
