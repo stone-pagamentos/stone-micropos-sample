@@ -24,6 +24,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Tms.Sdk;
 using Tms.Sdk.Model;
+using MicroPos.Core.Exceptions;
 
 namespace SimpleWpfApp
 {
@@ -452,6 +453,12 @@ namespace SimpleWpfApp
 			{
 				this.Log("Cartão possui chip. Insira o cartão.");
 				currentAuthorizer.PromptForCardRemoval("CARTAO POSSUI CHIP");
+				return null;
+			}
+			catch (InvalidConnectionException)
+			{
+				this.Log("Computador não está conectado a internet!");
+				currentAuthorizer.PromptForCardRemoval("SEM CONEXAO");
 				return null;
 			}
 
