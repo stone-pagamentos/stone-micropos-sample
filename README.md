@@ -26,7 +26,7 @@ MicroPos.Interop | MicroTef para COM interop.
 MicroPos.Platform.Uwp | MicroTef para Windows.Core (Windows 10 IoT, Windows 10, Windows Mobile 10).
 Receipt.Sdk | Envia recibos de transação, cancelamento e ativação de um terminal por e-mail.
 
-![Esquema de dependências do projeto](https://raw.githubusercontent.com/stone-pagamentos/stone-micropos-sample/master/dependencies-full_%2809-05-2016%29.png)
+![Esquema de dependências do projeto](https://raw.githubusercontent.com/stone-pagamentos/stone-micropos-sample/master/dependencies-full%20(01-08-2016).png)
 
 ## Como usar?
 
