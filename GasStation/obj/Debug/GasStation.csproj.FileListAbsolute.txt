@@ -68,3 +68,4 @@ C:\buy4-prototype\stone-micropos-sample\GasStation\obj\Debug\GasStation.exe.mani
 C:\buy4-prototype\stone-micropos-sample\GasStation\obj\Debug\GasStation.application
 C:\buy4-prototype\stone-micropos-sample\GasStation\obj\Debug\GasStation.exe
 C:\buy4-prototype\stone-micropos-sample\GasStation\obj\Debug\GasStation.pdb
+C:\buy4-prototype\stone-micropos-sample\GasStation\obj\Debug\GasStation.csprojResolveAssemblyReference.cache
