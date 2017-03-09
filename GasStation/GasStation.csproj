@@ -60,7 +60,7 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Buy4.Framework.Portable, Version=1.0.2.0, Culture=neutral, PublicKeyToken=e69de3f267bd7561, processorArchitecture=MSIL">

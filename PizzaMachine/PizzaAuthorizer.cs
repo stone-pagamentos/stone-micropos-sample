@@ -34,11 +34,11 @@ namespace PizzaVendingMachine
 		/// <summary>
 		/// Stone Point Of Interaction server URI.
 		/// </summary>
-		public string AuthorizationUri { get { return "https://poistaging.stone.com.br"; } }
+		public string AuthorizationUri { get { return "https://pos.stone.com.br"; } }
 		/// <summary>
 		/// Stone Terminal Management Service URI.
 		/// </summary>
-		public string ManagementUri { get { return "https://tmsstaging.stone.com.br/"; } }
+		public string ManagementUri { get { return "https://tms.stone.com.br/"; } }
 
 		/// <summary>
 		/// Creates all pinpad messages.

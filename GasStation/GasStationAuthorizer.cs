@@ -19,11 +19,11 @@ namespace GasStation
 		/// <summary>
 		/// Stone Point Of Interaction server URI.
 		/// </summary>
-		public const string AuthorizationUri = "https://poistaging.stone.com.br";
+		public const string AuthorizationUri = "https://pos.stone.com.br";
 		/// <summary>
 		/// Stone Terminal Management Service URI.
 		/// </summary>
-		public const string ManagementUri = "https://tmsstaging.stone.com.br/";
+		public const string ManagementUri = "https://tms.stone.com.br/";
 
 		private GasStationAuthorizer (ICardPaymentAuthorizer authorizer)
 		{
@@ -31,9 +31,9 @@ namespace GasStation
 		}
 		public static ICollection<GasStationAuthorizer> CreateAll ()
 		{
-			ICollection<ICardPaymentAuthorizer> authorizers = DeviceProvider.GetAll(SaleAffiliationKey, AuthorizationUri, ManagementUri, new DisplayableMessages() { ApprovedMessage = "Aprovada", DeclinedMessage = "Negada", InitializationMessage = "Iniciando...", MainLabel = "Stone Pagamentos", ProcessingMessage = "Processando..." });
+            ICollection<ICardPaymentAuthorizer> authorizers = DeviceProvider.GetAll(SaleAffiliationKey, AuthorizationUri, ManagementUri, new DisplayableMessages() { ApprovedMessage = "Aprovada", DeclinedMessage = "Negada", InitializationMessage = "Iniciando...", MainLabel = "Stone Pagamentos", ProcessingMessage = "Processando..." });
 
-			if (authorizers == null || authorizers.Count <= 0) { return null; }
+            if (authorizers == null || authorizers.Count <= 0) { return null; }
 
 			ICollection<GasStationAuthorizer> gasAuthorizers = new List<GasStationAuthorizer>();
 
@@ -52,10 +52,7 @@ namespace GasStation
 		/// <param name="cardRead">Information about the card read.</param>
 		public void WaitForCard (ITransactionEntry transaction, out ICard cardRead)
 		{
-			ResponseStatus readingStatus;
-
-			// Update tables: this is mandatory for the pinpad to recognize the card inserted.
-			this.Authorizer.UpdateTables(1, false);
+            ResponseStatus readingStatus;
 
 			// Waits for the card:
 			do

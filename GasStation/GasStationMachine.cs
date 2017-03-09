@@ -43,8 +43,7 @@ namespace GasStation
 				ITransactionEntry transaction = null;
 				ICard card = null;
 
-				int pump = 0;
-				string pumpStr = null;
+				Nullable<short> pump = 0;
 
 				Task readPump = new Task(() =>
 				{
@@ -52,18 +51,14 @@ namespace GasStation
 					{
 						try
 						{
-							pumpStr = authorizer.Authorizer.PinpadFacade.Keyboard.GetNumericInput(FirstLineLabelCode.EnterNumber, SecondLineLabelCode.GasPump, 1, 3, 20);
+							pump = authorizer.Authorizer.PinpadFacade.Keyboard.DataPicker.GetNumericValue("Escolha a bomba", 1 ,4);
 						}
 						catch (Exception) { break; }
 
-					} while (pumpStr == null);
+					} while (pump == null);
 				});
 				readPump.Start();
-				readPump.Wait();
-
-				// Verifies if its a valid pump:
-				if (IsAValidPump(pumpStr, out pump) == false)
-				{ continue; }
+				readPump.Wait();				
 
 				// We know very little about the transaction:
 				transaction = new TransactionEntry();
@@ -74,7 +69,7 @@ namespace GasStation
 				decimal amount = 0;
 				amount = this.View.Dispatcher.Invoke<decimal>(() =>
 				{
-					return GetPumpuAmount(pump);
+					return GetPumpuAmount(pump.Value);
 				});
 
 				if (amount == 0)
@@ -109,23 +104,9 @@ namespace GasStation
 					authorizer.Authorizer.PinpadFacade.Communication.ClosePinpadConnection(authorizer.Authorizer.PinpadMessages.MainLabel);
 				}
 			});
-		}
+		}		
 
-		public bool IsAValidPump (string pumpStr, out int pump)
-		{
-			if (Int32.TryParse(pumpStr, out pump) == true)
-			{
-				if (pump >= 1 && pump <= 4)
-				{
-					return true;
-				}
-			}
-
-			return false;
-		}
-
-
-		public decimal GetPumpuAmount (int pumpId)
+		public decimal GetPumpuAmount (short pumpId)
 		{
 			switch (pumpId)
 			{
