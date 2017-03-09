@@ -8,7 +8,7 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.Collections.Generic;
 using System.Configuration;
-using Tms.Sdk.Model;
+using Tms.Sdk.Client;
 
 namespace SimpleWpfApp
 {
@@ -24,11 +24,8 @@ namespace SimpleWpfApp
 		/// </summary>
 		private Collection<IAuthorizationReport> approvedTransactions;
 		internal DisplayableMessages PinpadMessages;
-		internal ITmsClient Tms;
-
-		private string authorizationUri = ConfigurationManager.AppSettings ["ProductionAuthorizerUri"];
-		private string tmsUri = ConfigurationManager.AppSettings ["ProductionTmsUri"];
-		private string sak = ConfigurationManager.AppSettings ["ProductionSak"];
+		internal ITmsClient Tms;	
+		private string stoneCode = ConfigurationManager.AppSettings ["StoneCode"];
 		private readonly string logFilePath = ConfigurationManager.AppSettings ["logPath"];
 		// Methods
 		/// <summary>

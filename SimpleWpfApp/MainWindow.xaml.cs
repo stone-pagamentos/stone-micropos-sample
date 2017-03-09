@@ -14,24 +14,22 @@ using Poi.Sdk.Cancellation;
 using Pinpad.Sdk.Model.Exceptions;
 using System.Diagnostics;
 using Pinpad.Sdk.Model;
-using Pinpad.Sdk;
 using Receipt.Sdk.Services;
 using Receipt.Sdk.Model;
-using System.Configuration;
 using System.IO;
 using System.Text;
-using System.Reflection;
 using System.Threading.Tasks;
-using Tms.Sdk;
-using Tms.Sdk.Model;
+
 using MicroPos.Core.Exceptions;
+using Tms.Sdk.Client;
+using Tms.Sdk.interfaces;
 
 namespace SimpleWpfApp
 {
-	/// <summary>
-	/// Interaction logic for MainWindow.xaml
-	/// </summary>
-	public partial class MainWindow : Window
+    /// <summary>
+    /// Interaction logic for MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : Window
 	{
 		// Constructor
 		public MainWindow()
@@ -50,8 +48,6 @@ namespace SimpleWpfApp
 			// Inicializa a plataforma desktop:
 			MicroPos.Platform.Desktop.DesktopInitializer.Initialize();
 
-			this.Tms = TmsProvider.Get(this.tmsUri);
-
 			// Constrói as mensagens que serão apresentadas na tela do pinpad:
 			this.PinpadMessages = new DisplayableMessages();
 			PinpadMessages.ApprovedMessage = ":-)";
@@ -62,7 +58,7 @@ namespace SimpleWpfApp
 
 			this.approvedTransactions = new Collection<IAuthorizationReport>();
 
-			this.Authorizers = DeviceProvider.GetAll(this.sak, this.authorizationUri, this.tmsUri, PinpadMessages);
+			this.Authorizers = DeviceProvider.ActivateAndGetAll(this.stoneCode, PinpadMessages);
 
 			this.uxCbbxAllPinpads.Items.Clear();
 			foreach (ICardPaymentAuthorizer c in this.Authorizers)
@@ -236,7 +232,7 @@ namespace SimpleWpfApp
 			IAuthorizationReport transaction = this.approvedTransactions.Where(t => t.AcquirerTransactionKey == atk).First();
 
 			// Cria a requisiçào de cancelamento:
-			CancellationRequest request = CancellationRequest.CreateCancellationRequestByAcquirerTransactionKey(this.sak, atk, transaction.Amount, true);
+			CancellationRequest request = CancellationRequest.CreateCancellationRequestByAcquirerTransactionKey(this.stoneCode, atk, transaction.Amount, true);
 
 			// Envia o cancelamento:
 			PoiResponseBase response = currentAuthorizer.AuthorizationProvider.SendRequest(request);
@@ -382,7 +378,7 @@ namespace SimpleWpfApp
         }
 		private void OnUpdateAllPinpads (object sender, RoutedEventArgs e)
 		{
-			this.Authorizers = DeviceProvider.GetAll(this.sak, this.authorizationUri, this.tmsUri, this.PinpadMessages);
+			this.Authorizers = DeviceProvider.ActivateAndGetAll(this.stoneCode, this.PinpadMessages);
 
 			this.uxCbbxAllPinpads.Items.Clear();
 			foreach (ICardPaymentAuthorizer c in this.Authorizers)
@@ -637,7 +633,7 @@ namespace SimpleWpfApp
 						this.Log(report.IdentityCode);
 						this.Log(report.SaleAffiliationKey);
 
-						this.sak = report.SaleAffiliationKey;
+						this.stoneCode = report.SaleAffiliationKey;
 						this.Setup(null, new RoutedEventArgs());
 					}
 					else

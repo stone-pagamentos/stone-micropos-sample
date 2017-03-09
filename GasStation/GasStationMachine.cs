@@ -51,7 +51,7 @@ namespace GasStation
 					{
 						try
 						{
-							pump = authorizer.Authorizer.PinpadFacade.Keyboard.DataPicker.GetNumericValue("Escolha a bomba", 1 ,4);
+							pump = authorizer.Authorizer.PinpadFacade.Keyboard.DataPicker.GetNumericValue("Escolha a bomba", true, 1 ,4);
 						}
 						catch (Exception) { break; }
 

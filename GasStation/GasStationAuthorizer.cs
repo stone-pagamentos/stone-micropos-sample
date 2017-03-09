@@ -15,15 +15,7 @@ namespace GasStation
 		/// <summary>
 		/// SAK. 
 		/// </summary>
-		public const string SaleAffiliationKey = "EB3CBA876FC04D3EB85D9AB7B6830A96";
-		/// <summary>
-		/// Stone Point Of Interaction server URI.
-		/// </summary>
-		public const string AuthorizationUri = "https://pos.stone.com.br";
-		/// <summary>
-		/// Stone Terminal Management Service URI.
-		/// </summary>
-		public const string ManagementUri = "https://tms.stone.com.br/";
+		public const string StoneCode = "407709482";		
 
 		private GasStationAuthorizer (ICardPaymentAuthorizer authorizer)
 		{
@@ -31,7 +23,7 @@ namespace GasStation
 		}
 		public static ICollection<GasStationAuthorizer> CreateAll ()
 		{
-            ICollection<ICardPaymentAuthorizer> authorizers = DeviceProvider.GetAll(SaleAffiliationKey, AuthorizationUri, ManagementUri, new DisplayableMessages() { ApprovedMessage = "Aprovada", DeclinedMessage = "Negada", InitializationMessage = "Iniciando...", MainLabel = "Stone Pagamentos", ProcessingMessage = "Processando..." });
+            ICollection<ICardPaymentAuthorizer> authorizers = DeviceProvider.ActivateAndGetAll(StoneCode, new DisplayableMessages() { ApprovedMessage = "Aprovada", DeclinedMessage = "Negada", InitializationMessage = "Iniciando...", MainLabel = "Stone Pagamentos", ProcessingMessage = "Processando..." });
 
             if (authorizers == null || authorizers.Count <= 0) { return null; }
 
@@ -154,7 +146,7 @@ namespace GasStation
 
 				Task.Run(() =>
 				{
-					CancellationRequest r = CancellationRequest.CreateCancellationRequest(SaleAffiliationKey, (report.RawResponse as AuthorizationResponse));
+					CancellationRequest r = CancellationRequest.CreateCancellationRequest(StoneCode, (report.RawResponse as AuthorizationResponse));
 					this.Authorizer.AuthorizationProvider.SendRequest(r);
 				});
 

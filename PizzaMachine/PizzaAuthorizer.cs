@@ -30,15 +30,7 @@ namespace PizzaVendingMachine
 		/// <summary>
 		/// SAK. 
 		/// </summary>
-		public string SaleAffiliationKey { get { return "EB3CBA876FC04D3EB85D9AB7B6830A96"; } }
-		/// <summary>
-		/// Stone Point Of Interaction server URI.
-		/// </summary>
-		public string AuthorizationUri { get { return "https://pos.stone.com.br"; } }
-		/// <summary>
-		/// Stone Terminal Management Service URI.
-		/// </summary>
-		public string ManagementUri { get { return "https://tms.stone.com.br/"; } }
+		public string StoneCode { get { return "407709482"; } }		
 
 		/// <summary>
 		/// Creates all pinpad messages.
@@ -58,7 +50,7 @@ namespace PizzaVendingMachine
 
 			// Establishes connection with the pinpad.
 			MicroPos.Platform.Desktop.DesktopInitializer.Initialize();
-			this.authorizer = DeviceProvider.GetOneOrFirst(this.SaleAffiliationKey, this.AuthorizationUri, this.ManagementUri, this.PizzaMachineMessages);
+			this.authorizer = DeviceProvider.ActivateAndGetOneOrFirst(this.StoneCode, this.PizzaMachineMessages);
 
 			// Attach event to read all transaction status:
 			this.authorizer.OnStateChanged += this.OnStatusChange; 

@@ -64,7 +64,6 @@ C:\Users\lguimaraes\Documents\Repositories\samples-micropos-service\stone-microp
 C:\Users\lguimaraes\Documents\Repositories\samples-micropos-service\stone-micropos-sample\SimpleWpfApp\bin\Debug\Receipt.Sdk.dll
 C:\Users\lguimaraes\Documents\Repositories\samples-micropos-service\stone-micropos-sample\SimpleWpfApp\bin\Debug\Receipt.Sdk.Model.dll
 C:\Users\lguimaraes\Documents\Repositories\samples-micropos-service\stone-micropos-sample\SimpleWpfApp\bin\Debug\Tms.Sdk.dll
-C:\Users\lguimaraes\Documents\Repositories\samples-micropos-service\stone-micropos-sample\SimpleWpfApp\bin\Debug\Tms.Sdk.Model.dll
 C:\Users\lguimaraes\Documents\Repositories\samples-micropos-service\stone-micropos-sample\SimpleWpfApp\bin\Debug\Buy4.Framework.Portable.xml
 C:\Users\lguimaraes\Documents\Repositories\samples-micropos-service\stone-micropos-sample\SimpleWpfApp\bin\Debug\MicroPos.Core.xml
 C:\Users\lguimaraes\Documents\Repositories\samples-micropos-service\stone-micropos-sample\SimpleWpfApp\bin\Debug\MicroPos.CrossPlatform.xml
@@ -75,9 +74,13 @@ C:\Users\lguimaraes\Documents\Repositories\samples-micropos-service\stone-microp
 C:\Users\lguimaraes\Documents\Repositories\samples-micropos-service\stone-micropos-sample\SimpleWpfApp\bin\Debug\Poi.Sdk.Model.xml
 C:\Users\lguimaraes\Documents\Repositories\samples-micropos-service\stone-micropos-sample\SimpleWpfApp\bin\Debug\Receipt.Sdk.xml
 C:\Users\lguimaraes\Documents\Repositories\samples-micropos-service\stone-micropos-sample\SimpleWpfApp\bin\Debug\Receipt.Sdk.Model.xml
-C:\Users\lguimaraes\Documents\Repositories\samples-micropos-service\stone-micropos-sample\SimpleWpfApp\bin\Debug\Tms.Sdk.xml
-C:\Users\lguimaraes\Documents\Repositories\samples-micropos-service\stone-micropos-sample\SimpleWpfApp\bin\Debug\Tms.Sdk.Model.xml
 C:\Users\lguimaraes\Documents\Repositories\samples-micropos-service\stone-micropos-sample\SimpleWpfApp\obj\Debug\SimpleWpfApp.exe.manifest
 C:\Users\lguimaraes\Documents\Repositories\samples-micropos-service\stone-micropos-sample\SimpleWpfApp\obj\Debug\SimpleWpfApp.application
 C:\Users\lguimaraes\Documents\Repositories\samples-micropos-service\stone-micropos-sample\SimpleWpfApp\obj\Debug\SimpleWpfApp.exe
 C:\Users\lguimaraes\Documents\Repositories\samples-micropos-service\stone-micropos-sample\SimpleWpfApp\obj\Debug\SimpleWpfApp.pdb
+C:\Users\lguimaraes\Documents\Repositories\samples-micropos-service\stone-micropos-sample\SimpleWpfApp\bin\Debug\Newtonsoft.Json.dll
+C:\Users\lguimaraes\Documents\Repositories\samples-micropos-service\stone-micropos-sample\SimpleWpfApp\bin\Debug\System.Net.Http.Extensions.dll
+C:\Users\lguimaraes\Documents\Repositories\samples-micropos-service\stone-micropos-sample\SimpleWpfApp\bin\Debug\System.Net.Http.Primitives.dll
+C:\Users\lguimaraes\Documents\Repositories\samples-micropos-service\stone-micropos-sample\SimpleWpfApp\bin\Debug\Newtonsoft.Json.xml
+C:\Users\lguimaraes\Documents\Repositories\samples-micropos-service\stone-micropos-sample\SimpleWpfApp\bin\Debug\System.Net.Http.Extensions.xml
+C:\Users\lguimaraes\Documents\Repositories\samples-micropos-service\stone-micropos-sample\SimpleWpfApp\bin\Debug\System.Net.Http.Primitives.xml

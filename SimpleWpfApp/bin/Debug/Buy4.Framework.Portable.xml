@@ -4,30 +4,289 @@
         <name>Buy4.Framework.Portable</name>
     </assembly>
     <members>
+        <member name="T:Dlp.Buy4.Framework.Portable.Exceptions.InvalidSerializationException">
+            <summary>
+            Exception for invalid serializations.
+            </summary>
+        </member>
+        <member name="M:Dlp.Buy4.Framework.Portable.Exceptions.InvalidSerializationException.#ctor">
+            <summary>
+            Default construction.
+            </summary>
+        </member>
+        <member name="M:Dlp.Buy4.Framework.Portable.Exceptions.InvalidSerializationException.#ctor(System.String)">
+            <summary>
+            Exception construction specifying it's message.
+            </summary>
+            <param name="message">Exception message.</param>
+        </member>
+        <member name="M:Dlp.Buy4.Framework.Portable.Exceptions.InvalidSerializationException.#ctor(System.String,System.Exception)">
+            <summary>
+            Exception construction specifying it's message and inner exception.
+            </summary>
+            <param name="message">Exception message.</param>
+            <param name="inner">Inner exception.</param>
+        </member>
+        <member name="T:Dlp.Buy4.Framework.Portable.HttpCommunication.BasicHttpClient">
+            <summary>
+            Basic HTTP client.
+            </summary>
+        </member>
         <member name="P:Dlp.Buy4.Framework.Portable.HttpCommunication.BasicHttpClient.ServiceBaseAddress">
             <summary>
             Gets the base address of the acquirer web service.
             </summary>
         </member>
+        <member name="M:Dlp.Buy4.Framework.Portable.HttpCommunication.BasicHttpClient.#ctor(System.Uri)">
+            <summary>
+            Creates an instance of a HTTP client with an unique server endpoint.
+            </summary>
+            <param name="serviceBaseAddress">Server address.</param>
+        </member>
+        <member name="M:Dlp.Buy4.Framework.Portable.HttpCommunication.BasicHttpClient.Post(System.Net.Http.HttpContent,System.String,System.Nullable{System.TimeSpan})">
+            <summary>
+            Send a HTTP request with POST verb to the <see cref="T:System.Uri"/>.
+            </summary>
+            <param name="httpContent">HTTP request content.</param>
+            <param name="resourceUri">Target resource on server, URI complement to be appended to <see cref="P:Dlp.Buy4.Framework.Portable.HttpCommunication.BasicHttpClient.ServiceBaseAddress"/>.</param>
+            <param name="timeOut">Time out for the request to be aborted.</param>
+            <returns>Response as string.</returns>
+        </member>
         <member name="M:Dlp.Buy4.Framework.Portable.HttpCommunication.BasicHttpClient.PostAsXml``2(``1,System.String,System.Nullable{System.TimeSpan})">
             <summary>
-            Send a http request with POST verb and content as xml.
+            Send a HTTP request with POST verb and content as XML.
             </summary>
-            <typeparam name="TResponse">Expected response type</typeparam>
-            <typeparam name="TRequest">Type of request parameter</typeparam>
-            <param name="request">Parameter to be sent as body of http message</param>
-            <param name="resourceUri">Target resource on server, uri complement to be appended to <see cref="P:Dlp.Buy4.Framework.Portable.HttpCommunication.BasicHttpClient.ServiceBaseAddress"/></param>
-            <returns>Deserialized server response in expected response type</returns>
+            <typeparam name="TResponse">Expected response type.</typeparam>
+            <typeparam name="TRequest">Type of request parameter.</typeparam>
+            <param name="request">Parameter to be sent as body of HTTP message.</param>
+            <param name="resourceUri">Target resource on server, URI complement to be appended to <see cref="P:Dlp.Buy4.Framework.Portable.HttpCommunication.BasicHttpClient.ServiceBaseAddress"/>.</param>
+            <param name="timeOut">Time out for the request to be aborted.</param>
+            <returns>Deserialized server response in expected response type.</returns>
         </member>
         <member name="M:Dlp.Buy4.Framework.Portable.HttpCommunication.BasicHttpClient.PostAsXml``1(``0,System.String,System.Nullable{System.TimeSpan})">
             <summary>
-            Send a http request with POST verb and content as xml.
+            Send a HTTP request with POST verb and content as XML.
             </summary>
-            <typeparam name="TRequest">Type of request parameter</typeparam>
-            <param name="request">Parameter to be sent as body of http message</param>
-            <param name="resourceUri">Target resource on server, uri complement to be appended to <see cref="P:Dlp.Buy4.Framework.Portable.HttpCommunication.BasicHttpClient.ServiceBaseAddress"/></param>
+            <typeparam name="TRequest">Type of request parameter.</typeparam>
+            <param name="request">Parameter to be sent as body of HTTP message.</param>
+            <param name="resourceUri">Target resource on server, URI complement to be appended to <see cref="P:Dlp.Buy4.Framework.Portable.HttpCommunication.BasicHttpClient.ServiceBaseAddress"/>.</param>
             <param name="timeOut">Time out for the request to be aborted.</param>
-            <returns>Deserialized server response as string</returns>
+            <returns>Deserialized server response as string.</returns>
+        </member>
+        <member name="M:Dlp.Buy4.Framework.Portable.HttpCommunication.BasicHttpClient.PostAsJson``2(``1,System.String,System.Nullable{System.TimeSpan})">
+            <summary>
+            Send a HTTP request with POST verb and content as JSON.
+            </summary>
+            <typeparam name="TResponse">Expected response type.</typeparam>
+            <typeparam name="TRequest">Type of request parameter.</typeparam>
+            <param name="request">Parameter to be sent as body of HTTP message.</param>
+            <param name="resourceUri">Target resource on server, URI complement to be appended to <see cref="P:Dlp.Buy4.Framework.Portable.HttpCommunication.BasicHttpClient.ServiceBaseAddress"/>.</param>
+            <param name="timeOut">Time out for the request to be aborted.</param>
+            <returns>Deserialized server response as string.</returns>
+        </member>
+        <member name="M:Dlp.Buy4.Framework.Portable.HttpCommunication.BasicHttpClient.PostAsJson``1(``0,System.String,System.Nullable{System.TimeSpan})">
+            <summary>
+            Send a HTTP request with POST verb and content as JSON.
+            </summary>
+            <typeparam name="TRequest">Type of request parameter.</typeparam>
+            <param name="request">Parameter to be sent as body of HTTP message.</param>
+            <param name="resourceUri">Target resource on server, URI complement to be appended to <see cref="P:Dlp.Buy4.Framework.Portable.HttpCommunication.BasicHttpClient.ServiceBaseAddress"/>.</param>
+            <param name="timeOut">Time out for the request to be aborted.</param>
+            <returns>Deserialized server response as string.</returns>
+        </member>
+        <member name="M:Dlp.Buy4.Framework.Portable.HttpCommunication.BasicHttpClient.GetPostResponse``2(System.String)">
+            <summary>
+            Get a POST response.
+            </summary>
+            <typeparam name="TResponse">Expected response type.</typeparam>
+            <typeparam name="TSerializer">Serialization type. <seealso cref="T:Dlp.Buy4.Framework.Portable.Serialization.JsonBasicSerializer"/>, <seealso cref="T:Dlp.Buy4.Framework.Portable.Serialization.XmlBasicSerializer"/>.</typeparam>
+            <param name="serializedContent">Request content as string.</param>
+            <returns>Response to the request, as a deserialized object.</returns>
+        </member>
+        <member name="M:Dlp.Buy4.Framework.Portable.HttpCommunication.BasicHttpClient.CreateHttpContentAsXml``1(``0)">
+            <summary>
+            Creates the <see cref="T:System.Net.Http.HttpContent"/> in XML format, of a generic request.
+            </summary>
+            <typeparam name="T">Request type.</typeparam>
+            <param name="request">Request to be parsed into a <see cref="T:System.Net.Http.HttpContent"/>.</param>
+            <returns><see cref="T:System.Net.Http.HttpContent"/> in XML format, of the request.</returns>
+        </member>
+        <member name="M:Dlp.Buy4.Framework.Portable.HttpCommunication.BasicHttpClient.CreateHttpContentAsJson``1(``0)">
+            <summary>
+            Creates the <see cref="T:System.Net.Http.HttpContent"/> in XML format, of a generic request.
+            </summary>
+            <typeparam name="T">Request type.</typeparam>
+            <param name="request">Request to be parsed into a <see cref="T:System.Net.Http.HttpContent"/>.</param>
+            <returns><see cref="T:System.Net.Http.HttpContent"/> in XML format, of the request.</returns>
+        </member>
+        <member name="T:Dlp.Buy4.Framework.Portable.HttpCommunication.IHttpClient">
+            <summary>
+            Basic contract for a HTTP client.
+            </summary>
+        </member>
+        <member name="P:Dlp.Buy4.Framework.Portable.HttpCommunication.IHttpClient.ServiceBaseAddress">
+            <summary>
+            Address URI.
+            </summary>
+        </member>
+        <member name="M:Dlp.Buy4.Framework.Portable.HttpCommunication.IHttpClient.PostAsXml``2(``1,System.String,System.Nullable{System.TimeSpan})">
+            <summary>
+            Send a request with POST verb in XML format.
+            </summary>
+            <typeparam name="TResponse">Response type from a corresponding request to <see cref="T:System.Uri"/>.</typeparam>
+            <typeparam name="TRequest">Request type to send to <see cref="T:System.Uri"/>.</typeparam>
+            <param name="request">Request to send to <see cref="T:System.Uri"/>.</param>
+            <param name="resourceUri">Resource URI.</param>
+            <param name="timeOut">Request time out.</param>
+            <returns>Response object from the sent request.</returns>
+        </member>
+        <member name="M:Dlp.Buy4.Framework.Portable.HttpCommunication.IHttpClient.PostAsXml``1(``0,System.String,System.Nullable{System.TimeSpan})">
+            <summary>
+            Send a request with POST verb in XML format.
+            </summary>
+            <typeparam name="TRequest">Request type to send to <see cref="T:System.Uri"/>.</typeparam>
+            <param name="request">Request to send to <see cref="T:System.Uri"/>.</param>
+            <param name="resourceUri">Resource URI.</param>
+            <param name="timeOut">Request time out.</param>
+            <returns>Response string as XML from the sent request.</returns>
+        </member>
+        <member name="M:Dlp.Buy4.Framework.Portable.HttpCommunication.IHttpClient.PostAsJson``2(``1,System.String,System.Nullable{System.TimeSpan})">
+            <summary>
+            Send a request with POST verb in JSON format.
+            </summary>
+            <typeparam name="TResponse">Response type from a corresponding request to <see cref="T:System.Uri"/>.</typeparam>
+            <typeparam name="TRequest">Request type to send to <see cref="T:System.Uri"/>.</typeparam>
+            <param name="request">Request to send to <see cref="T:System.Uri"/>.</param>
+            <param name="resourceUri">Resource URI.</param>
+            <param name="timeOut">Request time out.</param>
+            <returns>Response object from the sent request.</returns>
+        </member>
+        <member name="M:Dlp.Buy4.Framework.Portable.HttpCommunication.IHttpClient.PostAsJson``1(``0,System.String,System.Nullable{System.TimeSpan})">
+            <summary>
+            Send a request with POST verb in JSON format.
+            </summary>
+            <typeparam name="TRequest">Request type to send to <see cref="T:System.Uri"/>.</typeparam>
+            <param name="request">Request to send to <see cref="T:System.Uri"/>.</param>
+            <param name="resourceUri">Resource URI.</param>
+            <param name="timeOut">Request time out.</param>
+            <returns>Response string as JSON from the sent request.</returns>
+        </member>
+        <member name="T:Dlp.Buy4.Framework.Portable.Serialization.Extension.SerializerExtension">
+            <summary>
+            Extension to serialize an object through JSON or XML.
+            </summary>
+        </member>
+        <member name="M:Dlp.Buy4.Framework.Portable.Serialization.Extension.SerializerExtension.SerializeToJson``1(``0)">
+            <summary>
+            Serialize an object of type T to a string on JSON format.
+            </summary>
+            <typeparam name="T">Object type.</typeparam>
+            <param name="obj">Object to serialize.</param>
+            <returns>Serialized object in JSON format.</returns>
+        </member>
+        <member name="M:Dlp.Buy4.Framework.Portable.Serialization.Extension.SerializerExtension.SerializeToXml``1(``0)">
+            <summary>
+            Serialize an object of type T to a string on XML format.
+            </summary>
+            <typeparam name="T">Object type.</typeparam>
+            <param name="obj">Object to serialize.</param>
+            <returns>Serialized object in XML format.</returns>
+        </member>
+        <member name="T:Dlp.Buy4.Framework.Portable.Serialization.IBasicSerializer">
+            <summary>
+            Basic contract for a serializer.
+            </summary>
+        </member>
+        <member name="M:Dlp.Buy4.Framework.Portable.Serialization.IBasicSerializer.TryParse``1(System.Byte[],``0@)">
+            <summary>
+            Verify if a byte array could be deserialized into a
+            specified object.
+            </summary>
+            <typeparam name="T">Object to be returned from the array byte.</typeparam>
+            <param name="data">Byte containing an object.</param>
+            <param name="obj">Byte parsed into an object.</param>
+            <returns>Whether the byte array could be parsed into the object or not.</returns>
+        </member>
+        <member name="M:Dlp.Buy4.Framework.Portable.Serialization.IBasicSerializer.Deserialize``1(System.Byte[])">
+            <summary>
+            Deserialize a byte array into a generic object.
+            </summary>
+            <typeparam name="T">Object to be returned from the array byte.</typeparam>
+            <param name="data">Array byte containing an object.</param>
+            <returns>The object extracted from the array byte.</returns>
+            <exception cref="T:System.ArgumentNullException">If null data, deserializing as XML.</exception>
+        </member>
+        <member name="M:Dlp.Buy4.Framework.Portable.Serialization.IBasicSerializer.Serialize``1(``0)">
+            <summary>
+            Serializes an object into a <see cref="T:System.IO.Stream"/>.
+            </summary>
+            <typeparam name="T">Generic object type.</typeparam>
+            <param name="obj">Object to be serialized.</param>
+            <returns>The stream of the serialized object.</returns>
+        </member>
+        <member name="T:Dlp.Buy4.Framework.Portable.Serialization.JsonBasicSerializer">
+            <summary>
+            JSON basic serializer.
+            </summary>
+        </member>
+        <member name="M:Dlp.Buy4.Framework.Portable.Serialization.JsonBasicSerializer.TryParse``1(System.Byte[],``0@)">
+            <summary>
+            Verify if a byte array containing JSON data could be deserialized into a
+            specified object.
+            </summary>
+            <typeparam name="T">Object to be returned from the byte array.</typeparam>
+            <param name="data">Byte array containing an object in JSON format.</param>
+            <param name="obj">Byte array parsed into an object.</param>
+            <returns>Whether the byte array could be parsed as JSON into the object or not.</returns>
+        </member>
+        <member name="M:Dlp.Buy4.Framework.Portable.Serialization.JsonBasicSerializer.Deserialize``1(System.Byte[])">
+            <summary>
+            Deserialize a byte array containing data in JSON format, into a generic object.
+            </summary>
+            <typeparam name="T">Object to be returned from the byte array in JSON format.</typeparam>
+            <param name="data">Byte array in JSON format containing an object.</param>
+            <returns>The object extracted from the array byte, which contains data as JSON.</returns>
+        </member>
+        <member name="M:Dlp.Buy4.Framework.Portable.Serialization.JsonBasicSerializer.Serialize``1(``0)">
+            <summary>
+            Serializes an object into a <see cref="T:System.IO.Stream"/>.
+            </summary>
+            <typeparam name="T">Generic object type.</typeparam>
+            <param name="request">Object to be serialized.</param>
+            <returns>The stream in JSON format of the serialized object.</returns>
+        </member>
+        <member name="T:Dlp.Buy4.Framework.Portable.Serialization.XmlBasicSerializer">
+            <summary>
+            XML basic serializer.
+            </summary>
+        </member>
+        <member name="M:Dlp.Buy4.Framework.Portable.Serialization.XmlBasicSerializer.TryParse``1(System.Byte[],``0@)">
+            <summary>
+            Verify if a byte array containing XML data could be deserialized into a
+            specified object.
+            </summary>
+            <typeparam name="T">Object to be returned from the byte array.</typeparam>
+            <param name="data">Byte array containing an object in XML format.</param>
+            <param name="obj">Byte array parsed into an object.</param>
+            <returns>Whether the byte array could be parsed as XML into the object or not.</returns>
+        </member>
+        <member name="M:Dlp.Buy4.Framework.Portable.Serialization.XmlBasicSerializer.Deserialize``1(System.Byte[])">
+            <summary>
+            Deserialize a byte array containing data in XML format, into a generic object.
+            </summary>
+            <typeparam name="T">Object to be returned from the byte array in XML format.</typeparam>
+            <param name="data">Byte array in XML format containing an object.</param>
+            <returns>The object extracted from the array byte, which contains data as XML.</returns>
+            <exception cref="T:System.ArgumentNullException">When data is null.</exception>
+            <exception cref="T:System.InvalidOperationException">When data and T are not compatible.</exception>
+        </member>
+        <member name="M:Dlp.Buy4.Framework.Portable.Serialization.XmlBasicSerializer.Serialize``1(``0)">
+            <summary>
+            Serializes an object into a <see cref="T:System.IO.Stream"/>.
+            </summary>
+            <typeparam name="T">Generic object type.</typeparam>
+            <param name="request">Object to be serialized.</param>
+            <returns>The stream in XML format of the serialized object.</returns>
         </member>
     </members>
 </doc>

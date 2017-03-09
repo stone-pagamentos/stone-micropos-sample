@@ -85,7 +85,6 @@ C:\Users\lguimaraes\Documents\Repositories\samples-micropos-service\stone-microp
 C:\Users\lguimaraes\Documents\Repositories\samples-micropos-service\stone-micropos-sample\GasStation\bin\Debug\Receipt.Sdk.dll
 C:\Users\lguimaraes\Documents\Repositories\samples-micropos-service\stone-micropos-sample\GasStation\bin\Debug\Receipt.Sdk.Model.dll
 C:\Users\lguimaraes\Documents\Repositories\samples-micropos-service\stone-micropos-sample\GasStation\bin\Debug\Tms.Sdk.dll
-C:\Users\lguimaraes\Documents\Repositories\samples-micropos-service\stone-micropos-sample\GasStation\bin\Debug\Tms.Sdk.Model.dll
 C:\Users\lguimaraes\Documents\Repositories\samples-micropos-service\stone-micropos-sample\GasStation\bin\Debug\Buy4.Framework.Portable.xml
 C:\Users\lguimaraes\Documents\Repositories\samples-micropos-service\stone-micropos-sample\GasStation\bin\Debug\MicroPos.Core.xml
 C:\Users\lguimaraes\Documents\Repositories\samples-micropos-service\stone-micropos-sample\GasStation\bin\Debug\MicroPos.CrossPlatform.xml
@@ -96,8 +95,6 @@ C:\Users\lguimaraes\Documents\Repositories\samples-micropos-service\stone-microp
 C:\Users\lguimaraes\Documents\Repositories\samples-micropos-service\stone-micropos-sample\GasStation\bin\Debug\Poi.Sdk.Model.xml
 C:\Users\lguimaraes\Documents\Repositories\samples-micropos-service\stone-micropos-sample\GasStation\bin\Debug\Receipt.Sdk.xml
 C:\Users\lguimaraes\Documents\Repositories\samples-micropos-service\stone-micropos-sample\GasStation\bin\Debug\Receipt.Sdk.Model.xml
-C:\Users\lguimaraes\Documents\Repositories\samples-micropos-service\stone-micropos-sample\GasStation\bin\Debug\Tms.Sdk.xml
-C:\Users\lguimaraes\Documents\Repositories\samples-micropos-service\stone-micropos-sample\GasStation\bin\Debug\Tms.Sdk.Model.xml
 C:\Users\lguimaraes\Documents\Repositories\samples-micropos-service\stone-micropos-sample\GasStation\obj\Debug\MainWindow.g.cs
 C:\Users\lguimaraes\Documents\Repositories\samples-micropos-service\stone-micropos-sample\GasStation\obj\Debug\App.g.cs
 C:\Users\lguimaraes\Documents\Repositories\samples-micropos-service\stone-micropos-sample\GasStation\obj\Debug\GasStation_MarkupCompile.cache
@@ -110,3 +107,9 @@ C:\Users\lguimaraes\Documents\Repositories\samples-micropos-service\stone-microp
 C:\Users\lguimaraes\Documents\Repositories\samples-micropos-service\stone-micropos-sample\GasStation\obj\Debug\GasStation.application
 C:\Users\lguimaraes\Documents\Repositories\samples-micropos-service\stone-micropos-sample\GasStation\obj\Debug\GasStation.exe
 C:\Users\lguimaraes\Documents\Repositories\samples-micropos-service\stone-micropos-sample\GasStation\obj\Debug\GasStation.pdb
+C:\Users\lguimaraes\Documents\Repositories\samples-micropos-service\stone-micropos-sample\GasStation\bin\Debug\Newtonsoft.Json.dll
+C:\Users\lguimaraes\Documents\Repositories\samples-micropos-service\stone-micropos-sample\GasStation\bin\Debug\System.Net.Http.Extensions.dll
+C:\Users\lguimaraes\Documents\Repositories\samples-micropos-service\stone-micropos-sample\GasStation\bin\Debug\System.Net.Http.Primitives.dll
+C:\Users\lguimaraes\Documents\Repositories\samples-micropos-service\stone-micropos-sample\GasStation\bin\Debug\Newtonsoft.Json.xml
+C:\Users\lguimaraes\Documents\Repositories\samples-micropos-service\stone-micropos-sample\GasStation\bin\Debug\System.Net.Http.Extensions.xml
+C:\Users\lguimaraes\Documents\Repositories\samples-micropos-service\stone-micropos-sample\GasStation\bin\Debug\System.Net.Http.Primitives.xml
