@@ -7,7 +7,7 @@ namespace SimpleConsoleApp.CmdLine.Options
     {
         [Option("stoneCode", Required = true)]
         public string StoneCode { get; set; }
-        [Option("pinpadPort", DefaultValue = null, Required = false)]
+        [Option("porta", DefaultValue = null, Required = false)]
         public string Port  { get; set; }
     }
 }

@@ -7,7 +7,7 @@ namespace SimpleConsoleApp.CmdLine.Options
     {
         [Option("naoAprovadas", Required = false)]
         public bool ShowOnlyCancelledOrNotApproved { get; set; }
-        [Option("all", Required = false)]
+        [Option("todas", Required = false)]
         public bool ShowAll { get; set; }
         [Option("aprovadas", Required = false)]
         public bool ShowOnlyApproved { get; set; }

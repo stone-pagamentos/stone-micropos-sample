@@ -41,12 +41,12 @@ namespace SimpleConsoleApp.CmdLine
 
             switch (commandName)
             {
-                case "activate":
+                case "ativar":
                     ActivateOption activation = baseCommand.DecodeActivation();
                     AuthorizationCore.GetInstance()
                                      .TryActivate(activation);
                     break;
-                case "pay":
+                case "pagar":
                     TransactionOption transaction = baseCommand.DecodeTransaction();
                     AuthorizationCore.GetInstance()
                                      .Authorize(transaction);
