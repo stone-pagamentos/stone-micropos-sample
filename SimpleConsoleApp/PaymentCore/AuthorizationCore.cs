@@ -4,6 +4,8 @@ using Pinpad.Sdk.Model.Exceptions;
 using SimpleConsoleApp.CmdLine.Options;
 using System;
 using SimpleConsoleApp.Extension;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace SimpleConsoleApp.PaymentCore
 {
@@ -12,12 +14,19 @@ namespace SimpleConsoleApp.PaymentCore
     {
         private static AuthorizationCore Instance { get; set; }
 
+        // Transaction, isCancelled or not approved
+        private IDictionary<IAuthorizationReport, bool> Transactions { get; set; }
+
         public ICardPaymentAuthorizer StoneAuthorizer { get; set; }
         public bool IsUsable { get { return this.StoneAuthorizer == null ? false : true; } }
 
         static AuthorizationCore()
         {
             Instance = new AuthorizationCore();
+        }
+        public AuthorizationCore()
+        {
+            this.Transactions = new Dictionary<IAuthorizationReport, bool>();
         }
 
         public static AuthorizationCore GetInstance()
@@ -68,10 +77,12 @@ namespace SimpleConsoleApp.PaymentCore
             if (authReport.WasApproved == true)
             {
                 authReport.ShowTransactionOnScreen();
+                this.Transactions.Add(authReport, false);
             }
             else
             {
                 authReport.ShowErrorOnTransaction();
+                this.Transactions.Add(authReport, true);
             }
 
             return authReport;
