@@ -55,13 +55,26 @@ namespace SimpleConsoleApp.Extension
             Console.Write(lines.ToArray()
                                .ToMarkdownBulletedList());
         }
-        public static void ShowTransactionsOnScreen (this IDictionary<IAuthorizationReport, bool> transactions)
+        public static void ShowTransactionsOnScreen (this IDictionary<IAuthorizationReport, bool> transactions,
+            Func<KeyValuePair<IAuthorizationReport, bool>, bool> predicate = null)
         {
             List<TransactionTableEntry> entries = new List<TransactionTableEntry>();
 
-            foreach (KeyValuePair<IAuthorizationReport, bool> currentTrnx in transactions)
+            if (predicate == null)
             {
-                entries.Add(new TransactionTableEntry(currentTrnx.Key, currentTrnx.Value));
+
+                entries.AddRange(
+                    transactions.ToList()
+                                .ConvertAll<TransactionTableEntry>(t => new TransactionTableEntry(t.Key, t.Value))
+                    );
+            }
+            else
+            {
+                entries.AddRange(
+                    transactions.Where(predicate)
+                                .ToList()
+                                .ConvertAll<TransactionTableEntry>(t => new TransactionTableEntry(t.Key, t.Value))
+                    );
             }
 
             Console.Write(entries.ToMarkdownTable());

@@ -96,12 +96,14 @@ namespace SimpleConsoleApp.PaymentCore
 
             if (showOptions.ShowOnlyApproved == true)
             {
-
+                Console.WriteLine("APENAS TRANSACOES APROVADAS:");
+                this.Transactions.ShowTransactionsOnScreen(t => t.Value == false);
             }
 
             if (showOptions.ShowOnlyCancelledOrNotApproved == true)
             {
-
+                Console.WriteLine("APENAS TRANSACOES NAO APROVADAS:");
+                this.Transactions.ShowTransactionsOnScreen(t => t.Value == true);
             }
         }
     }

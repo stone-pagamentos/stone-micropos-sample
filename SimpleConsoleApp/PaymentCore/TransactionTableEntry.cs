@@ -15,10 +15,10 @@ namespace SimpleConsoleApp.PaymentCore
         public string CardholderName { get { return this.Report.Card.CardholderName; } }
         public bool IsCaptured { get; private set; }
 
-        public TransactionTableEntry(IAuthorizationReport report, bool isCaptured)
+        public TransactionTableEntry(IAuthorizationReport report, bool isCancelled)
         {
             this.Report = report;
-            this.IsCaptured = !IsCaptured;
+            this.IsCaptured = !isCancelled;
         }
     }
 }
