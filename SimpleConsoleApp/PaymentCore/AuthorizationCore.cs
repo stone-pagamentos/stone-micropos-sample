@@ -91,15 +91,18 @@ namespace SimpleConsoleApp.PaymentCore
             }
             catch (CardHasChipException)
             {
-
+                Console.WriteLine("O cartao possui chip. For favor, insira-o.");
+                this.Transactions.Add(new TransactionTableEntry(transactionEntry, true));
             }
             catch (ExpiredCardException)
             {
-
+                Console.WriteLine("Cartão expirado.");
+                this.Transactions.Add(new TransactionTableEntry(transactionEntry, true));
             }
             catch (Exception)
             {
-
+                Console.WriteLine("Ocorreu um erro na transacao.");
+                this.Transactions.Add(new TransactionTableEntry(transactionEntry, true));
             }
 
             return authReport;

@@ -11,5 +11,7 @@ namespace SimpleConsoleApp.CmdLine.Options
         public bool ShowAll { get; set; }
         [Option("aprovadas", Required = false)]
         public bool ShowOnlyApproved { get; set; }
+        [Option("grafico", Required = false)]
+        public bool Decorate { get; set; }
     }
 }

@@ -6,18 +6,27 @@ namespace SimpleConsoleApp.PaymentCore
     // TODO: Doc
     internal sealed class TransactionTableEntry
     {
-        private IAuthorizationReport Report { get; set; }
-
-        public string StoneId { get { return this.Report.AcquirerTransactionKey; } }
-        public decimal Amount { get { return this.Report.Amount; } }
-        public TransactionType Type { get { return this.Report.TransactionType.Value; } }
-        public string BrandName { get { return this.Report.Card.BrandName; } }
-        public string CardholderName { get { return this.Report.Card.CardholderName; } }
-        public bool IsCaptured { get; private set; }
+        public string StoneId { get; set; }
+        public decimal Amount { get; set; }
+        public TransactionType Type { get; set; }
+        public string BrandName { get; set; }
+        public string CardholderName { get; set; }
+        public bool IsCaptured { get; set; }
 
         public TransactionTableEntry(IAuthorizationReport report, bool isCancelled)
         {
-            this.Report = report;
+            // Mapping this way so I can mock it dumbly
+            this.StoneId = report.AcquirerTransactionKey;
+            this.Amount = report.Amount;
+            this.Type = report.TransactionType.Value;
+            this.BrandName = report.Card.BrandName;
+            this.CardholderName = report.Card.CardholderName;
+            this.IsCaptured = !isCancelled;
+        }
+        public TransactionTableEntry(ITransactionEntry entry, bool isCancelled)
+        {
+            this.Amount = entry.Amount;
+            this.Type = entry.Type;
             this.IsCaptured = !isCancelled;
         }
     }
