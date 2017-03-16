@@ -62,7 +62,19 @@ namespace SimpleConsoleApp.PaymentCore
             };
 
             // Authorize the transaction setup and return it's value:
-            return this.StoneAuthorizer.Authorize(transactionEntry);
+            IAuthorizationReport authReport = this.StoneAuthorizer.Authorize(transactionEntry);
+
+            // Show result on console:
+            if (authReport.WasApproved == true)
+            {
+                authReport.ShowTransactionOnScreen();
+            }
+            else
+            {
+                authReport.ShowErrorOnTransaction();
+            }
+
+            return authReport;
         }
     }
 }
