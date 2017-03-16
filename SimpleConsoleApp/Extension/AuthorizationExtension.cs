@@ -56,7 +56,7 @@ namespace SimpleConsoleApp.Extension
                                .ToMarkdownBulletedList());
         }
         public static void ShowTransactionsOnScreen (this ICollection<TransactionTableEntry> transactions,
-            Func<TransactionTableEntry, int, bool> predicate = null)
+            Func<TransactionTableEntry, int, bool> predicate = null, bool showGraphic = false)
         {
             List<TransactionTableEntry> entries = new List<TransactionTableEntry>();
 
@@ -70,6 +70,23 @@ namespace SimpleConsoleApp.Extension
             }
 
             Console.Write(entries.ToMarkdownTable());
+
+            if (showGraphic == true)
+            {
+                int approvedCount = transactions.Where(t => t.IsCaptured == true)
+                                                .Count();
+                int notApprovedCount = transactions.Where(t => t.IsCaptured == false)
+                                                                .Count();
+
+                var graphic = new Dictionary<string, int>
+                {
+                    { "Total", transactions.Count},
+                    { "Aprovadas", approvedCount },
+                    { "Nao aprovadas", notApprovedCount },
+                };
+
+                Console.Write(graphic.ToMarkdownBarChart());
+            }
         }
     }
 }

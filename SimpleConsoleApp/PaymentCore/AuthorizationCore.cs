@@ -6,6 +6,7 @@ using System;
 using SimpleConsoleApp.Extension;
 using System.Collections.Generic;
 using System.Linq;
+using Pinpad.Sdk.Model;
 
 namespace SimpleConsoleApp.PaymentCore
 {
@@ -27,6 +28,35 @@ namespace SimpleConsoleApp.PaymentCore
         public AuthorizationCore()
         {
             this.Transactions = new List<TransactionTableEntry>();
+
+            // TODO: MOCK!
+            TransactionTableEntry t = new TransactionTableEntry(new TransactionEntry()
+                {
+                    Amount = 12,
+                    CaptureTransaction = true,
+                    InitiatorTransactionKey = "123555888970",
+                    Type = TransactionType.Debit
+                }, false)
+            {
+                CardholderName = "ROHANA / CERES",
+                StoneId = "7878565612112",
+                BrandName = "MASTERCARD"
+            };
+            this.Transactions.Add(t);
+
+            t = new TransactionTableEntry(new TransactionEntry()
+                {
+                    Amount = 8.99m,
+                    CaptureTransaction = true,
+                    InitiatorTransactionKey = "123555888971",
+                    Type = TransactionType.Credit
+                }, true)
+            {
+                CardholderName = "ROHANA / CERES",
+                StoneId = "7878565612116",
+                BrandName = "VISA"
+            };
+            this.Transactions.Add(t);
         }
 
         public static AuthorizationCore GetInstance()
