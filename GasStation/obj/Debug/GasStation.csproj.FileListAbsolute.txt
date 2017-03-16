@@ -43,7 +43,6 @@ C:\buy4-prototype\stone-micropos-sample\GasStation\bin\Debug\Poi.Sdk.Model.dll
 C:\buy4-prototype\stone-micropos-sample\GasStation\bin\Debug\Receipt.Sdk.dll
 C:\buy4-prototype\stone-micropos-sample\GasStation\bin\Debug\Receipt.Sdk.Model.dll
 C:\buy4-prototype\stone-micropos-sample\GasStation\bin\Debug\Tms.Sdk.dll
-C:\buy4-prototype\stone-micropos-sample\GasStation\bin\Debug\Tms.Sdk.Model.dll
 C:\buy4-prototype\stone-micropos-sample\GasStation\bin\Debug\Buy4.Framework.Portable.xml
 C:\buy4-prototype\stone-micropos-sample\GasStation\bin\Debug\MicroPos.Core.xml
 C:\buy4-prototype\stone-micropos-sample\GasStation\bin\Debug\MicroPos.CrossPlatform.xml
@@ -54,8 +53,6 @@ C:\buy4-prototype\stone-micropos-sample\GasStation\bin\Debug\Poi.Sdk.xml
 C:\buy4-prototype\stone-micropos-sample\GasStation\bin\Debug\Poi.Sdk.Model.xml
 C:\buy4-prototype\stone-micropos-sample\GasStation\bin\Debug\Receipt.Sdk.xml
 C:\buy4-prototype\stone-micropos-sample\GasStation\bin\Debug\Receipt.Sdk.Model.xml
-C:\buy4-prototype\stone-micropos-sample\GasStation\bin\Debug\Tms.Sdk.xml
-C:\buy4-prototype\stone-micropos-sample\GasStation\bin\Debug\Tms.Sdk.Model.xml
 C:\buy4-prototype\stone-micropos-sample\GasStation\obj\Debug\MainWindow.g.cs
 C:\buy4-prototype\stone-micropos-sample\GasStation\obj\Debug\App.g.cs
 C:\buy4-prototype\stone-micropos-sample\GasStation\obj\Debug\GasStation_MarkupCompile.cache
@@ -113,3 +110,9 @@ C:\Users\lguimaraes\Documents\Repositories\samples-micropos-service\stone-microp
 C:\Users\lguimaraes\Documents\Repositories\samples-micropos-service\stone-micropos-sample\GasStation\bin\Debug\Newtonsoft.Json.xml
 C:\Users\lguimaraes\Documents\Repositories\samples-micropos-service\stone-micropos-sample\GasStation\bin\Debug\System.Net.Http.Extensions.xml
 C:\Users\lguimaraes\Documents\Repositories\samples-micropos-service\stone-micropos-sample\GasStation\bin\Debug\System.Net.Http.Primitives.xml
+C:\buy4-prototype\stone-micropos-sample\GasStation\bin\Debug\Newtonsoft.Json.dll
+C:\buy4-prototype\stone-micropos-sample\GasStation\bin\Debug\System.Net.Http.Extensions.dll
+C:\buy4-prototype\stone-micropos-sample\GasStation\bin\Debug\System.Net.Http.Primitives.dll
+C:\buy4-prototype\stone-micropos-sample\GasStation\bin\Debug\Newtonsoft.Json.xml
+C:\buy4-prototype\stone-micropos-sample\GasStation\bin\Debug\System.Net.Http.Extensions.xml
+C:\buy4-prototype\stone-micropos-sample\GasStation\bin\Debug\System.Net.Http.Primitives.xml

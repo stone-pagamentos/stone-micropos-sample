@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaVendingMachine", "PizzaMachine\PizzaVendingMachine.csproj", "{E00EE72D-7F30-47A8-887D-1C9F67A69CD5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleWpfApp", "SimpleWpfApp\SimpleWpfApp.csproj", "{23B7614C-A159-4617-A7D9-2D795D6D5AAC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GasStation", "GasStation\GasStation.csproj", "{FED091BA-086C-46B2-B1F4-CCDDCD7D7CB8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleConsoleApp", "SimpleConsoleApp\SimpleConsoleApp.csproj", "{CA8A39F6-907C-4420-9D91-9915B382EF83}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,6 +36,12 @@ Global
 		{FED091BA-086C-46B2-B1F4-CCDDCD7D7CB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FED091BA-086C-46B2-B1F4-CCDDCD7D7CB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FED091BA-086C-46B2-B1F4-CCDDCD7D7CB8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA8A39F6-907C-4420-9D91-9915B382EF83}.Certification|Any CPU.ActiveCfg = Release|Any CPU
+		{CA8A39F6-907C-4420-9D91-9915B382EF83}.Certification|Any CPU.Build.0 = Release|Any CPU
+		{CA8A39F6-907C-4420-9D91-9915B382EF83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA8A39F6-907C-4420-9D91-9915B382EF83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA8A39F6-907C-4420-9D91-9915B382EF83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA8A39F6-907C-4420-9D91-9915B382EF83}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
