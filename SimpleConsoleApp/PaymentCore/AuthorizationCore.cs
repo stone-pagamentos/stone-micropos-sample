@@ -5,6 +5,7 @@ using SimpleConsoleApp.CmdLine.Options;
 using System;
 using SimpleConsoleApp.Extension;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SimpleConsoleApp.PaymentCore
 {
@@ -14,7 +15,7 @@ namespace SimpleConsoleApp.PaymentCore
         private static AuthorizationCore Instance { get; set; }
 
         // Transaction, isCancelled or not approved
-        private IDictionary<IAuthorizationReport, bool> Transactions { get; set; }
+        private ICollection<TransactionTableEntry> Transactions { get; set; }
 
         public ICardPaymentAuthorizer StoneAuthorizer { get; set; }
         public bool IsUsable { get { return this.StoneAuthorizer == null ? false : true; } }
@@ -25,7 +26,7 @@ namespace SimpleConsoleApp.PaymentCore
         }
         public AuthorizationCore()
         {
-            this.Transactions = new Dictionary<IAuthorizationReport, bool>();
+            this.Transactions = new List<TransactionTableEntry>();
         }
 
         public static AuthorizationCore GetInstance()
@@ -69,19 +70,36 @@ namespace SimpleConsoleApp.PaymentCore
                 Type = transaction.TransactionType
             };
 
-            // Authorize the transaction setup and return it's value:
-            IAuthorizationReport authReport = this.StoneAuthorizer.Authorize(transactionEntry);
+            IAuthorizationReport authReport = null;
 
-            // Show result on console:
-            if (authReport.WasApproved == true)
+            try
             {
-                authReport.ShowTransactionOnScreen();
-                this.Transactions.Add(authReport, false);
+                // Authorize the transaction setup and return it's value:
+                authReport = this.StoneAuthorizer.Authorize(transactionEntry);
+
+                // Show result on console:
+                if (authReport.WasApproved == true)
+                {
+                    authReport.ShowTransactionOnScreen();
+                    this.Transactions.Add(new TransactionTableEntry(authReport, false));
+                }
+                else
+                {
+                    authReport.ShowErrorOnTransaction();
+                    this.Transactions.Add(new TransactionTableEntry(authReport, true));
+                }
             }
-            else
+            catch (CardHasChipException)
             {
-                authReport.ShowErrorOnTransaction();
-                this.Transactions.Add(authReport, true);
+
+            }
+            catch (ExpiredCardException)
+            {
+
+            }
+            catch (Exception)
+            {
+
             }
 
             return authReport;
@@ -97,13 +115,13 @@ namespace SimpleConsoleApp.PaymentCore
             if (showOptions.ShowOnlyApproved == true)
             {
                 Console.WriteLine("APENAS TRANSACOES APROVADAS:");
-                this.Transactions.ShowTransactionsOnScreen(t => t.Value == false);
+                this.Transactions.ShowTransactionsOnScreen((t, e) => t.IsCaptured == true);
             }
 
             if (showOptions.ShowOnlyCancelledOrNotApproved == true)
             {
                 Console.WriteLine("APENAS TRANSACOES NAO APROVADAS:");
-                this.Transactions.ShowTransactionsOnScreen(t => t.Value == true);
+                this.Transactions.ShowTransactionsOnScreen((t, e) => t.IsCaptured == false);
             }
         }
     }
