@@ -182,5 +182,10 @@ namespace SimpleConsoleApp.PaymentCore
                     cancelation.StoneId);
             }
         }
+        internal void ClosePinpad()
+        {
+            this.StoneAuthorizer.PinpadFacade.Communication
+                .ClosePinpadConnection(this.StoneAuthorizer.PinpadMessages.MainLabel);
+        }
     }
 }

@@ -18,7 +18,7 @@ namespace SimpleConsoleApp.PaymentCore
             do
             {
                 string command = this.ReadNextCommand();
-                command.Decode();
+                getOutOfHere = command.Decode();
             }
             while (getOutOfHere == false);
         }

@@ -42,7 +42,7 @@ namespace SimpleConsoleApp.CmdLine
 
             return cancelation;
         }
-        public static void Decode (this string command)
+        public static bool Decode (this string command)
         {
             string[] args = command.Split(' ');
             string commandName = args[0];
@@ -70,7 +70,13 @@ namespace SimpleConsoleApp.CmdLine
                     AuthorizationCore.GetInstance()
                                      .Cancel(cancelation);
                     break;
+                case "sair":
+                    AuthorizationCore.GetInstance()
+                                     .ClosePinpad();
+                    return true;
             }
+
+            return false;
         }
     }
 }
