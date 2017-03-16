@@ -33,6 +33,15 @@ namespace SimpleConsoleApp.CmdLine
 
             return showTransactions;
         }
+        public static CancelationOption DecodeCancelation(this string cancelationCommand)
+        {
+            string[] args = cancelationCommand.Split(' ');
+            CancelationOption cancelation = new CancelationOption();
+
+            CommandLine.Parser.Default.ParseArguments(args, cancelation);
+
+            return cancelation;
+        }
         public static void Decode (this string command)
         {
             string[] args = command.Split(' ');
@@ -55,6 +64,11 @@ namespace SimpleConsoleApp.CmdLine
                     ShowTransactionsOption showOptions = baseCommand.DecodeShowTransactions();
                     AuthorizationCore.GetInstance()
                                      .ShowTransactions(showOptions);
+                    break;
+                case "cancelar":
+                    CancelationOption cancelation = baseCommand.DecodeCancelation();
+                    AuthorizationCore.GetInstance()
+                                     .Cancel(cancelation);
                     break;
             }
         }

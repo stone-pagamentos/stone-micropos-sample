@@ -109,6 +109,7 @@
   <ItemGroup>
     <Compile Include="CommandLine\CommandDecoder.cs" />
     <Compile Include="CommandLine\Options\ActivateOption.cs" />
+    <Compile Include="CommandLine\Options\CancelationOption.cs" />
     <Compile Include="CommandLine\Options\ShowTransactionsOption.cs" />
     <Compile Include="CommandLine\Options\TransactionOption.cs" />
     <Compile Include="Extension\AuthorizationExtension.cs" />

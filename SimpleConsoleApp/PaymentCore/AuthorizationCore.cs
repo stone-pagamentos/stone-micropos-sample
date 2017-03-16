@@ -157,5 +157,30 @@ namespace SimpleConsoleApp.PaymentCore
                 this.Transactions.ShowTransactionsOnScreen((t, e) => t.IsCaptured == false);
             }
         }
+        internal void Cancel(CancelationOption cancelation)
+        {
+            ICancellationReport cancelReport = this.StoneAuthorizer
+                .Cancel(cancelation.StoneId, cancelation.Amount);
+
+            if (cancelReport.WasCancelled == true)
+            {
+                Console.WriteLine("TRANSACAO {0} CANCELADA COM SUCESSO.",
+                    cancelation.StoneId);
+
+                TransactionTableEntry transaction = this.Transactions
+                    .Where(t => t.StoneId == cancelation.StoneId)
+                    .FirstOrDefault();
+
+                if (transaction != null)
+                {
+                    transaction.IsCaptured = false;
+                }
+            }
+            else
+            {
+                Console.WriteLine("TRANSACAO {0} NAO PODE SER CANCELADA.",
+                    cancelation.StoneId);
+            }
+        }
     }
 }
