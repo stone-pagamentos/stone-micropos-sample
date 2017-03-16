@@ -41,6 +41,10 @@
       <HintPath>..\packages\CommandLineParser.1.9.71\lib\net45\CommandLine.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="MarkdownLog, Version=0.9.3.36, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MarkdownLog.0.9.3\lib\portable-net45+sl50+MonoAndroid10+MonoTouch10\MarkdownLog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="MicroPos.Core, Version=2.2.2.0, Culture=neutral, PublicKeyToken=9933f889438cc1ec, processorArchitecture=MSIL">
       <HintPath>..\packages\MicroPos.Desktop.Pack.2.10.3\lib\net45\MicroPos.Core.dll</HintPath>
       <Private>True</Private>
@@ -106,6 +110,7 @@
     <Compile Include="CommandLine\CommandDecoder.cs" />
     <Compile Include="CommandLine\Options\ActivateOption.cs" />
     <Compile Include="CommandLine\Options\TransactionOption.cs" />
+    <Compile Include="Extension\AuthorizerExtension.cs" />
     <Compile Include="PaymentCore\AuthorizationCore.cs" />
     <Compile Include="PaymentCore\AuthorizationManager.cs" />
     <Compile Include="PaymentCore\StringExtension.cs" />

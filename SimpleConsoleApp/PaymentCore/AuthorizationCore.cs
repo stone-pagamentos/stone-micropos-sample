@@ -3,6 +3,7 @@ using MicroPos.Core.Authorization;
 using Pinpad.Sdk.Model.Exceptions;
 using SimpleConsoleApp.CmdLine.Options;
 using System;
+using SimpleConsoleApp.Extension;
 
 namespace SimpleConsoleApp.PaymentCore
 {
@@ -31,6 +32,9 @@ namespace SimpleConsoleApp.PaymentCore
                 // Tries to connect to one pinpad:
                 this.StoneAuthorizer = DeviceProvider
                     .ActivateAndGetOneOrFirst(activation.StoneCode, null, activation.Port);
+
+                // Show result:
+                this.StoneAuthorizer.ShowPinpadOnConsole();
             }
             catch (PinpadNotFoundException)
             {
