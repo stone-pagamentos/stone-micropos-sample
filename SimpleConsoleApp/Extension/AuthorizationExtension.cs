@@ -8,13 +8,15 @@ using SimpleConsoleApp.PaymentCore;
 
 namespace SimpleConsoleApp.Extension
 {
-    // TODO: Doc.
+    /// <summary>
+    /// Extensions for <see cref="ICardPaymentAuthorizer"/>.
+    /// </summary>
     internal static class AuthorizationExtension
     {
         /// <summary>
-        /// Show a brief description to each pinpad.
+        /// Show a brief description of the pinpad.
         /// </summary>
-        /// <param name="pinpads">Pinpads to log on console.</param>
+        /// <param name="pinpads">Pinpad to log on console.</param>
         public static void ShowPinpadOnConsole(this ICardPaymentAuthorizer pinpad)
         {
             ICollection<ICardPaymentAuthorizer> pinpads = new List<ICardPaymentAuthorizer>();
@@ -30,6 +32,10 @@ namespace SimpleConsoleApp.Extension
                    })
                 .ToMarkdownTable());
         }
+        /// <summary>
+        /// Show a bulleted list with the information about the transaction.
+        /// </summary>
+        /// <param name="transaction">Transaction to log on console.</param>
         public static void ShowTransactionOnScreen (this IAuthorizationReport transaction)
         {
             List<string> lines = new List<string>();
@@ -44,6 +50,10 @@ namespace SimpleConsoleApp.Extension
             Console.Write(lines.ToArray()
                                .ToMarkdownBulletedList());
         }
+        /// <summary>
+        /// Shows the error that occurred while processing a transaction.
+        /// </summary>
+        /// <param name="failedTransaction">Failed transaction to log on console.</param>
         public static void ShowErrorOnTransaction (this IAuthorizationReport failedTransaction)
         {
             List<string> lines = new List<string>();
@@ -55,6 +65,14 @@ namespace SimpleConsoleApp.Extension
             Console.Write(lines.ToArray()
                                .ToMarkdownBulletedList());
         }
+        /// <summary>
+        /// Log all transactions in the console. It allows the user to filter between approved,
+        /// not approved (or canceled) or all transactions.
+        /// Also, it's possible to draw a graphic relating approved and not approved transactions.
+        /// </summary>
+        /// <param name="transactions">All transactions in this execution of the program.</param>
+        /// <param name="predicate">Filter.</param>
+        /// <param name="showGraphic">If the graphic should be logged.</param>
         public static void ShowTransactionsOnScreen (this ICollection<TransactionTableEntry> transactions,
             Func<TransactionTableEntry, int, bool> predicate = null, bool showGraphic = false)
         {
