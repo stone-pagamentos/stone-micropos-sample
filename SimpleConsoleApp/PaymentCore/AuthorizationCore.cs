@@ -6,64 +6,91 @@ using System;
 using SimpleConsoleApp.Extension;
 using System.Collections.Generic;
 using System.Linq;
-using Pinpad.Sdk.Model;
 
 namespace SimpleConsoleApp.PaymentCore
 {
-    // TODO: Doc
+    /// <summary>
+    /// <see cref="ICardPaymentAuthorizer"/> wrapper, responsible for connect to 
+    /// the pinpad, transaction operation, cancelation, show transactions on the
+    /// console and closing connection with the pinpads.
+    /// </summary>
     internal sealed class AuthorizationCore
     {
         private static AuthorizationCore Instance { get; set; }
 
-        // Transaction, isCancelled or not approved
+        /// <summary>
+        /// All transactions tried (approved, not approved and canceled).
+        /// </summary>
         private ICollection<TransactionTableEntry> Transactions { get; set; }
 
+        /// <summary>
+        /// Stone authorizer core.
+        /// </summary>
         public ICardPaymentAuthorizer StoneAuthorizer { get; set; }
+        /// <summary>
+        /// If the <see cref="Instance"/> is eligible to use.
+        /// </summary>
         public bool IsUsable { get { return this.StoneAuthorizer == null ? false : true; } }
 
+        /// <summary>
+        /// Static constructor to create the <see cref="Instance"/>.
+        /// </summary>
         static AuthorizationCore()
         {
             Instance = new AuthorizationCore();
         }
+
+        /// <summary>
+        /// Basic constructor.
+        /// </summary>
         public AuthorizationCore()
         {
             this.Transactions = new List<TransactionTableEntry>();
 
             // TODO: MOCK!
-            TransactionTableEntry t = new TransactionTableEntry(new TransactionEntry()
-                {
-                    Amount = 12,
-                    CaptureTransaction = true,
-                    InitiatorTransactionKey = "123555888970",
-                    Type = TransactionType.Debit
-                }, false)
-            {
-                CardholderName = "ROHANA / CERES",
-                StoneId = "7878565612112",
-                BrandName = "MASTERCARD"
-            };
-            this.Transactions.Add(t);
+            //TransactionTableEntry t = new TransactionTableEntry(new TransactionEntry()
+            //    {
+            //        Amount = 12,
+            //        CaptureTransaction = true,
+            //        InitiatorTransactionKey = "123555888970",
+            //        Type = TransactionType.Debit
+            //    }, false)
+            //{
+            //    CardholderName = "ROHANA / CERES",
+            //    StoneId = "7878565612112",
+            //    BrandName = "MASTERCARD"
+            //};
+            //this.Transactions.Add(t);
 
-            t = new TransactionTableEntry(new TransactionEntry()
-                {
-                    Amount = 8.99m,
-                    CaptureTransaction = true,
-                    InitiatorTransactionKey = "123555888971",
-                    Type = TransactionType.Credit
-                }, true)
-            {
-                CardholderName = "ROHANA / CERES",
-                StoneId = "7878565612116",
-                BrandName = "VISA"
-            };
-            this.Transactions.Add(t);
+            //t = new TransactionTableEntry(new TransactionEntry()
+            //    {
+            //        Amount = 8.99m,
+            //        CaptureTransaction = true,
+            //        InitiatorTransactionKey = "123555888971",
+            //        Type = TransactionType.Credit
+            //    }, true)
+            //{
+            //    CardholderName = "ROHANA / CERES",
+            //    StoneId = "7878565612116",
+            //    BrandName = "VISA"
+            //};
+            //this.Transactions.Add(t);
         }
 
+        /// <summary>
+        /// Return the static <see cref="Instance"/>.
+        /// </summary>
+        /// <returns><see cref="Instance"/></returns>
         public static AuthorizationCore GetInstance()
         {
             return AuthorizationCore.Instance;
         }
 
+        /// <summary>
+        /// Try to connect to the pinpad.
+        /// </summary>
+        /// <param name="activation">Data to connect to the pinpad.</param>
+        /// <returns>True if the pinpad was found and connected.</returns>
         public bool TryActivate (ActivateOption activation)
         {
             try
@@ -86,6 +113,12 @@ namespace SimpleConsoleApp.PaymentCore
 
             return this.IsUsable;
         }
+        /// <summary>
+        /// Authorizes a payment.
+        /// </summary>
+        /// <param name="transaction">Transaction to authorize.</param>
+        /// <returns>The report returned from Stone Authorizer, or null if something 
+        /// went wrong.</returns>
         public IAuthorizationReport Authorize(TransactionOption transaction)
         {
             // Verify if the authorizer is eligible to do something:
@@ -137,6 +170,11 @@ namespace SimpleConsoleApp.PaymentCore
 
             return authReport;
         }
+        /// <summary>
+        /// Shows the transactions performed so far in the current execution
+        /// of the program.
+        /// </summary>
+        /// <param name="showOptions">Information to filter the data to be logged.</param>
         public void ShowTransactions (ShowTransactionsOption showOptions)
         {
             if (showOptions.ShowAll == true)
@@ -157,6 +195,10 @@ namespace SimpleConsoleApp.PaymentCore
                 this.Transactions.ShowTransactionsOnScreen((t, e) => t.IsCaptured == false);
             }
         }
+        /// <summary>
+        /// Cancel a transaction.
+        /// </summary>
+        /// <param name="cancelation">Cancelation info.</param>
         internal void Cancel(CancelationOption cancelation)
         {
             ICancellationReport cancelReport = this.StoneAuthorizer
@@ -182,6 +224,9 @@ namespace SimpleConsoleApp.PaymentCore
                     cancelation.StoneId);
             }
         }
+        /// <summary>
+        /// Closes pinpad connection.
+        /// </summary>
         internal void ClosePinpad()
         {
             this.StoneAuthorizer.PinpadFacade.Communication
