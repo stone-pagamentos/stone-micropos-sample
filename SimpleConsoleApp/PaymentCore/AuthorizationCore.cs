@@ -32,13 +32,17 @@ namespace SimpleConsoleApp.PaymentCore
                 // Tries to connect to one pinpad:
                 this.StoneAuthorizer = DeviceProvider
                     .ActivateAndGetOneOrFirst(activation.StoneCode, null, activation.Port);
-
+                
                 // Show result:
                 this.StoneAuthorizer.ShowPinpadOnConsole();
             }
             catch (PinpadNotFoundException)
             {
                 Console.WriteLine("Pinpad nao encontrado.");
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Erro ao ativar o terminal. Você está usando o StoneCode correto?");
             }
 
             return this.IsUsable;
