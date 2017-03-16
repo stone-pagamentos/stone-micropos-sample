@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using MarkdownLog;
 using System.Linq;
 using Pinpad.Sdk.Model;
+using SimpleConsoleApp.PaymentCore;
 
 namespace SimpleConsoleApp.Extension
 {
@@ -53,6 +54,17 @@ namespace SimpleConsoleApp.Extension
             Console.WriteLine("TRANSACAO NAO APROVADA:");
             Console.Write(lines.ToArray()
                                .ToMarkdownBulletedList());
+        }
+        public static void ShowTransactionsOnScreen (this IDictionary<IAuthorizationReport, bool> transactions)
+        {
+            List<TransactionTableEntry> entries = new List<TransactionTableEntry>();
+
+            foreach (KeyValuePair<IAuthorizationReport, bool> currentTrnx in transactions)
+            {
+                entries.Add(new TransactionTableEntry(currentTrnx.Key, currentTrnx.Value));
+            }
+
+            Console.Write(entries.ToMarkdownTable());
         }
     }
 }

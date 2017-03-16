@@ -1,4 +1,5 @@
 ﻿using System;
+using SimpleConsoleApp.CmdLine;
 
 namespace SimpleConsoleApp.PaymentCore
 {
@@ -17,7 +18,7 @@ namespace SimpleConsoleApp.PaymentCore
             do
             {
                 string command = this.ReadNextCommand();
-                command.ExecuteStringCommand();
+                command.Decode();
             }
             while (getOutOfHere == false);
         }

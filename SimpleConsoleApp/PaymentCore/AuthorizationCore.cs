@@ -4,7 +4,6 @@ using Pinpad.Sdk.Model.Exceptions;
 using SimpleConsoleApp.CmdLine.Options;
 using System;
 using SimpleConsoleApp.Extension;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace SimpleConsoleApp.PaymentCore
@@ -86,6 +85,24 @@ namespace SimpleConsoleApp.PaymentCore
             }
 
             return authReport;
+        }
+        public void ShowTransactions (ShowTransactionsOption showOptions)
+        {
+            if (showOptions.ShowAll == true)
+            {
+                Console.WriteLine("TODAS AS TRANSACOES:");
+                this.Transactions.ShowTransactionsOnScreen();
+            }
+
+            if (showOptions.ShowOnlyApproved == true)
+            {
+
+            }
+
+            if (showOptions.ShowOnlyCancelledOrNotApproved == true)
+            {
+
+            }
         }
     }
 }

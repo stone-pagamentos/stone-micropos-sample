@@ -1,4 +1,5 @@
 ﻿using SimpleConsoleApp.CmdLine.Options;
+using SimpleConsoleApp.PaymentCore;
 
 namespace SimpleConsoleApp.CmdLine
 {
@@ -22,6 +23,40 @@ namespace SimpleConsoleApp.CmdLine
             CommandLine.Parser.Default.ParseArguments(args, activation);
 
             return activation;
+        }
+        public static ShowTransactionsOption DecodeShowTransactions (this string showTransactionsCommand)
+        {
+            string[] args = showTransactionsCommand.Split(' ');
+            ShowTransactionsOption showTransactions = new ShowTransactionsOption();
+
+            CommandLine.Parser.Default.ParseArguments(args, showTransactions);
+
+            return showTransactions;
+        }
+        public static void Decode (this string command)
+        {
+            string[] args = command.Split(' ');
+            string commandName = args[0];
+            string baseCommand = string.Join(" ", args, 1, args.Length - 1);
+
+            switch (commandName)
+            {
+                case "activate":
+                    ActivateOption activation = baseCommand.DecodeActivation();
+                    AuthorizationCore.GetInstance()
+                                     .TryActivate(activation);
+                    break;
+                case "pay":
+                    TransactionOption transaction = baseCommand.DecodeTransaction();
+                    AuthorizationCore.GetInstance()
+                                     .Authorize(transaction);
+                    break;
+                case "resumo":
+                    ShowTransactionsOption showOptions = baseCommand.DecodeShowTransactions();
+                    AuthorizationCore.GetInstance()
+                                     .ShowTransactions(showOptions);
+                    break;
+            }
         }
     }
 }

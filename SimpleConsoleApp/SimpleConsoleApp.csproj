@@ -109,11 +109,12 @@
   <ItemGroup>
     <Compile Include="CommandLine\CommandDecoder.cs" />
     <Compile Include="CommandLine\Options\ActivateOption.cs" />
+    <Compile Include="CommandLine\Options\ShowTransactionsOption.cs" />
     <Compile Include="CommandLine\Options\TransactionOption.cs" />
     <Compile Include="Extension\AuthorizationExtension.cs" />
     <Compile Include="PaymentCore\AuthorizationCore.cs" />
     <Compile Include="PaymentCore\AuthorizationManager.cs" />
-    <Compile Include="PaymentCore\StringExtension.cs" />
+    <Compile Include="PaymentCore\TransactionTableEntry.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
