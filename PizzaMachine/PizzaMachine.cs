@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Pinpad.Sdk.Model;
 using MicroPos.Core;
+using Poi.Sdk.Authorization.Report;
 
 namespace PizzaVendingMachine
 {

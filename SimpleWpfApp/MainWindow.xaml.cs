@@ -7,10 +7,6 @@ using System.Windows;
 using System.Windows.Threading;
 using System.Linq;
 using System.Collections.ObjectModel;
-using Poi.Sdk.Authorization;
-using Poi.Sdk;
-using Poi.Sdk.Model._2._0;
-using Poi.Sdk.Cancellation;
 using Pinpad.Sdk.Model.Exceptions;
 using System.Diagnostics;
 using Pinpad.Sdk.Model;
@@ -19,10 +15,11 @@ using Receipt.Sdk.Model;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
-
-using MicroPos.Core.Exceptions;
-using Tms.Sdk.Client;
 using Tms.Sdk.interfaces;
+using Poi.Sdk.Authorization.Report;
+using Poi.Sdk.Authorization.Tag;
+using Poi.Sdk.Cancellation.Report;
+using Poi.Sdk.Exceptions;
 
 namespace SimpleWpfApp
 {
@@ -231,23 +228,21 @@ namespace SimpleWpfApp
 			// Seleciona a transação a ser cancelada de acordo com o ATK:
 			IAuthorizationReport transaction = this.approvedTransactions.Where(t => t.AcquirerTransactionKey == atk).First();
 
-			// Cria a requisiçào de cancelamento:
-			CancellationRequest request = CancellationRequest.CreateCancellationRequestByAcquirerTransactionKey(this.stoneCode, atk, transaction.Amount, true);
+            // Cancela a transação:
+            ICancellationReport cancelResult = currentAuthorizer.Cancel(transaction.AcquirerTransactionKey, 
+                transaction.Amount);
 
-			// Envia o cancelamento:
-			PoiResponseBase response = currentAuthorizer.AuthorizationProvider.SendRequest(request);
-
-			if (response is Rejection || this.WasDeclined(response.OriginalResponse as AcceptorCancellationResponse) == true)
-			{
-				// Cancelamento não autorizado:
-				this.Log(this.GetDeclinedMessage(response.OriginalResponse as AcceptorCancellationResponse));
-			}
-			else
+			if (cancelResult.WasSuccessful == true)
 			{
 				// Cancelamento autorizado.
 				// Retira a transação da coleção de transação aprovadas:
 				this.approvedTransactions.Remove(transaction);
 				this.uxCbbxTransactions.Items.Remove(transaction.AcquirerTransactionKey);
+			}
+			else
+			{
+				// Cancelamento não autorizado:
+				this.Log(string.Format("{0} - {1}", cancelResult.ResponseCode, cancelResult.ResponseReason));
 			}
 
 			this.UpdateTransactions();
@@ -400,7 +395,7 @@ namespace SimpleWpfApp
 				transactionType = TransactionType.Debit;
 
 				// É débito, então não possui parcelamento:
-				installment.Number = 1;
+				installment.TotalNumberOfPayments = 1;
 				installment.Type = InstallmentType.None;
 			}
 			else if (this.uxCbbxTransactionType.Text == "Credito")
@@ -410,7 +405,7 @@ namespace SimpleWpfApp
 				// Cria o parcelamento:
 				short number = 0;
 				Int16.TryParse(this.uxTbxInstallmentNumber.Text, out number);
-				installment.Number = number;
+				installment.TotalNumberOfPayments = number;
 				installment.Type = (this.uxOptionIssuerInstallment.IsChecked == true) ? InstallmentType.Issuer : InstallmentType.Merchant;
 			}
 			else
@@ -437,7 +432,8 @@ namespace SimpleWpfApp
 
 			try
 			{
-				response = currentAuthorizer.Authorize(transaction);
+                ResponseStatus authorizationStatus;
+				response = currentAuthorizer.Authorize(transaction, out authorizationStatus);
 			}
 			catch (ExpiredCardException)
 			{
@@ -484,7 +480,7 @@ namespace SimpleWpfApp
 			if (report == null) { return; }
 
 			// Verifica o retorno do autorizador:
-			if (report.WasApproved == true)
+			if (report.WasSuccessful == true)
 			{
 				// Transaction approved:
 				this.Log("Transação aprovada.");
@@ -529,12 +525,12 @@ namespace SimpleWpfApp
 
 			StreamWriter valor = new StreamWriter(this.logFilePath + "\\log.txt", true, Encoding.ASCII);
 
-			valor.WriteLine(DateTime.Now + Environment.NewLine);
-			valor.WriteLine("Request:" + Environment.NewLine);
-			valor.Write(report.XmlRequest + Environment.NewLine + Environment.NewLine);
-			valor.WriteLine("Response" + Environment.NewLine);
-			valor.Write(report.XmlResponse + Environment.NewLine + Environment.NewLine);
-			valor.WriteLine("=============================================" + Environment.NewLine);
+			valor.WriteLine(DateTime.Now + System.Environment.NewLine);
+			valor.WriteLine("Request:" + System.Environment.NewLine);
+			valor.Write(report.XmlRequest + System.Environment.NewLine + System.Environment.NewLine);
+			valor.WriteLine("Response" + System.Environment.NewLine);
+			valor.Write(report.XmlResponse + System.Environment.NewLine + System.Environment.NewLine);
+			valor.WriteLine("=============================================" + System.Environment.NewLine);
 
 			valor.Close();
 		}

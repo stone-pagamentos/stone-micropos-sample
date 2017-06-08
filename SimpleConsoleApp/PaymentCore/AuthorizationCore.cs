@@ -6,6 +6,9 @@ using System;
 using SimpleConsoleApp.Extension;
 using System.Collections.Generic;
 using System.Linq;
+using Poi.Sdk.Authorization.Report;
+using Poi.Sdk.Cancellation.Report;
+using Pinpad.Sdk.Model;
 
 namespace SimpleConsoleApp.PaymentCore
 {
@@ -138,10 +141,11 @@ namespace SimpleConsoleApp.PaymentCore
             try
             {
                 // Authorize the transaction setup and return it's value:
-                authReport = this.StoneAuthorizer.Authorize(transactionEntry);
+                ResponseStatus authorizationStatus;
+                authReport = this.StoneAuthorizer.Authorize(transactionEntry, out authorizationStatus);
 
                 // Show result on console:
-                if (authReport.WasApproved == true)
+                if (authReport.WasSuccessful == true)
                 {
                     authReport.ShowTransactionOnScreen();
                     this.Transactions.Add(new TransactionTableEntry(authReport, false));
@@ -204,7 +208,7 @@ namespace SimpleConsoleApp.PaymentCore
             ICancellationReport cancelReport = this.StoneAuthorizer
                 .Cancel(cancelation.StoneId, cancelation.Amount);
 
-            if (cancelReport.WasCancelled == true)
+            if (cancelReport.WasSuccessful == true)
             {
                 Console.WriteLine("TRANSACAO {0} CANCELADA COM SUCESSO.",
                     cancelation.StoneId);

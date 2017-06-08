@@ -1,6 +1,7 @@
 ﻿using MicroPos.Core;
 using MicroPos.Core.Authorization;
 using Pinpad.Sdk.Model;
+using Poi.Sdk.Authorization.Report;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,10 +10,10 @@ using System.Threading.Tasks;
 
 namespace PizzaVendingMachine
 {
-	/// <summary>
-	/// Pizza authorizer.
-	/// </summary>
-	public class PizzaAuthorizer
+    /// <summary>
+    /// Pizza authorizer.
+    /// </summary>
+    public class PizzaAuthorizer
 	{
 		/// <summary>
 		/// Authorization provider.
@@ -130,7 +131,7 @@ namespace PizzaVendingMachine
 			if (report == null) { return false; }
 
 			// Verifies authorization response:
-			if (report.WasApproved == true)
+			if (report.WasSuccessful == true)
 			{
 				// The transaction was approved:
 				this.BoughtPizzas.Add(report);

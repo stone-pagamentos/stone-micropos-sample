@@ -1,14 +1,14 @@
 ﻿using MicroPos.Core;
 using Pinpad.Sdk.Model;
 using Poi.Sdk.Authorization;
-using Poi.Sdk.Cancellation;
+using Poi.Sdk.Authorization.Report;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace GasStation
 {
-	public class GasStationAuthorizer
+    public class GasStationAuthorizer
 	{
 		public ICardPaymentAuthorizer Authorizer;
 
@@ -139,15 +139,14 @@ namespace GasStation
 			if (report == null) { return false; }
 
 			// Verifies authorization response:
-			if (report.WasApproved == true)
+			if (report.WasSuccessful == true)
 			{
 				// The transaction was approved:
 				authorizationMessage = "Transação aprovada";
 
 				Task.Run(() =>
 				{
-					CancellationRequest r = CancellationRequest.CreateCancellationRequest(StoneCode, (report.RawResponse as AuthorizationResponse));
-					this.Authorizer.AuthorizationProvider.SendRequest(r);
+                    this.Authorizer.Cancel(report.AcquirerTransactionKey, report.Amount);
 				});
 
 				return true;

@@ -1,6 +1,7 @@
 ﻿using MicroPos.Core;
 using MicroPos.Core.Authorization;
 using Pinpad.Sdk.Model;
+using Poi.Sdk.Authorization.Report;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

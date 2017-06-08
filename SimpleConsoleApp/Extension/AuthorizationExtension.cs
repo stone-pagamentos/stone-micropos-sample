@@ -5,6 +5,8 @@ using MarkdownLog;
 using System.Linq;
 using Pinpad.Sdk.Model;
 using SimpleConsoleApp.PaymentCore;
+using Poi.Sdk.Authorization.Report;
+using Poi.Sdk.Authorization.TypeCode;
 
 namespace SimpleConsoleApp.Extension
 {
@@ -26,7 +28,7 @@ namespace SimpleConsoleApp.Extension
             Console.WriteLine(
                    pinpads.Select(s => new
                    {
-                       PortName = s.PinpadFacade.Communication.PortName,
+                       PortName = s.PinpadFacade.Communication.ConnectionName,
                        Manufacturer = s.PinpadFacade.Infos.ManufacturerName.Replace(" ", ""),
                        SerialNumber = s.PinpadFacade.Infos.SerialNumber.Replace(" ", "")
                    })
@@ -42,7 +44,7 @@ namespace SimpleConsoleApp.Extension
 
             lines.Add(string.Format("Stone ID: {0}", transaction.AcquirerTransactionKey));
             lines.Add(string.Format("Valor: {0}", transaction.Amount));
-            lines.Add(string.Format("Tipo: {0}", transaction.TransactionType == TransactionType.Credit ? "Credito" : "Debito"));
+            lines.Add(string.Format("Tipo: {0}", transaction.TransactionType == AccountType.Credit ? "Credito" : "Debito"));
             lines.Add(string.Format("Bandeira: {0}", transaction.Card.BrandName));
             lines.Add(string.Format("Nome do portador: {0}", transaction.Card.CardholderName));
 
