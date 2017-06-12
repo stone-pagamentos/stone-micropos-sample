@@ -9,6 +9,7 @@ using System.Linq;
 using Poi.Sdk.Authorization.Report;
 using Poi.Sdk.Cancellation.Report;
 using Pinpad.Sdk.Model;
+using MicroPos.Core.Staging;
 
 namespace SimpleConsoleApp.PaymentCore
 {
@@ -40,7 +41,17 @@ namespace SimpleConsoleApp.PaymentCore
         /// </summary>
         static AuthorizationCore()
         {
-            Instance = new AuthorizationCore();
+            AuthorizationCore.Instance = new AuthorizationCore();
+
+            // Setup integration environment. Comment the lines below if you want to process a transaction in the production endpoint:
+            // If it's false, the authorizer wil always point to the production endpoint:
+            FallbackSettings.EnableFallback = true;
+            
+            // Integration endpoint to the authorizer
+            FallbackSettings.FallbackAuthorizerUri = "https://sandbox-auth-integration.stone.com.br/";
+            
+            // Integration endpoint to TMS (Terminal Management System), responsible for updating pinpad tables with supported brands and cards
+            FallbackSettings.FallbackTmsUri = "https://tms-integration.stone.com.br/";
         }
 
         /// <summary>

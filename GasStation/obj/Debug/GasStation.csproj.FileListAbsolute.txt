@@ -114,3 +114,4 @@ C:\buy4-prototype\stone-micropos-sample\GasStation\bin\Debug\System.Net.Http.Pri
 C:\buy4-prototype\stone-micropos-sample\GasStation\bin\Debug\System.IO.xml
 C:\buy4-prototype\stone-micropos-sample\GasStation\bin\Debug\System.Net.Http.xml
 C:\buy4-prototype\stone-micropos-sample\GasStation\bin\Debug\System.Net.Http.Primitives.xml
+C:\buy4-prototype\stone-micropos-sample\GasStation\obj\Debug\GasStation.csprojResolveAssemblyReference.cache

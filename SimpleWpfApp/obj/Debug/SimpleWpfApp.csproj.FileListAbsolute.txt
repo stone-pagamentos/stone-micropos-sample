@@ -85,3 +85,4 @@ C:\buy4-prototype\stone-micropos-sample\SimpleWpfApp\bin\Debug\System.Net.Http.P
 C:\buy4-prototype\stone-micropos-sample\SimpleWpfApp\bin\Debug\System.IO.xml
 C:\buy4-prototype\stone-micropos-sample\SimpleWpfApp\bin\Debug\System.Net.Http.xml
 C:\buy4-prototype\stone-micropos-sample\SimpleWpfApp\bin\Debug\System.Net.Http.Primitives.xml
+C:\buy4-prototype\stone-micropos-sample\SimpleWpfApp\obj\Debug\SimpleWpfApp.csprojResolveAssemblyReference.cache
