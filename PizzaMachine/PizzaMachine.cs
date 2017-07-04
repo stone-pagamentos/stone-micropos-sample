@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Pinpad.Sdk.Model;
-using MicroPos.Core;
+using Microtef.Core;
 using Poi.Sdk.Authorization.Report;
 
 namespace PizzaVendingMachine

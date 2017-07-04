@@ -1,4 +1,4 @@
-﻿using MicroPos.Core;
+﻿using Microtef.Core;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows;

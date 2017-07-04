@@ -1,4 +1,4 @@
-﻿using MicroPos.Core;
+﻿using Microtef.Core;
 using Pinpad.Sdk.Model;
 using Poi.Sdk.Authorization;
 using Poi.Sdk.Authorization.Report;

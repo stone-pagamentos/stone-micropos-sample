@@ -15,7 +15,7 @@ namespace SimpleConsoleApp.PaymentCore
         /// </summary>
         public AuthorizationManager()
         {
-            MicroPos.Platform.Desktop.DesktopInitializer.Initialize();
+            Microtef.Platform.Desktop.DesktopInitializer.Initialize();
         }
 
         /// <summary>

@@ -1,5 +1,5 @@
-﻿using MicroPos.Core;
-using MicroPos.Core.Authorization;
+﻿using Microtef.Core;
+using Microtef.Core.Authorization;
 using System;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -43,7 +43,7 @@ namespace SimpleWpfApp
 		private void Setup(object sender, RoutedEventArgs e)
 		{
 			// Inicializa a plataforma desktop:
-			MicroPos.Platform.Desktop.DesktopInitializer.Initialize();
+			Microtef.Platform.Desktop.DesktopInitializer.Initialize();
 
 			// Constrói as mensagens que serão apresentadas na tela do pinpad:
 			this.PinpadMessages = new DisplayableMessages();

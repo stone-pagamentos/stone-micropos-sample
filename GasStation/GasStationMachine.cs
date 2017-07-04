@@ -1,5 +1,5 @@
-﻿using MicroPos.Core;
-using MicroPos.Core.Authorization;
+﻿using Microtef.Core;
+using Microtef.Core.Authorization;
 using Pinpad.Sdk.Model;
 using Poi.Sdk.Authorization.Report;
 using System;

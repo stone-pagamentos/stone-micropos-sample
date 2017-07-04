@@ -1,5 +1,5 @@
-﻿using MicroPos.Core;
-using MicroPos.Core.Authorization;
+﻿using Microtef.Core;
+using Microtef.Core.Authorization;
 using Pinpad.Sdk.Model.Exceptions;
 using SimpleConsoleApp.CmdLine.Options;
 using System;
@@ -9,7 +9,7 @@ using System.Linq;
 using Poi.Sdk.Authorization.Report;
 using Poi.Sdk.Cancellation.Report;
 using Pinpad.Sdk.Model;
-using MicroPos.Core.Staging;
+using Microtef.Core.Staging;
 
 namespace SimpleConsoleApp.PaymentCore
 {

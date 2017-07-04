@@ -17,7 +17,7 @@ namespace GasStation
 
 		public MainWindow ()
 		{
-			MicroPos.Platform.Desktop.DesktopInitializer.Initialize();
+			Microtef.Platform.Desktop.DesktopInitializer.Initialize();
 			Thread.CurrentThread.CurrentCulture = new CultureInfo("pt-BR");
 			Thread.CurrentThread.CurrentUICulture = new CultureInfo("pt-BR");
 			InitializeComponent();

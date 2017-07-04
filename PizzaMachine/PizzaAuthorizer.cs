@@ -1,5 +1,5 @@
-﻿using MicroPos.Core;
-using MicroPos.Core.Authorization;
+﻿using Microtef.Core;
+using Microtef.Core.Authorization;
 using Pinpad.Sdk.Model;
 using Poi.Sdk.Authorization.Report;
 using System;
@@ -50,7 +50,7 @@ namespace PizzaVendingMachine
 			this.PizzaMachineMessages.ProcessingMessage = "assando pizza...";
 
 			// Establishes connection with the pinpad.
-			MicroPos.Platform.Desktop.DesktopInitializer.Initialize();
+			Microtef.Platform.Desktop.DesktopInitializer.Initialize();
 			this.authorizer = DeviceProvider.ActivateAndGetOneOrFirst(this.StoneCode, this.PizzaMachineMessages);
 
 			// Attach event to read all transaction status:
