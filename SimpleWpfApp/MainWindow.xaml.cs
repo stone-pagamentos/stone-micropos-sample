@@ -20,6 +20,7 @@ using Poi.Sdk.Authorization.Report;
 using Poi.Sdk.Authorization.Tag;
 using Poi.Sdk.Cancellation.Report;
 using Poi.Sdk.Exceptions;
+using Poi.Sdk.Authorization.TypeCode;
 
 namespace SimpleWpfApp
 {
@@ -105,8 +106,8 @@ namespace SimpleWpfApp
 
 			// Cria uma transação:
 			// Tipo da transação inválido significa que o pinpad vai perguntar ao usuário o tipo da transação.
-			TransactionType transactionType;
-			Installment installment = this.GetInstallment(out transactionType);
+			AccountType AccountType;
+			Installment installment = this.GetInstallment(out AccountType);
 			
 			// Pega o valor da transação
 			decimal amount;
@@ -118,7 +119,7 @@ namespace SimpleWpfApp
 			}
 
 			// Cria e configura a transação:
-			TransactionEntry transaction = new TransactionEntry(transactionType, amount);
+			TransactionEntry transaction = new TransactionEntry(AccountType, amount);
 
 			transaction.Installment = installment;
 			transaction.InitiatorTransactionKey = this.uxTbxItk.Text;
@@ -386,13 +387,13 @@ namespace SimpleWpfApp
 		/// </summary>
 		/// <param name="transactionType">Tipo da transação.</param>
 		/// <returns>Opções de parcelmamento.</returns>
-		private Installment GetInstallment (out TransactionType transactionType)
+		private Installment GetInstallment (out AccountType accountType)
 		{
 			Installment installment = new Installment();
 
 			if (this.uxCbbxTransactionType.Text == "Debito")
 			{
-				transactionType = TransactionType.Debit;
+                accountType = AccountType.Debit;
 
 				// É débito, então não possui parcelamento:
 				installment.TotalNumberOfPayments = 1;
@@ -400,7 +401,7 @@ namespace SimpleWpfApp
 			}
 			else if (this.uxCbbxTransactionType.Text == "Credito")
 			{
-				transactionType = TransactionType.Credit;
+                accountType = AccountType.Credit;
 
 				// Cria o parcelamento:
 				short number = 0;
@@ -410,7 +411,7 @@ namespace SimpleWpfApp
 			}
 			else
 			{
-				transactionType = TransactionType.Undefined;
+                accountType = AccountType.Undefined;
 			}
 
 			return installment;

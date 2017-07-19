@@ -29,11 +29,11 @@ namespace SimpleConsoleApp.PaymentCore
         {
             this.Amount = entry.Amount;
 
-            if (entry.Type == TransactionType.Credit)
+            if (entry.Type == AccountType.Credit)
             {
                 this.Type = AccountType.Credit;
             }
-            else if (entry.Type == TransactionType.Debit)
+            else if (entry.Type == AccountType.Debit)
             {
                 this.Type = AccountType.Debit;
             }

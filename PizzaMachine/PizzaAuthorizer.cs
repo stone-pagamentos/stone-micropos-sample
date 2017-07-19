@@ -2,6 +2,7 @@
 using Microtef.Core.Authorization;
 using Pinpad.Sdk.Model;
 using Poi.Sdk.Authorization.Report;
+using Poi.Sdk.Authorization.TypeCode;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -70,7 +71,7 @@ namespace PizzaVendingMachine
 
 			// We know very little about the transaction:
 			transaction.CaptureTransaction = true;
-			transaction.Type = TransactionType.Undefined;
+			transaction.Type = AccountType.Undefined;
 
 			// Update tables: this is mandatory for the pinpad to recognize the card inserted.
 			this.authorizer.UpdateTables(3, false);
@@ -79,13 +80,13 @@ namespace PizzaVendingMachine
 			do
 			{
 				readingStatus = this.authorizer.ReadCard(out cardRead, transaction);
-				if (readingStatus == ResponseStatus.Ok && transaction.Type == TransactionType.Undefined)
+				if (readingStatus == ResponseStatus.Ok && transaction.Type == AccountType.Undefined)
 				{
 					transaction.Type = this.GetManualTransactionType();
 				}
 			} while (readingStatus != ResponseStatus.Ok);
 		}
-		private TransactionType GetManualTransactionType ()
+		private AccountType GetManualTransactionType ()
 		{
 			PinpadKeyCode key;
 
@@ -96,7 +97,7 @@ namespace PizzaVendingMachine
 			}
 			while (key != PinpadKeyCode.Function1 && key != PinpadKeyCode.Function2);
 
-			return (key == PinpadKeyCode.Function1) ? TransactionType.Credit : TransactionType.Debit;
+			return (key == PinpadKeyCode.Function1) ? AccountType.Credit : AccountType.Debit;
 		}
 		/// <summary>
 		/// Reads the card password.
@@ -123,7 +124,6 @@ namespace PizzaVendingMachine
 				Debug.WriteLine(e.Message);
 				return false;
 			}
-
 			// Tries to authorize the transaction:
 			IAuthorizationReport report = this.authorizer.SendAuthorizationAndGetReport(card, transaction, pin);
 

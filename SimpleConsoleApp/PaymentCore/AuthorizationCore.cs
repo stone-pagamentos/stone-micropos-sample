@@ -144,7 +144,7 @@ namespace SimpleConsoleApp.PaymentCore
                 Amount = transaction.Amount,
                 CaptureTransaction = true,
                 InitiatorTransactionKey = transaction.Itk,
-                Type = transaction.TransactionType
+                Type = transaction.AccountType
             };
 
             IAuthorizationReport authReport = null;

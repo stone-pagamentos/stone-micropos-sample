@@ -2,6 +2,7 @@
 using Microtef.Core.Authorization;
 using Pinpad.Sdk.Model;
 using Poi.Sdk.Authorization.Report;
+using Poi.Sdk.Authorization.TypeCode;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -64,7 +65,7 @@ namespace GasStation
 				// We know very little about the transaction:
 				transaction = new TransactionEntry();
 				transaction.CaptureTransaction = true;
-				transaction.Type = TransactionType.Undefined;
+				transaction.Type = AccountType.Undefined;
 
 				// Get transaction amount:
 				decimal amount = 0;

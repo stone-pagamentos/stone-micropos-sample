@@ -2,6 +2,7 @@
 using Pinpad.Sdk.Model;
 using Poi.Sdk.Authorization;
 using Poi.Sdk.Authorization.Report;
+using Poi.Sdk.Authorization.TypeCode;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -53,7 +54,7 @@ namespace GasStation
 				{
 					readingStatus = this.Authorizer.ReadCard(out cardRead, transaction);
 
-					if (readingStatus == ResponseStatus.Ok && transaction.Type == TransactionType.Undefined)
+					if (readingStatus == ResponseStatus.Ok && transaction.Type == AccountType.Undefined)
 					{
 						transaction.Type = this.GetManualTransactionType();
 					}
@@ -72,7 +73,7 @@ namespace GasStation
 				}
 			} while (readingStatus != ResponseStatus.Ok);
 		}
-		private TransactionType GetManualTransactionType ()
+		private AccountType GetManualTransactionType ()
 		{
 			PinpadKeyCode key;
 
@@ -83,7 +84,7 @@ namespace GasStation
 			}
 			while (key != PinpadKeyCode.Return && key != PinpadKeyCode.Backspace);
 
-			return (key == PinpadKeyCode.Return) ? TransactionType.Credit : TransactionType.Debit;
+			return (key == PinpadKeyCode.Return) ? AccountType.Credit : AccountType.Debit;
 		}
 		/// <summary>
 		/// Show something in pinpad display.

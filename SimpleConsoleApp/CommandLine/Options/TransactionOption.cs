@@ -1,5 +1,6 @@
 ﻿using CommandLine;
 using Pinpad.Sdk.Model;
+using Poi.Sdk.Authorization.TypeCode;
 
 namespace SimpleConsoleApp.CmdLine.Options
 {
@@ -31,6 +32,6 @@ namespace SimpleConsoleApp.CmdLine.Options
         /// applications for that card.
         /// </summary>
         [Option("tipo", Required = false)]
-        public TransactionType TransactionType { get; set; }
+        public AccountType AccountType { get; set; }
     }
 }
