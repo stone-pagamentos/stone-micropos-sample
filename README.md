@@ -50,12 +50,13 @@ A ativação é uma operação opcional. Deve ser feita quando a aplicação nã
 Você vai precisar de:
 - 1x StoneCode
 - 1x URL do TMS da Stone
+- 1x URL do PHC da Stone
 
 A ativação é uma operação para, através do StoneCode, resgatar o SAK e as informações do estabelecimento.
 
 ```csharp
 // Cria um cliente para o TMS
-ITmsClient tms = TmsProvider.Get(tmsUri);
+ITmsClient tms = TmsProvider.Get(tmsUri, phcUri);
 
 // Envia uma requisição de ativação
 IActivationReport activation = tms.Activate(stoneCode);
