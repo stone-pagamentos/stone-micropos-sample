@@ -21,6 +21,7 @@ using Poi.Sdk.Authorization.Tag;
 using Poi.Sdk.Cancellation.Report;
 using Poi.Sdk.Exceptions;
 using Poi.Sdk.Authorization.TypeCode;
+using Tms.Sdk.Client;
 
 namespace SimpleWpfApp
 {
@@ -43,11 +44,14 @@ namespace SimpleWpfApp
 		/// <param name="e">Loading event arguments.</param>
 		private void Setup(object sender, RoutedEventArgs e)
 		{
-			// Inicializa a plataforma desktop:
+			// Initialize plataforma desktop
 			Microtef.Platform.Desktop.DesktopInitializer.Initialize();
 
-			// Constrói as mensagens que serão apresentadas na tela do pinpad:
-			this.PinpadMessages = new DisplayableMessages();
+            // Gets the TmsClient to Activation
+            this.Tms = TmsProvider.Get("https://tms.stone.com.br/", "https://poihostcommunication.stone.com.br/");
+
+            // Constrói as mensagens que serão apresentadas na tela do pinpad:
+            this.PinpadMessages = new DisplayableMessages();
 			PinpadMessages.ApprovedMessage = ":-)";
 			PinpadMessages.DeclinedMessage = ":-(";
 			PinpadMessages.InitializationMessage = "Ola";
@@ -630,7 +634,7 @@ namespace SimpleWpfApp
 						this.Log(report.IdentityCode);
 						this.Log(report.SaleAffiliationKey);
 
-						this.stoneCode = report.SaleAffiliationKey;
+						this.stoneCode = report.StoneCode;
 						this.Setup(null, new RoutedEventArgs());
 					}
 					else
