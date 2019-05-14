@@ -48,7 +48,7 @@ namespace SimpleWpfApp
 			Microtef.Platform.Desktop.DesktopInitializer.Initialize();
 
             // Gets the TmsClient to Activation
-            this.Tms = TmsProvider.Get("https://tms.stone.com.br/", "https://poihostcommunication.stone.com.br/");
+            this.Tms = TmsProvider.Get("https://tms.stone.com.br/", "https://poihostcommunication.stone.com.br/", "https://localhost:81/");
 
             // Constrói as mensagens que serão apresentadas na tela do pinpad:
             this.PinpadMessages = new DisplayableMessages();
