@@ -64,91 +64,88 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Communication.Sdk, Version=2.0.1.0, Culture=neutral, PublicKeyToken=e69de3f267bd7561, processorArchitecture=MSIL">
-      <HintPath>..\packages\MicroPos.Desktop.Pack.3.8.5\lib\net45\Communication.Sdk.dll</HintPath>
+      <HintPath>..\packages\MicroPos.Desktop.Pack.3.8.6\lib\net45\Communication.Sdk.dll</HintPath>
     </Reference>
     <Reference Include="crypto, Version=1.7.0.0, Culture=neutral, PublicKeyToken=52d7d8cd84e8295f, processorArchitecture=MSIL">
-      <HintPath>..\packages\MicroPos.Desktop.Pack.3.8.5\lib\net45\crypto.dll</HintPath>
+      <HintPath>..\packages\MicroPos.Desktop.Pack.3.8.6\lib\net45\crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\MicroPos.Desktop.Pack.3.8.6\lib\net45\Microsoft.CSharp.dll</HintPath>
     </Reference>
     <Reference Include="Microtef.Core, Version=3.2.0.0, Culture=neutral, PublicKeyToken=9933f889438cc1ec, processorArchitecture=MSIL">
-      <HintPath>..\packages\MicroPos.Desktop.Pack.3.8.5\lib\net45\Microtef.Core.dll</HintPath>
+      <HintPath>..\packages\MicroPos.Desktop.Pack.3.8.6\lib\net45\Microtef.Core.dll</HintPath>
     </Reference>
     <Reference Include="Microtef.CrossPlatform, Version=2.0.1.0, Culture=neutral, PublicKeyToken=b64391aecf921c4f, processorArchitecture=MSIL">
-      <HintPath>..\packages\MicroPos.Desktop.Pack.3.8.5\lib\net45\Microtef.CrossPlatform.dll</HintPath>
+      <HintPath>..\packages\MicroPos.Desktop.Pack.3.8.6\lib\net45\Microtef.CrossPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microtef.Platform.Desktop, Version=4.0.2.0, Culture=neutral, PublicKeyToken=38ae2303208e40c0, processorArchitecture=MSIL">
-      <HintPath>..\packages\MicroPos.Desktop.Pack.3.8.5\lib\net45\Microtef.Platform.Desktop.dll</HintPath>
+      <HintPath>..\packages\MicroPos.Desktop.Pack.3.8.6\lib\net45\Microtef.Platform.Desktop.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\MicroPos.Desktop.Pack.3.8.6\lib\net45\NLog.dll</HintPath>
     </Reference>
     <Reference Include="Pinpad.Sdk, Version=3.3.1.0, Culture=neutral, PublicKeyToken=cbdc063925c03358, processorArchitecture=MSIL">
-      <HintPath>..\packages\MicroPos.Desktop.Pack.3.8.5\lib\net45\Pinpad.Sdk.dll</HintPath>
+      <HintPath>..\packages\MicroPos.Desktop.Pack.3.8.6\lib\net45\Pinpad.Sdk.dll</HintPath>
     </Reference>
     <Reference Include="Pinpad.Sdk.Model, Version=3.3.1.0, Culture=neutral, PublicKeyToken=d3ab5135d4a3f3fd, processorArchitecture=MSIL">
-      <HintPath>..\packages\MicroPos.Desktop.Pack.3.8.5\lib\net45\Pinpad.Sdk.Model.dll</HintPath>
+      <HintPath>..\packages\MicroPos.Desktop.Pack.3.8.6\lib\net45\Pinpad.Sdk.Model.dll</HintPath>
     </Reference>
     <Reference Include="Poi.Sdk, Version=2.2.9.0, Culture=neutral, PublicKeyToken=db6dd16e1146c3af, processorArchitecture=MSIL">
-      <HintPath>..\packages\MicroPos.Desktop.Pack.3.8.5\lib\net45\Poi.Sdk.dll</HintPath>
+      <HintPath>..\packages\MicroPos.Desktop.Pack.3.8.6\lib\net45\Poi.Sdk.dll</HintPath>
     </Reference>
-    <Reference Include="PoiDownloadManager.Sdk, Version=1.0.2.0, Culture=neutral, PublicKeyToken=3a803cdb6b3230e4, processorArchitecture=MSIL">
-      <HintPath>..\packages\MicroPos.Desktop.Pack.3.8.5\lib\net45\PoiDownloadManager.Sdk.dll</HintPath>
+    <Reference Include="PoiDownloadManager.Sdk, Version=1.0.3.0, Culture=neutral, PublicKeyToken=3a803cdb6b3230e4, processorArchitecture=MSIL">
+      <HintPath>..\packages\MicroPos.Desktop.Pack.3.8.6\lib\net45\PoiDownloadManager.Sdk.dll</HintPath>
     </Reference>
     <Reference Include="PoiDownloadManager.Sdk.Model, Version=1.0.2.0, Culture=neutral, PublicKeyToken=7a2cb89e0d72f0c7, processorArchitecture=MSIL">
-      <HintPath>..\packages\MicroPos.Desktop.Pack.3.8.5\lib\net45\PoiDownloadManager.Sdk.Model.dll</HintPath>
+      <HintPath>..\packages\MicroPos.Desktop.Pack.3.8.6\lib\net45\PoiDownloadManager.Sdk.Model.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationCore" />
     <Reference Include="Receipt.Sdk, Version=1.2.2.0, Culture=neutral, PublicKeyToken=ff637024e13a8607, processorArchitecture=MSIL">
-      <HintPath>..\packages\MicroPos.Desktop.Pack.3.8.5\lib\net45\Receipt.Sdk.dll</HintPath>
+      <HintPath>..\packages\MicroPos.Desktop.Pack.3.8.6\lib\net45\Receipt.Sdk.dll</HintPath>
     </Reference>
     <Reference Include="Receipt.Sdk.Model, Version=1.2.2.0, Culture=neutral, PublicKeyToken=283ccf3020a50bc6, processorArchitecture=MSIL">
-      <HintPath>..\packages\MicroPos.Desktop.Pack.3.8.5\lib\net45\Receipt.Sdk.Model.dll</HintPath>
+      <HintPath>..\packages\MicroPos.Desktop.Pack.3.8.6\lib\net45\Receipt.Sdk.Model.dll</HintPath>
     </Reference>
     <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
-      <HintPath>..\packages\MicroPos.Desktop.Pack.3.8.5\lib\net45\Serilog.dll</HintPath>
+      <HintPath>..\packages\MicroPos.Desktop.Pack.3.8.6\lib\net45\Serilog.dll</HintPath>
     </Reference>
     <Reference Include="Serilog.Sinks.File, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
-      <HintPath>..\packages\MicroPos.Desktop.Pack.3.8.5\lib\net45\Serilog.Sinks.File.dll</HintPath>
+      <HintPath>..\packages\MicroPos.Desktop.Pack.3.8.6\lib\net45\Serilog.Sinks.File.dll</HintPath>
     </Reference>
     <Reference Include="SimpleInjector, Version=2.5.0.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
-      <HintPath>..\packages\MicroPos.Desktop.Pack.3.8.5\lib\net45\SimpleInjector.dll</HintPath>
+      <HintPath>..\packages\MicroPos.Desktop.Pack.3.8.6\lib\net45\SimpleInjector.dll</HintPath>
     </Reference>
     <Reference Include="SimpleInjector.Diagnostics, Version=2.5.0.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
-      <HintPath>..\packages\MicroPos.Desktop.Pack.3.8.5\lib\net45\SimpleInjector.Diagnostics.dll</HintPath>
+      <HintPath>..\packages\MicroPos.Desktop.Pack.3.8.6\lib\net45\SimpleInjector.Diagnostics.dll</HintPath>
     </Reference>
     <Reference Include="System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\MicroPos.Desktop.Pack.3.8.5\lib\net45\System.dll</HintPath>
+      <HintPath>..\packages\MicroPos.Desktop.Pack.3.8.6\lib\net45\System.dll</HintPath>
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.IO, Version=1.5.11.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\MicroPos.Desktop.Pack.3.8.5\lib\net45\System.IO.dll</HintPath>
+      <HintPath>..\packages\MicroPos.Desktop.Pack.3.8.6\lib\net45\System.IO.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Net.Http, Version=1.5.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\MicroPos.Desktop.Pack.3.8.5\lib\net45\System.Net.Http.dll</HintPath>
+      <HintPath>..\packages\MicroPos.Desktop.Pack.3.8.6\lib\net45\System.Net.Http.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Net.Http.Extensions, Version=1.5.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\MicroPos.Desktop.Pack.3.8.5\lib\net45\System.Net.Http.Extensions.dll</HintPath>
+    <Reference Include="System.Net.Http.Extensions, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\MicroPos.Desktop.Pack.3.8.6\lib\net45\System.Net.Http.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="System.Net.Http.Primitives, Version=1.5.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\MicroPos.Desktop.Pack.3.8.5\lib\net45\System.Net.Http.Primitives.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Runtime, Version=2.6.10.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\MicroPos.Desktop.Pack.3.8.5\lib\net45\System.Runtime.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Threading.Tasks, Version=2.6.10.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\MicroPos.Desktop.Pack.3.8.5\lib\net45\System.Threading.Tasks.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="System.Net.Http.Primitives, Version=4.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\MicroPos.Desktop.Pack.3.8.6\lib\net45\System.Net.Http.Primitives.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
-    <Reference Include="Tms.Sdk, Version=2.2.3.0, Culture=neutral, PublicKeyToken=d7939abca1b2a093, processorArchitecture=MSIL">
-      <HintPath>..\packages\MicroPos.Desktop.Pack.3.8.5\lib\net45\Tms.Sdk.dll</HintPath>
+    <Reference Include="Tms.Sdk, Version=2.2.4.0, Culture=neutral, PublicKeyToken=d7939abca1b2a093, processorArchitecture=MSIL">
+      <HintPath>..\packages\MicroPos.Desktop.Pack.3.8.6\lib\net45\Tms.Sdk.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationFramework" />
