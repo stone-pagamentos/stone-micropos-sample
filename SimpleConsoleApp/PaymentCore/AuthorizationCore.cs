@@ -51,7 +51,7 @@ namespace SimpleConsoleApp.PaymentCore
             FallbackSettings.FallbackAuthorizerUri = "https://sandbox-auth-integration.stone.com.br/";
             
             // Integration endpoint to TMS (Terminal Management System), responsible for updating pinpad tables with supported brands and cards
-            FallbackSettings.FallbackTmsUri = "https://tms-staging.stone.com.br/";
+            FallbackSettings.FallbackTmsUri = "https://tms-integration.stone.com.br/";
 
             // Integration endpoint to PHC (Poi Host Communication)
             FallbackSettings.FallbackPhcUri= "https://poihostcommunication-stg.stone.com.br/";
