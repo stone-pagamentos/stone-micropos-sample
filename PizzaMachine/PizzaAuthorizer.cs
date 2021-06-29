@@ -32,7 +32,7 @@ namespace PizzaVendingMachine
 		/// <summary>
 		/// SAK. 
 		/// </summary>
-		public string StoneCode { get { return "407709482"; } }		
+		public string StoneCode { get { return ""; } }		
 
 		/// <summary>
 		/// Creates all pinpad messages.

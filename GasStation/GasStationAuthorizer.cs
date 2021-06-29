@@ -16,7 +16,7 @@ namespace GasStation
 		/// <summary>
 		/// SAK. 
 		/// </summary>
-		public const string StoneCode = "407709482";		
+		public const string StoneCode = "";		
 
 		private GasStationAuthorizer (ICardPaymentAuthorizer authorizer)
 		{
